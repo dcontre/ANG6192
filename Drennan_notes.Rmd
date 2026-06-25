@@ -31,22 +31,6 @@ Please note that you will not find much explanatory text about the concepts invo
 For a brief introduction to installing and managing R, see the first few sections ('Home' / 'Before We Start' / 'Intro to R') of this Data Carpentry lesson [*Data Analysis and Visualization in R for Archaeologists*](https://carpentries-incubator.github.io/R-archaeology-lesson/index.html) (warning: contains *tidyverse*). I have adapted much of the latter part ('Starting with Data' / 'Manipulating Data' / 'Visualizing Data') to our purposes; that revised lesson can be found [here](###add link###) (warning: still contains *tidyverse*...but not uncritically). 
 For a collection of R-for-archaeology resources, see [here](###add link#r-for-arch###). 
 
-# To do {-}
-- check code; rewrite based on Baxter 2015 code
-- **janitor** version of crosstabs and marginal totals? `adorn`
-- add asides - e.g. on boxplots, etc 
-  - make these separate workshop pages? 
-    - Daegling on resampling 
-    - more intro/pointer to other analytical methods?
-    - Otarola-Castillo & Torquato on Bayesian methods
-    - Codding & Brewer on count regression 
-    - Ruiz-Giralt on compositional data
-    - something on isotope data? 
-    - logistic regression / model fitting
-- rework spatial sampling chapter & problem set
-- add (hidden?) tidyverse versions? 
-- replace dplyr::recode with dplyr::case_when or forcats::fct_recode
-
 # Batches of Numbers (Ch. 1)
 
 ```{r}
