@@ -1,5 +1,5 @@
 ---
-title: "Statisics for Archaeologists...with R!"
+title: "*Statisics for Archaeologists*...with **R**!"
 author: "Daniel A. Contreras"
 site: bookdown::bookdown_site
 documentclass: book
