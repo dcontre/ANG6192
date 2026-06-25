@@ -1,0 +1,191 @@
+                                                                     
+                                                                     
+                                                                     
+str(pointwts <- read.csv(file(if (isWin()) "clipboard" else "X11_clipboard"), dec = "."))
+
+pointwts
+
+write.csv(pointwts, file = "/Users/dcontre/Documents/R data/Drennan_StatisticsforArchaeologists_inR/pointwts.txt", row.names = FALSE)
+
+
+summary(pointwts)
+pointwts$period<-factor(pointwts$period, levels = 1:3) #create factor
+
+pointwts$period
+levels(pointwts$period)
+levels(pointwts$period) <- c("Early Archaic","Middle Archaic", "Late Archaic") #change levels from numeric to character
+pointwts<-data.frame(pointwts)
+str(pointwts)
+
+early <- pointwts$weight[pointwts$period=="Early Archaic"]
+middle <- pointwts$weight[pointwts$period=="Middle Archaic"]
+late <- pointwts$weight[pointwts$period=="Late Archaic"]
+
+
+#START FUNCTION************************************
+ciDat <- function(x, ci=c(.99, .95, .80)){
+  #return boundaries for requested CIs
+  meanX <- mean(x)
+  sdX <- sd(x)
+  nX <- length(x)
+  
+  seX <- sdX/sqrt(nX) #standard error
+  
+  z <- qnorm(1-(1-ci)/2) #z-values matching CIs
+  
+  low <- meanX-seX*z #lower boundaries
+  high <- meanX+seX*z #upper boundaries
+  
+  return(rbind(high, low))
+}
+#END FUNCTION************************************
+
+bpE <- ciDat(early); bpE
+bpM <- ciDat(middle)
+bpL <- ciDat(late)
+
+COL <- c(1, 2, 1)
+LWD <- c(3, 7, 9)
+AT <- c(2, 3.5, 5)
+plot(1:3, ylim=range(c(bpE, bpM, bpL)), xlim=c(1, 6), 
+     xaxt="n", ylab="gm", xlab="period",
+     main="Archaic Projectile Points\n(mean weight)")
+  segments(AT[1], bpE[1, ], y1=bpE[2, ], lwd=LWD, col=COL)
+  segments(AT[2], bpM[1, ], y1=bpM[2, ], lwd=LWD, col=COL)
+  segments(AT[3], bpL[1, ], y1=bpL[2, ], lwd=LWD, col=COL)
+  points(AT, tapply(pointwts$weight, pointwts$period, FUN=mean), pch=18, cex=2, col=2)
+  axis(1, at=AT, labels=c("Early", "Middle", "Late"))
+legend("topright", legend=c("99%", "95%", "80%"), lwd=LWD, col=COL, title="confidence")
+
+#Archaic project point weights, Cottonwood Valley (Drennan, 1996)
+# period 1 = Early Archaic
+# period 2 = Middle Archaic
+# period 3 = Late Archaic
+weight,period
+54,1
+39,1
+49,1
+65,1
+54,1
+83,1
+75,1
+45,1
+68,1
+47,1
+57,1
+19,1
+47,1
+58,1
+76,1
+50,1
+67,1
+52,1
+40,1
+58,1
+42,1
+43,1
+58,1
+28,1
+59,1
+43,1
+45,1
+60,1
+27,1
+64,1
+73,1
+70,1
+68,1
+68,1
+85,1
+49,1
+21,1
+24,1
+50,1
+52,1
+62,1
+44,1
+61,1
+30,1
+52,1
+56,1
+63,1
+53,1
+79,1
+50,1
+54,1
+51,1
+59,1
+60,1
+48,1
+40,1
+50,1
+69,1
+71,2
+64,2
+59,2
+65,2
+54,2
+65,2
+63,2
+52,2
+44,2
+73,2
+70,2
+56,2
+46,2
+61,2
+49,2
+51,2
+61,2
+70,2
+51,2
+42,2
+73,2
+51,2
+74,2
+40,2
+67,2
+51,2
+59,2
+68,2
+63,2
+64,2
+78,2
+62,2
+78,2
+57,2
+59,2
+31,2
+69,2
+32,2
+69,2
+80,2
+78,2
+69,2
+34,3
+39,3
+40,3
+45,3
+37,3
+32,3
+31,3
+60,3
+58,3
+45,3
+50,3
+40,3
+41,3
+38,3
+59,3
+37,3
+28,3
+37,3
+31,3
+40,3
+34,3
+37,3
+44,3
+47,3
+54,3
+36,3
+48,3
