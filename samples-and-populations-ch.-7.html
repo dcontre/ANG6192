@@ -203,7 +203,7 @@ div.csl-indent {
 <li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
 <ul>
 <li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
-<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#chi-square"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
 <li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
 <li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
 <li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
@@ -310,34 +310,27 @@ Perhaps the simplest way to sample these would be to assign a number to each hec
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="samples-and-populations-ch.-7.html#cb201-1" tabindex="-1"></a>grids <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7500</span>, <span class="dv">100</span>) <span class="co">#randomly select 100 numbers from 1-7500, w/o replacement</span></span>
 <span id="cb201-2"><a href="samples-and-populations-ch.-7.html#cb201-2" tabindex="-1"></a><span class="co">#if you have reason to sample with replacement instead, use replace = TRUE in sample()</span></span>
 <span id="cb201-3"><a href="samples-and-populations-ch.-7.html#cb201-3" tabindex="-1"></a>grids <span class="co">#by default these are ordered as selected</span></span></code></pre></div>
-<pre><code>##   [1] 2194  921 4977 3381 3284 3237 2651 4283  915 2672 7053 2073 4590 1699 3780
-##  [16] 6077 4986 6444 6050 5113 2609 6721 3238 4856 1249 2235 3847 2627 6179 1054
-##  [31] 2026 2300 5864 3862 2342 6586  639 2069 6566 6290 3956 3226 4245 3827 2508
-##  [46] 7296 4478 5475 2210 3278 1491 1477 2444 4841 6532 4456 2130 4231 2290  979
-##  [61] 2181 7351 1905 5435 5863 7289 1809 4445 2426 1186 2237 3689 5692 1339 3491
-##  [76] 1019 3589 2662 5884 2316 5353 5432 2092 4891 2264 4542 3543 5041 5455  370
-##  [91] 3928 4446  777 7497 2314 5778  690 2281  750 7441</code></pre>
+<pre><code>##   [1] 3737 5766  145 1683 6896 2974 2203 5224 7490 7145 7321 2902  354 7427 7497
+##  [16] 6221 2944 7232 5239 3802 4293 2276 5044 6818 5530 6059 5013 4012 2795 1783
+##  [31] 6666  520 5772 4762 2628 2419 1657 4508 4686 1263 5877 5034 2040 2268 4481
+##  [46] 6465 4939 4739 6833 1594 3126 4060 3101 7147  504 6658 6192 1337 5827 4702
+##  [61] 4215 7044 5641 3321  908  772 6053 1564 4474 2781 3869 7222 1336 1713 3753
+##  [76] 1784  132 1733 5144 4162 4737 3686 6280 5821 7275 1954 4290 1676 3252 3028
+##  [91] 6568 5480  327 5543 3919 1718 3237 5710 6109 6885</code></pre>
 <p>Probably - think about the practical realities of working your way around the landscape collecting samples - you’d find it more practical to order these sequentially.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="samples-and-populations-ch.-7.html#cb203-1" tabindex="-1"></a><span class="fu">sort</span>(grids) </span></code></pre></div>
-<pre><code>##   [1]  370  639  690  750  777  915  921  979 1019 1054 1186 1249 1339 1477 1491
-##  [16] 1699 1809 1905 2026 2069 2073 2092 2130 2181 2194 2210 2235 2237 2264 2281
-##  [31] 2290 2300 2314 2316 2342 2426 2444 2508 2609 2627 2651 2662 2672 3226 3237
-##  [46] 3238 3278 3284 3381 3491 3543 3589 3689 3780 3827 3847 3862 3928 3956 4231
-##  [61] 4245 4283 4445 4446 4456 4478 4542 4590 4841 4856 4891 4977 4986 5041 5113
-##  [76] 5353 5432 5435 5455 5475 5692 5778 5863 5864 5884 6050 6077 6179 6290 6444
-##  [91] 6532 6566 6586 6721 7053 7289 7296 7351 7441 7497</code></pre>
+<pre><code>##   [1]  132  145  327  354  504  520  772  908 1263 1336 1337 1564 1594 1657 1676
+##  [16] 1683 1713 1718 1733 1783 1784 1954 2040 2203 2268 2276 2419 2628 2781 2795
+##  [31] 2902 2944 2974 3028 3101 3126 3237 3252 3321 3686 3737 3753 3802 3869 3919
+##  [46] 4012 4060 4162 4215 4290 4293 4474 4481 4508 4686 4702 4737 4739 4762 4939
+##  [61] 5013 5034 5044 5144 5224 5239 5480 5530 5543 5641 5710 5766 5772 5821 5827
+##  [76] 5877 6053 6059 6109 6192 6221 6280 6465 6568 6658 6666 6818 6833 6885 6896
+##  [91] 7044 7145 7147 7222 7232 7275 7321 7427 7490 7497</code></pre>
 <p>As Drennan (p85) is at pains to point out - and as you would be very wise to note! - <em>random</em> is not the same thing as <em>representative</em>. The concepts underlying Drennan’s discussion of random and nonrandom samples, sampling bias, and representativeness <em>are at least as important as any statistical technique</em>. As Drennan notes (p88), these are issues fundamental to inference generally, not just to statistical inference (i.e., you cannot avoid the need to think about these issues by simply eschewing statistics!).</p>
 <p>Note that R code that generates random samples is very unlikely to draw the same number twice! So…if you run the code a second time, you’re likely to get a different answer. If you want to, for illustrative purposes, makes sure that you always draw the same random number, use the <code>set.seed()</code> function.</p>
 <p>Compare the result of running both lines of code below two or three times to the result of running only the second line of code two or three times.</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="samples-and-populations-ch.-7.html#cb205-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb205-2"><a href="samples-and-populations-ch.-7.html#cb205-2" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7500</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>##   [1] 2609 4069 2369 5273 1098 1252 7314  634 2097 5248 5423 6168 3911  356 5721
-##  [16] 4261 6766 6554 3954 1903  899 7465 4697 5403  932  997 2015 4717 5637 7380
-##  [31] 4002  860 3944  259 5434  481 5418 2072 7326  299 3983 2454 6458 3720 5412
-##  [46]  836  982 6290 5468 6341 1540 2274 2552 3427 3032  727  945 3317 7066  626
-##  [61] 4358 6534 4226 1396 5123 4470 2818 1015 5990 6842 4746 6184  517   33 7444
-##  [76]  103 5348 2157 7146 1353 1693 4172 7124 5897 5611 3619 2781   16 5477 3804
-##  [91] 3320 7150 5445  988   82 6040 6001  914 4421 5742</code></pre>
 </div>
             </section>
 

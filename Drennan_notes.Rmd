@@ -72,7 +72,8 @@ scrapers <- read.delim("data/Drennan_datasets/scrapers.txt",
                        header=T)
 ```
 
-You'll use `read.delim()` for tab-delimited; `read.table()` or `read.csv()` are comparable for other data structures. (There are R packages that also enable reading data with more complex formats - Excel tables or Google sheets, most commonly.). Get used to examining the structure of any data file so that you can figure out how to use it.  There are various tricks for this - select + spacebar on a Mac, or TextEdit (included w/ the OS; [TextWrangler and its spawn, BBEdit](https://www.barebones.com/products/bbedit/) are free and better); on a PC try the free utility [Notepad++](https://notepad-plus-plus.org/).
+You'll use `read.delim()` for tab-delimited; `read.table()` or `read.csv()` are comparable for other data structures. (There are R packages that also enable reading data with more complex formats - Excel tables or Google sheets, most commonly.). Get used to examining the structure of any data file so that you can figure out how to use it (and about what specifically to curse the original author if necessary).  There are various tricks for this - select + spacebar on a Mac, or TextEdit (included w/ the OS; [TextWrangler and its spawn, BBEdit](https://www.barebones.com/products/bbedit/) are free and better); on a PC try the free utility [Notepad++](https://notepad-plus-plus.org/).
+Using - not to mention producing and maintaining - tabular data is a generally-overlooked but vital part of archaeological practice. One important advantage of working with data in R is that you can leave the original data file alone, instead making modifications to the objects you're working with in R. This removes the risk - endemic to spreadsheet use - of corruption or loss of original data.  Warning: making active use of tabular data will lead to you develop opinions about how one *should* manage such data (and there are in fact better and worse practices; for spreadsheets in particular see Broman and Woo (-@broman2018)). For notes on wrangling data in R, see [here](https://dcontre.github.io/DataWrangling_notes/introduction.html).  
 
 ```{r}
 scrapers
@@ -759,7 +760,7 @@ Note that R code that generates random samples is very unlikely to draw the same
 
 Compare the result of running both lines of code below two or three times to the result of running only the second line of code two or three times. 
 
-```{r}
+```{r eval = F}
 set.seed(42)
 sample(1:7500, 100)
 ```
@@ -916,7 +917,11 @@ ppoints
 ```
 
 *Nothing* that we can do in R can address the issues of deciding whether the sample can be treated as unbiased for the purposes of the question(s) that you may want to ask. This is - as Drennan discusses on p108-109 - vital, but it is *entirely up to you and your brain*.
-![](imgs/homer_brain.jpg)
+
+```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
+include_graphics("imgs/homer_brain.jpg")
+```
+
 
 ```{r}
 #build a population with mean 3.25cm and standard deviation .5 cm
@@ -1483,7 +1488,7 @@ plot(1:3, ylim = range(CIs$Wgt), xlim = c(1, 6), xaxt = "n", ylab = "g", xlab = 
 legend("topright", legend = c("99%", "95%", "80%"), lwd = LWD, col = COL, title = "confidence")
 ```
 
-To examine these plots in the same pane, use `mfrow` argument to `par()`.
+To examine these plots in the same pane, use `mfrow` argument to `par()`. (For more on building complex plots in R, see (here)[###addd link###])
 ```{r cache=T}
 par(mfrow=c(1,2))
 boxplot(Wgt~Archaic.SubPeriod, data=ArchaicPts, lwd=2, notch=F, boxwex=.4, 
@@ -1591,7 +1596,7 @@ legend(3.1, 1, legend=c("99%", "95%", "80%"), lwd=LWD, col=COL, title="confidenc
 
 ```
 
-## Comparison with $\chi^2$
+## Comparison with $\chi^2$ {#chi-square}
 You know already how to calculate row and column sums and proportions, and so can produce Table 14.1 and Table 14.2.
 ``` {r cache=T}
 sherds_margins <- addmargins(sherds)  
@@ -2297,7 +2302,8 @@ snodgrass_40sample_data <- Snodgrass[unlist(snodgrass_40sample),]
 
 ```{r warning = F}
 knitr::kable(head(snodgrass_40sample_data)) %>%
-  kableExtra::kable_classic(latex_options= c("scale_down", "hold_position"))
+  kableExtra::kable_classic(full_width = F)
+
 ``` 
 
 
@@ -2481,7 +2487,7 @@ WallConstruction$mudbrick <- ifelse (WallConstruction$type == "mud brick", 1, 0)
 
 ## Presence/Absence Variables: Simple Matching and Jaccard's Coefficients of Similarity
 
-For presence/absence variables, various alternative measures exist.  Drennan explores these using a small set of data on sherd attributes (Table 22.6).
+For presence/absence variables, various alternative measures exist.  Drennan explores these using a small set of data on sherd attributes (Table 22.6). 
 
 ```{r cache=T}
 sherds <- data.frame(Slip = c("Present", "Absent", "Absent", "Present", "Present",
@@ -2502,6 +2508,8 @@ sherds <- lapply(sherds, function(x) ordered(x, levels = c("Present", "Absent"))
 sherds <- do.call(data.frame, sherds)
 ```
 
+Drennan refers to Table 22.6 as a cross-tabulation. These are often also called 'contingency tables', and can consist of counts rather than simple presence/absence data; these are the basis of [($\chi^2$ analysis](#chi-square), though Drennan does not describe them in such terms. Contingency tables are the basis of other multivariate techniques, and we will discuss them in more detail when we cover [correspondence analysis](#correspondence-analysis). For more on count data and contingency tables, see [here](###add link###). 
+
 There are a variety of ways of calculating binary distance measures; here we'll use `simba::sim()`, which will calculate both the Simple Matching Coefficient and Jaccard's Coefficient (among many other measures). To use `sim()` we will need to convert the factors in our dataset into numeric values. We can do that using a baseR function called `data.matrix()`, and then can calculate both coefficients of similarity, matching Table 22.7 and Table 22.8.
 
 ```{r cache=T, message = F}
@@ -2513,6 +2521,7 @@ library(simba)
 sim(sherds_bin, method="simplematching")
 sim(sherds_bin, method="jaccard")
 ```
+
 
 ## Mixed Variables: Gower's Coefficient
 
@@ -2749,8 +2758,8 @@ ixcaq <- read.csv("data/Drennan_datasets/Drennan_2009_Table21-1.csv", header=T)
 
 ixcaq_cormatrix <- cor(ixcaq[,2:11]) #excluding first column of Household ID#s
 ixcaq_cormatrix
-# knitr::kable(ixcaq_cormatrix, "latex") %>%  
-#   kableExtra::kable_styling(latex_options = "scale_down")
+knitr::kable(ixcaq_cormatrix, "latex") %>%
+  kableExtra::kable_styling(full_width = F)
 ```
 
 The `cor()` function returns the entire matrix, rather than just the bottom half, but a quick look will show that it's mirrored around the `1.000000` values that occupy the diagonal. It can be read like a similarity matrix; the high values at the intersection of '%Bowls' and '%Decoration' or of '%Bowls' and 'Energy Invested in Burials' indicate that those variables are relatively highly correlated.
@@ -2941,7 +2950,7 @@ kable(marcas) %>% kable_classic %>%
 
 2) Carry out a cluster analysis on the distance matrix that you created in (1), using the 'average linking' clustering method. Plot your cluster analysis results. What are the characteristics of the different clusters in terms of the plant species composition of the site areas? What factor(s) appear to relate most strongly to the plant species profiles?
 
-# Correspondence Analysis 
+# Correspondence Analysis {#correspondence-analysis}
 
 Drennan does not cover correspondence analysis, but because archaeologists are so likely to work with categorical data, it's useful to be familiar with this method. This section is based on Ch.13 of Shennan's *Quantifying Archaeology* (@Shennan_1997). 
 
@@ -3182,7 +3191,7 @@ Complex analyses can be vital means of developing insights and testing ideas, bu
 
 ## Other analytical approaches
 
-Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The undercurrent of skepticism about null-hypothesis statistical testing (NHST) and the fetishization of p-values that runs through Drennan (and this course), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
+Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The undercurrent of skepticism about null-hypothesis statistical testing (NHST) and the fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
 
 ### Bayesian Approaches
 
