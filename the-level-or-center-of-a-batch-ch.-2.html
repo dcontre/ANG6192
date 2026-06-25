@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 The Level or Center of a Batch (Ch. 2) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="2 The Level or Center of a Batch (Ch. 2) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 The Level or Center of a Batch (Ch. 2) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 The Level or Center of a Batch (Ch. 2) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="batches-of-numbers-ch.-1.html"/>
+<link rel="next" href="the-spread-or-dispersion-of-a-batch-ch.-3.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-level-or-center-of-a-batch-ch.-2" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> The Level or Center of a Batch (Ch. 2)<a href="the-level-or-center-of-a-batch-ch.-2.html#the-level-or-center-of-a-batch-ch.-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Build a data frame containing the flake data that Drennan uses (yes, I could give you the data, but it’s useful to understand where data frames come from). Note that for our ‘Context’ column R will recycle the value we specify to populate all the rows; this means that you can specify the number of values that matches other columns <em>or</em> a single value. We’ll build separate data frames for each pit, and then stick them together (<code>rbind()</code> binds data frames by stacking them, adding rows and maintaining the same number of columns; <code>cbind()</code> by extending them, adding columns and maintaining the same number of rows).</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-1" tabindex="-1"></a>Pit1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Context=</span><span class="st">&quot;Pit 1&quot;</span>, <span class="at">Weight =</span> <span class="fu">c</span>(<span class="fl">9.2</span>, <span class="fl">12.9</span>, <span class="fl">11.4</span>, <span class="fl">9.1</span>, <span class="fl">28.6</span>, <span class="fl">10.5</span>, </span>
+<span id="cb33-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-2" tabindex="-1"></a>                                             <span class="fl">11.7</span>, <span class="fl">10.1</span>, <span class="fl">7.6</span>, <span class="fl">11.8</span>, <span class="fl">14.2</span>, <span class="fl">10.8</span>))</span>
+<span id="cb33-3"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-3" tabindex="-1"></a>Pit2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Context=</span><span class="st">&quot;Pit 2&quot;</span>, <span class="at">Weight =</span> <span class="fu">c</span>(<span class="fl">11.3</span>, <span class="fl">9.8</span>, <span class="fl">14.1</span>, <span class="fl">13.5</span>, <span class="fl">9.7</span>, <span class="dv">12</span>, <span class="fl">7.8</span>,</span>
+<span id="cb33-4"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-4" tabindex="-1"></a>                                             <span class="fl">10.6</span>, <span class="fl">11.5</span>, <span class="fl">14.3</span>, <span class="fl">13.6</span>, <span class="fl">9.3</span>, <span class="fl">10.9</span>))</span>
+<span id="cb33-5"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-5" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-6" tabindex="-1"></a><span class="co"># then stick them together</span></span>
+<span id="cb33-7"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-7" tabindex="-1"></a>Flakes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(Pit1, Pit2))</span>
+<span id="cb33-8"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb33-8" tabindex="-1"></a>Flakes</span></code></pre></div>
+<pre><code>##    Context Weight
+## 1    Pit 1    9.2
+## 2    Pit 1   12.9
+## 3    Pit 1   11.4
+## 4    Pit 1    9.1
+## 5    Pit 1   28.6
+## 6    Pit 1   10.5
+## 7    Pit 1   11.7
+## 8    Pit 1   10.1
+## 9    Pit 1    7.6
+## 10   Pit 1   11.8
+## 11   Pit 1   14.2
+## 12   Pit 1   10.8
+## 13   Pit 2   11.3
+## 14   Pit 2    9.8
+## 15   Pit 2   14.1
+## 16   Pit 2   13.5
+## 17   Pit 2    9.7
+## 18   Pit 2   12.0
+## 19   Pit 2    7.8
+## 20   Pit 2   10.6
+## 21   Pit 2   11.5
+## 22   Pit 2   14.3
+## 23   Pit 2   13.6
+## 24   Pit 2    9.3
+## 25   Pit 2   10.9</code></pre>
+<p>Calculate summary statistics.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb35-1" tabindex="-1"></a><span class="fu">mean</span>(Pit1<span class="sc">$</span>Weight)</span></code></pre></div>
+<pre><code>## [1] 12.325</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb37-1" tabindex="-1"></a><span class="fu">median</span>(Pit1<span class="sc">$</span>Weight)</span></code></pre></div>
+<pre><code>## [1] 11.1</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb39-1" tabindex="-1"></a><span class="fu">mean</span>(Pit2<span class="sc">$</span>Weight)</span></code></pre></div>
+<pre><code>## [1] 11.41538</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb41-1" tabindex="-1"></a><span class="fu">median</span>(Pit2<span class="sc">$</span>Weight)</span></code></pre></div>
+<pre><code>## [1] 11.3</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb43-1" tabindex="-1"></a><span class="fu">by</span>(Flakes<span class="sc">$</span>Weight, Flakes<span class="sc">$</span>Context, mean)</span></code></pre></div>
+<pre><code>## Flakes$Context: Pit 1
+## [1] 12.325
+## ------------------------------------------------------------ 
+## Flakes$Context: Pit 2
+## [1] 11.41538</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb45-1" tabindex="-1"></a><span class="fu">by</span>(Flakes<span class="sc">$</span>Weight, Flakes<span class="sc">$</span>Context, median)</span></code></pre></div>
+<pre><code>## Flakes$Context: Pit 1
+## [1] 11.1
+## ------------------------------------------------------------ 
+## Flakes$Context: Pit 2
+## [1] 11.3</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb47-1" tabindex="-1"></a><span class="co">#trimmed means</span></span>
+<span id="cb47-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb47-2" tabindex="-1"></a><span class="fu">mean</span>(Pit1<span class="sc">$</span>Weight, <span class="at">trim =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 11.17</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb49-1" tabindex="-1"></a><span class="fu">mean</span>(Pit2<span class="sc">$</span>Weight, <span class="at">trim =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 11.48182</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb51-1" tabindex="-1"></a><span class="co">#or</span></span>
+<span id="cb51-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb51-2" tabindex="-1"></a><span class="fu">by</span>(Flakes<span class="sc">$</span>Weight, Flakes<span class="sc">$</span>Context, mean, <span class="at">trim =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Flakes$Context: Pit 1
+## [1] 11.17
+## ------------------------------------------------------------ 
+## Flakes$Context: Pit 2
+## [1] 11.48182</code></pre>
+<p>To examine batches with multiple peaks, we’ll create another data frame.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb53-1" tabindex="-1"></a>BlackSmith <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Area =</span> <span class="fu">c</span>(<span class="fl">18.3</span>, <span class="fl">18.8</span>, <span class="fl">16.7</span>, <span class="fl">6.1</span>, <span class="fl">5.2</span>, <span class="fl">21.2</span>, <span class="fl">19.8</span>, <span class="fl">4.2</span>, <span class="fl">18.3</span>,</span>
+<span id="cb53-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb53-2" tabindex="-1"></a>                                <span class="fl">3.6</span>, <span class="fl">20.0</span>, <span class="fl">7.5</span>, <span class="fl">15.3</span>, <span class="fl">26.8</span>, <span class="fl">5.4</span>, <span class="fl">18.7</span>, <span class="fl">6.2</span>, <span class="fl">7.0</span>, <span class="fl">20.7</span>,</span>
+<span id="cb53-3"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb53-3" tabindex="-1"></a>                                <span class="fl">18.9</span>, <span class="fl">19.2</span>, <span class="fl">6.7</span>, <span class="fl">19.1</span>, <span class="fl">23.4</span>, <span class="fl">4.5</span>, <span class="fl">16.2</span>, <span class="fl">5.6</span>, <span class="fl">17.5</span>,</span>
+<span id="cb53-4"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb53-4" tabindex="-1"></a>                                <span class="fl">5.9</span>, <span class="fl">6.7</span>, <span class="fl">4.9</span>, <span class="fl">17.9</span>, <span class="fl">15.0</span>, <span class="fl">13.6</span>, <span class="fl">5.4</span>, <span class="fl">5.8</span>))</span>
+<span id="cb53-5"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb53-5" tabindex="-1"></a>BlackSmith</span></code></pre></div>
+<pre><code>##    Area
+## 1  18.3
+## 2  18.8
+## 3  16.7
+## 4   6.1
+## 5   5.2
+## 6  21.2
+## 7  19.8
+## 8   4.2
+## 9  18.3
+## 10  3.6
+## 11 20.0
+## 12  7.5
+## 13 15.3
+## 14 26.8
+## 15  5.4
+## 16 18.7
+## 17  6.2
+## 18  7.0
+## 19 20.7
+## 20 18.9
+## 21 19.2
+## 22  6.7
+## 23 19.1
+## 24 23.4
+## 25  4.5
+## 26 16.2
+## 27  5.6
+## 28 17.5
+## 29  5.9
+## 30  6.7
+## 31  4.9
+## 32 17.9
+## 33 15.0
+## 34 13.6
+## 35  5.4
+## 36  5.8</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb55-1" tabindex="-1"></a><span class="co">#examine with stem-and-leaf plot a la Table 2.2</span></span>
+<span id="cb55-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb55-2" tabindex="-1"></a><span class="fu">stem.leaf</span>(BlackSmith<span class="sc">$</span>Area, <span class="at">trim =</span> F, <span class="at">unit =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 1 | 2: represents 1.2
+##  leaf unit: 0.1
+##             n: 36
+##    1     3 | 6
+##    4     4 | 259
+##   10     5 | 244689
+##   14     6 | 1277
+##   16     7 | 05
+##          8 | 
+##          9 | 
+##         10 | 
+##         11 | 
+##         12 | 
+##   17    13 | 6
+##         14 | 
+##   (2)   15 | 03
+##   17    16 | 27
+##   15    17 | 59
+##   13    18 | 33789
+##    8    19 | 128
+##    5    20 | 07
+##    3    21 | 2
+##         22 | 
+##    2    23 | 4
+##         24 | 
+##         25 | 
+##    1    26 | 8</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb57-1" tabindex="-1"></a><span class="co">#or histogram</span></span>
+<span id="cb57-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb57-2" tabindex="-1"></a><span class="fu">hist</span>(BlackSmith<span class="sc">$</span>Area, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/multiple%20peaks-1.png" width="672" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb58-1" tabindex="-1"></a><span class="co">#separate summary stats for the two batches</span></span>
+<span id="cb58-2"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb58-2" tabindex="-1"></a><span class="fu">by</span>(BlackSmith<span class="sc">$</span>Area, BlackSmith<span class="sc">$</span>Area <span class="sc">&gt;</span> <span class="dv">10</span>, mean)</span></code></pre></div>
+<pre><code>## BlackSmith$Area &gt; 10: FALSE
+## [1] 5.66875
+## ------------------------------------------------------------ 
+## BlackSmith$Area &gt; 10: TRUE
+## [1] 18.77</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="the-level-or-center-of-a-batch-ch.-2.html#cb60-1" tabindex="-1"></a><span class="fu">by</span>(BlackSmith<span class="sc">$</span>Area, BlackSmith<span class="sc">$</span>Area <span class="sc">&gt;</span> <span class="dv">10</span>, median)</span></code></pre></div>
+<pre><code>## BlackSmith$Area &gt; 10: FALSE
+## [1] 5.7
+## ------------------------------------------------------------ 
+## BlackSmith$Area &gt; 10: TRUE
+## [1] 18.75</code></pre>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="batches-of-numbers-ch.-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-spread-or-dispersion-of-a-batch-ch.-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

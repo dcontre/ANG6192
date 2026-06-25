@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Comparing Proportions of Different Samples (Ch. 14) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="14 Comparing Proportions of Different Samples (Ch. 14) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 Comparing Proportions of Different Samples (Ch. 14) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 Comparing Proportions of Different Samples (Ch. 14) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="comparing-means-of-more-than-two-samples-ch.-13.html"/>
+<link rel="next" href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="comparing-proportions-of-different-samples-ch.-14" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> Comparing Proportions of Different Samples (Ch. 14)<a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-of-different-samples-ch.-14" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Begin by creating a table with data from Drennan Table 14.1. Note that we are making a 2x2 matrix, populating it with a vector of numbers, and naming its dimensions (rather than making a data frame, as you’ve probably gotten used to doing).</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb357-1" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">12</span>,<span class="dv">18</span>,<span class="dv">22</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T, </span>
+<span id="cb357-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb357-2" tabindex="-1"></a>                 <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;San Pablo&quot;</span>, <span class="st">&quot;San Pedro&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Bowl&quot;</span>, <span class="st">&quot;Jar&quot;</span>)))</span></code></pre></div>
+<div id="comparison-with-estimated-proportions-and-error-ranges" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Comparison with Estimated Proportions and Error Ranges<a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Making a bullet graph like Fig 14.1 is actually a bit tricky, but we can model one on the bullet graphs that we built using confidence intervals in Ch. 13, and using the calculation of confidence intervals for proportions from Ch.11. Drennan gives us the standard errors: 9% for San Pablo and 8% for San Pedro.</p>
+<p>A couple of bits of R syntax to note:</p>
+<ul>
+<li>The vectors that we’ll build to hold the values for different confidence intervals (the proportions ± the standard error * <em>t</em>, for each desired CI) are of the “list” type, so that they can hold three values for each proportion (that is, low/high values for the three CIs for the first proportion in the first element of the list, and then low/high values for the three CIs for the second proportion in the second element of the list). Lists are indexed using <code>[</code> to call a member of a list and <code>[[</code> to access the elements within a member.<br />
+</li>
+<li>We’ll populate our two lists (of low CIs and high CIs) by building a <code>for()</code> loop. This says, in effect: take the first proportion and the first standard error, calculate CIs, and write those to the first element of the list; then repeat this for the second proportion and standard error, and write to the second element. Obviously you could calculate the CIs for each individually, but a <code>for()</code> loop is a good trick if you need to do this, say, ten or a hundred times.</li>
+</ul>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-1" tabindex="-1"></a><span class="do">##bullet graph for proportions##</span></span>
+<span id="cb358-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-2" tabindex="-1"></a><span class="co">#repurpose the ciDat function for confidence intervals for proportions</span></span>
+<span id="cb358-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-3" tabindex="-1"></a>ci<span class="ot">=</span><span class="fu">c</span>(.<span class="dv">99</span>, .<span class="dv">95</span>, .<span class="dv">80</span>)</span>
+<span id="cb358-4"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-4" tabindex="-1"></a>seX <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">09</span>, .<span class="dv">08</span>) <span class="co">#standard error</span></span>
+<span id="cb358-5"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">40</span>)</span>
+<span id="cb358-6"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-6" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>((ci<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb358-7"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-7" tabindex="-1"></a>props <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">6</span>, .<span class="dv">45</span>)</span>
+<span id="cb358-8"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-8" tabindex="-1"></a></span>
+<span id="cb358-9"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-9" tabindex="-1"></a><span class="co">#create empty vectors</span></span>
+<span id="cb358-10"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-10" tabindex="-1"></a>lows <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dv">2</span>) </span>
+<span id="cb358-11"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-11" tabindex="-1"></a>highs <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dv">2</span>)</span>
+<span id="cb358-12"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-12" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb358-13"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-13" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){</span>
+<span id="cb358-14"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-14" tabindex="-1"></a>lows[[i]] <span class="ot">&lt;-</span> props[i] <span class="sc">-</span> (seX[i]<span class="sc">*</span>t) <span class="co">#lower boundaries</span></span>
+<span id="cb358-15"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-15" tabindex="-1"></a>highs[[i]] <span class="ot">&lt;-</span> props[i] <span class="sc">+</span> (seX[i]<span class="sc">*</span>t) <span class="co">#upper boundaries</span></span>
+<span id="cb358-16"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-16" tabindex="-1"></a>}</span>
+<span id="cb358-17"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-17" tabindex="-1"></a></span>
+<span id="cb358-18"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-18" tabindex="-1"></a><span class="co">#examine the results; compare:</span></span>
+<span id="cb358-19"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb358-19" tabindex="-1"></a>lows[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.3519253 0.4179578 0.4819710</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb360-1" tabindex="-1"></a>lows[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] 0.3519253 0.4179578 0.4819710</code></pre>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-1" tabindex="-1"></a>COL <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>) <span class="co">#set up colors </span></span>
+<span id="cb362-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-2" tabindex="-1"></a>LWD <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">9</span>) <span class="co">#line widths</span></span>
+<span id="cb362-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-3" tabindex="-1"></a>AT <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>) <span class="co">#locations</span></span>
+<span id="cb362-4"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-4" tabindex="-1"></a><span class="fu">plot</span>(<span class="fl">1.5</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">3.5</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Proportion&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, </span>
+<span id="cb362-5"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-5" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">asp=</span><span class="dv">4</span>)</span>
+<span id="cb362-6"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-6" tabindex="-1"></a><span class="fu">segments</span>(AT[<span class="dv">1</span>], lows[[<span class="dv">1</span>]], <span class="at">y1=</span>highs[[<span class="dv">1</span>]], <span class="at">lwd=</span>LWD, <span class="at">col=</span>COL)</span>
+<span id="cb362-7"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-7" tabindex="-1"></a><span class="fu">segments</span>(AT[<span class="dv">2</span>], lows[[<span class="dv">2</span>]], <span class="at">y1=</span>highs[[<span class="dv">2</span>]], <span class="at">lwd=</span>LWD, <span class="at">col=</span>COL)</span>
+<span id="cb362-8"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-8" tabindex="-1"></a><span class="fu">points</span>(AT, props, <span class="at">pch=</span><span class="dv">18</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb362-9"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-9" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span>AT, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;San Pablo&quot;</span>, <span class="st">&quot;San Pedro&quot;</span>), <span class="at">las=</span><span class="dv">3</span>)</span>
+<span id="cb362-10"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-10" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">3.1</span>, <span class="dv">1</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;99%&quot;</span>, <span class="st">&quot;95%&quot;</span>, <span class="st">&quot;80%&quot;</span>), <span class="at">lwd=</span>LWD, <span class="at">col=</span>COL, <span class="at">title=</span><span class="st">&quot;confidence&quot;</span>, </span>
+<span id="cb362-11"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb362-11" tabindex="-1"></a>       <span class="at">cex=</span>.<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-92-1.png" width="50%" height="100%" /></p>
+</div>
+<div id="comparison-with-chi2" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Comparison with <span class="math inline">\(\chi^2\)</span><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You know already how to calculate row and column sums and proportions, and so can produce Table 14.1 and Table 14.2.</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb363-1" tabindex="-1"></a>sherds_margins <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(sherds)  </span>
+<span id="cb363-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb363-2" tabindex="-1"></a><span class="co">#then calculate row proportions, multiplying by 100 to get % and rounding to 1 decimal</span></span>
+<span id="cb363-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb363-3" tabindex="-1"></a>sherds_rowprops <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(sherds_margins[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>); sherds_rowprops    </span></code></pre></div>
+<pre><code>##           Bowl  Jar
+## San Pablo 60.0 40.0
+## San Pedro 45.0 55.0
+## Sum       51.4 48.6</code></pre>
+<p>R is happy to calculate chi-squared results for you with <code>chisq.test()</code>. We’ll use that rather than going through the steps of the equation <span class="math display">\[\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}\]</span>
+but you can easily reproduce the calculations Drennan goes through on p184.
+The output skips over all the intermediate steps, but the data from those steps are produced along the way (see the ‘Value’ section of <code>?chisq.test</code>). We can access those by using the <code>$</code> operator on the results of <code>chisq.test()</code>. We’ll examine the expected values in order to replicate Table 14.3.</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb365-1" tabindex="-1"></a>chi_sherd <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(sherds, <span class="at">correct=</span>F)</span>
+<span id="cb365-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb365-2" tabindex="-1"></a><span class="fu">round</span>(chi_sherd<span class="sc">$</span>expected, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##            Bowl   Jar
+## San Pablo 15.43 14.57
+## San Pedro 20.57 19.43</code></pre>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb367-1" tabindex="-1"></a><span class="co">#if you want to get cute, replace the upper left 2x2 of sherds_margins with the expected values</span></span>
+<span id="cb367-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb367-2" tabindex="-1"></a>table14<span class="fl">.3</span> <span class="ot">&lt;-</span> sherds_margins</span>
+<span id="cb367-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb367-3" tabindex="-1"></a>table14<span class="fl">.3</span>[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(chi_sherd<span class="sc">$</span>expected, <span class="dv">2</span>); table14<span class="fl">.3</span></span></code></pre></div>
+<pre><code>##            Bowl   Jar Sum
+## San Pablo 15.43 14.57  30
+## San Pedro 20.57 19.43  40
+## Sum       36.00 34.00  70</code></pre>
+</div>
+<div id="measures-of-strength" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Measures of Strength<a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cramer’s V is a measure of the strength of the difference that we detect with a chi-squared test.</p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb369-1" tabindex="-1"></a>sherd_V <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_sherd<span class="sc">$</span>statistic[[<span class="dv">1</span>]]<span class="sc">/</span>(<span class="dv">70</span>)<span class="sc">*</span>(<span class="dv">2-1</span>)) <span class="co">#[[1]] necessary to avoid name</span></span>
+<span id="cb369-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb369-2" tabindex="-1"></a><span class="co">#or</span></span>
+<span id="cb369-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb369-3" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">cramersV</span>(sherds, <span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## [1] 0.1485221</code></pre>
+<p>As Drennan discusses (p188), Cramer’s V will vary between 0 and 1, with 0 indicating no difference and 1 the largest possible difference.</p>
+</div>
+<div id="the-effect-of-sample-size" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> The Effect of Sample Size<a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can make Table 14.5 just as we did Table 14.1.</p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb371-1" tabindex="-1"></a>sherds_big <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">72</span>,<span class="dv">48</span>,<span class="dv">72</span>,<span class="dv">88</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T, </span>
+<span id="cb371-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb371-2" tabindex="-1"></a>                 <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;San Pablo&quot;</span>, <span class="st">&quot;San Pedro&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Bowl&quot;</span>, <span class="st">&quot;Jar&quot;</span>))))</span></code></pre></div>
+<p>You can calculate <span class="math inline">\(\chi^2\)</span> and examine the expected values - as well as the chi-squared result - just as we did above. Note that to calculate chi-square, we don’t actually want the marginal totals involved, so we select just the 2x2 table by indexing for the first two rows and first two columns (<code>sherds_big[1:2,1:2]</code>).</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb372-1" tabindex="-1"></a>sherds_big_nomargins <span class="ot">&lt;-</span> sherds_big[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb372-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb372-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">chisq.test</span>(sherds_big_nomargins, <span class="at">correct=</span>F)<span class="sc">$</span>expected, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##            Bowl   Jar
+## San Pablo 61.71 58.29
+## San Pedro 82.29 77.71</code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb374-1" tabindex="-1"></a><span class="fu">chisq.test</span>(sherds_big_nomargins, <span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  sherds_big_nomargins
+## X-squared = 6.1765, df = 1, p-value = 0.01295</code></pre>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb376-1" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">cramersV</span>(sherds_big_nomargins, <span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## [1] 0.1485221</code></pre>
+</div>
+<div id="differences-between-populations-versus-relationships-between-variables-1" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> Differences between Populations versus Relationships between Variables<a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Drennan makes two important points in this section:<br />
+1. comparing proportions can be construed <em>either</em> as assessing how different two populations are <em>or</em> whether two variables are related.<br />
+2. a bullet graph can serve to compare proportions as well as a significance test can (consider the code used to build Fig 14.1, above).</p>
+</div>
+<div id="assumptions-and-robust-methods-2" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Assumptions and Robust Methods<a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Chi-square tests depend on the samples involved being large enough to reliably approximate the population proportions. How large is that? Drennan’s common-sense approach:</p>
+<blockquote>
+<p>no expected value…less than 1 and that no more than 20% of the expected values…less than 5. (Drennan p192)</p>
+</blockquote>
+<p>When we cannot meet the requirements of a chi-square test but would still like to
+Fisher’s Exact Test <span class="math display">\[p=\frac{(A+B)!(C+D)!(A+C)!(B+D)!}{N!A!B!C!D!}\]</span>
+Where (for a 2x2 table), A, B, C, and D are the observed frequencies in each cell of the table.</p>
+<p>In R, you can carry out Fisher’s Exact Test with <code>fisher.test()</code>.</p>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb378-1" tabindex="-1"></a><span class="fu">fisher.test</span>(sherds)</span></code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  sherds
+## p-value = 0.2368
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.633985 5.359949
+## sample estimates:
+## odds ratio 
+##   1.817349</code></pre>
+</div>
+<div id="comparing-proportions-to-a-theoretical-expectation" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> Comparing Proportions to a Theoretical Expectation<a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It’s common that we might want to compare proportions not to each other, but to some theoretically (or empirically) derived expectation.</p>
+<blockquote>
+<p>How likely is it that this entire sample of 38 sites came from a population of sites in which there was no preference for locating sites in any particular environmental setting? (Drennan p195)</p>
+</blockquote>
+<p>We can, Drennan goes on, “use the information we have to determine expected numbers of sites in each environmental setting as in Table 14.9.”</p>
+<p>Build Table 14.9 by calculating expected proportions based on the proportion of the survey area in each zone.</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb380-1" tabindex="-1"></a>Tab14<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Drennan_datasets/Drennan_2009_Table14.7.csv&quot;</span>,</span>
+<span id="cb380-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb380-2" tabindex="-1"></a>                    <span class="at">header=</span>T)</span></code></pre></div>
+<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, :
+## incomplete final line found by readTableHeader on
+## &#39;data/Drennan_datasets/Drennan_2009_Table14.7.csv&#39;</code></pre>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb382-1" tabindex="-1"></a><span class="fu">colnames</span>(Tab14<span class="fl">.7</span>)[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Percent.Sites&quot;</span>,<span class="st">&quot;Area.surveyed&quot;</span>,<span class="st">&quot;Percent.Area.surveyed&quot;</span>)</span>
+<span id="cb382-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb382-2" tabindex="-1"></a><span class="fu">kable</span>(Tab14<span class="fl">.7</span>) <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(<span class="at">full_width =</span> F)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Environmental.setting
+</th>
+<th style="text-align:right;">
+Number.of.sites
+</th>
+<th style="text-align:right;">
+Percent.Sites
+</th>
+<th style="text-align:right;">
+Area.surveyed
+</th>
+<th style="text-align:right;">
+Percent.Area.surveyed
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Remnant levees
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+28.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+River bottoms
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+31.6
+</td>
+<td style="text-align:right;">
+8.3
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Slopes
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+18.4
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+10.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Totals
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+<td style="text-align:right;">
+13.6
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb383-1" tabindex="-1"></a>Tab14<span class="fl">.7</span><span class="sc">$</span>ExpectedSites <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">38</span> <span class="sc">*</span> (Tab14<span class="fl">.7</span><span class="sc">$</span>Percent.Area.surveyed<span class="sc">/</span><span class="dv">100</span>),<span class="dv">1</span>)</span></code></pre></div>
+<p>If you want to explicitly recreate Table 14.9, you can assemble it from the elements of Table 14.7.</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb384-1" tabindex="-1"></a>Tab14<span class="fl">.9</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Setting =</span> Tab14<span class="fl">.7</span><span class="sc">$</span>Environmental.setting, <span class="at">AreaSurveyed =</span></span>
+<span id="cb384-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb384-2" tabindex="-1"></a>                        Tab14<span class="fl">.7</span><span class="sc">$</span>Percent.Area.surveyed, <span class="at">ExpectedSites =</span> </span>
+<span id="cb384-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb384-3" tabindex="-1"></a>                        <span class="fu">round</span>(<span class="dv">38</span> <span class="sc">*</span> (Tab14<span class="fl">.7</span><span class="sc">$</span>Percent.Area.surveyed<span class="sc">/</span><span class="dv">100</span>),<span class="dv">1</span>), </span>
+<span id="cb384-4"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb384-4" tabindex="-1"></a>                      <span class="at">ObservedSites =</span> Tab14<span class="fl">.7</span><span class="sc">$</span>Number.of.sites)</span></code></pre></div>
+<p>With Table 14.9 we can perform a chi-square test based on these observed and expected values; now instead of relying on R to calculate expected values for us we need to specify them. We can do that by specifying what to use in the <code>p</code> argument to <code>chisq.test()</code> should be. R will squawk about the <span class="math inline">\(\chi^2\)</span> results because of the small expected values (see Drennan p191-192), and you would be wise to consider whether the results appear to be plausible.</p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb385-1" tabindex="-1"></a><span class="fu">chisq.test</span>(Tab14<span class="fl">.9</span><span class="sc">$</span>ObservedSites[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">p=</span>Tab14<span class="fl">.9</span><span class="sc">$</span>AreaSurveyed[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]<span class="sc">/</span><span class="dv">100</span>, <span class="at">correct=</span>F)</span></code></pre></div>
+<pre><code>## Warning in chisq.test(Tab14.9$ObservedSites[1:3], p =
+## Tab14.9$AreaSurveyed[1:3]/100, : Chi-squared approximation may be incorrect</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  Tab14.9$ObservedSites[1:3]
+## X-squared = 13.832, df = 2, p-value = 0.0009916</code></pre>
+</div>
+<div id="practice-3" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> Practice<a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data for the practice problems can be easily built (below) and loaded from <a href="data/Drennan_datasets/OpSherds.txt">OpSherds.txt</a>.</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb388-1" tabindex="-1"></a>surfaceSherds <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">162</span>,<span class="dv">49</span>,<span class="dv">57</span>,<span class="dv">40</span>,<span class="dv">43</span>,<span class="dv">49</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span>T, </span>
+<span id="cb388-2"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb388-2" tabindex="-1"></a>                   <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Granger&quot;</span>, <span class="st">&quot;Rawlins&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Serengeti Plain&quot;</span>, </span>
+<span id="cb388-3"><a href="comparing-proportions-of-different-samples-ch.-14.html#cb388-3" tabindex="-1"></a>                                                            <span class="st">&quot;Mandarin Orange&quot;</span>, <span class="st">&quot;Zane Gray&quot;</span>)))</span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comparing-means-of-more-than-two-samples-ch.-13.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

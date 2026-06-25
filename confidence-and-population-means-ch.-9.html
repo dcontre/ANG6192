@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Confidence and Population Means (Ch. 9) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="9 Confidence and Population Means (Ch. 9) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Confidence and Population Means (Ch. 9) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Confidence and Population Means (Ch. 9) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="different-samples-from-the-same-population-ch.-8.html"/>
+<link rel="next" href="resampling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="confidence-and-population-means-ch.-9" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Confidence and Population Means (Ch. 9)<a href="confidence-and-population-means-ch.-9.html#confidence-and-population-means-ch.-9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Drennan begins this chapter (p107) with two observations that are vital to archaeological use of any kind of statistics.</p>
+<blockquote>
+<p>In real life…we do not know either the mean or the standard deviation of the population from which our sample is drawn. Indeed those are precisely the things we are trying to estimate on the basis of a sample.</p>
+</blockquote>
+<blockquote>
+<p>…instead of having one population and all the possible samples from it, we have one sample and [must] consider the possible populations it might have come from.</p>
+</blockquote>
+<p>We are sampling from unknown populations, and using our samples to make inferences about those populations. Justifying those inferences, and assessing the limits of what we can infer, is one of the most important things that we do. This is equally true whether one uses quantitative data and statistics or not, but much harder to be explicit about without statistics.</p>
+<p>Drennan does not provide specific measurements for the set of 100 projectile points that he uses for the examples in Ch.9, but if we make some assumptions about their distribution (not necessarily justifiable, but we can always explore the effects of changing our assumptions) we can simulate this dataset easily, since we know the mean and standard deviation.
+If we assume that the population is normally distributed, we can use <code>rnorm()</code> - and if we have other ideas about the distribution we can easily generate samples from such distributions - see <code>?Distributions</code>.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="confidence-and-population-means-ch.-9.html#cb240-1" tabindex="-1"></a>ppoints <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">3.35</span>, <span class="at">sd =</span> .<span class="dv">5</span>),<span class="dv">1</span>) <span class="co">#rounded to 1 decimal</span></span>
+<span id="cb240-2"><a href="confidence-and-population-means-ch.-9.html#cb240-2" tabindex="-1"></a>ppoints</span></code></pre></div>
+<pre><code>##   [1] 4.3 3.8 3.5 3.2 4.0 3.7 3.5 3.3 3.5 2.5 2.1 3.7 4.1 3.0 4.1 3.7 4.1 4.1
+##  [19] 3.2 3.6 3.4 2.9 3.5 3.1 3.8 3.6 3.4 4.0 3.6 4.2 2.2 3.7 2.6 3.6 2.9 3.3
+##  [37] 3.5 4.0 3.4 4.0 3.7 2.9 3.1 1.8 3.0 3.5 3.3 2.9 3.0 3.4 3.4 2.3 2.9 3.3
+##  [55] 3.8 2.3 3.3 2.7 3.7 3.1 3.2 2.9 2.6 2.7 3.1 3.6 3.5 4.2 3.5 3.1 3.6 3.2
+##  [73] 4.0 3.4 4.5 2.2 2.7 3.7 3.7 3.3 2.3 2.9 3.9 3.9 3.1 3.1 2.6 3.3 3.6 3.6
+##  [91] 4.4 4.1 3.8 2.7 3.4 3.7 2.9 2.8 2.6 3.3</code></pre>
+<p><em>Nothing</em> that we can do in R can address the issues of deciding whether the sample can be treated as unbiased for the purposes of the question(s) that you may want to ask. This is - as Drennan discusses on p108-109 - vital, but it is <em>entirely up to you and your brain</em>.
+<img src="imgs/homer_brain.jpg" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="confidence-and-population-means-ch.-9.html#cb242-1" tabindex="-1"></a><span class="co">#build a population with mean 3.25cm and standard deviation .5 cm</span></span>
+<span id="cb242-2"><a href="confidence-and-population-means-ch.-9.html#cb242-2" tabindex="-1"></a>pp_pop <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">3.25</span>, .<span class="dv">5</span>)</span>
+<span id="cb242-3"><a href="confidence-and-population-means-ch.-9.html#cb242-3" tabindex="-1"></a><span class="fu">hist</span>(pp_pop, <span class="dv">100</span>) <span class="co">#examine the population</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="confidence-and-population-means-ch.-9.html#cb243-1" tabindex="-1"></a>samples3<span class="fl">.25</span> <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="cf">function</span>(x) <span class="fu">mean</span>(<span class="fu">sample</span>(pp_pop, <span class="dv">100</span>, <span class="at">replace =</span> T)))</span>
+<span id="cb243-2"><a href="confidence-and-population-means-ch.-9.html#cb243-2" tabindex="-1"></a><span class="fu">hist</span>(samples3<span class="fl">.25</span>, <span class="dv">100</span>) <span class="co">#examine an approximation of the special batch </span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-47-2.png" width="672" /></p>
+<p>This is the mean of a <em>lot</em> of samples from our population of mean 3.25cm and standard deviation .5cm, rather than “all possible” - but it makes the point nonetheless (compare to Drennan Figure 9.1).
+We could repeat that process for the other special batches that Drennan plots in Figures 9.2 - 9.5. These show various distributions of means for the samples from populations with various means - and in all of them we can locate the mean of the sample we have: 3.35cm, and use the height of the histogram (frequency) to judge how likely it is that our sample, with its mean of 3.35 and standard deviation of .5, is to have come from that particular distribution of means.</p>
+<p>Figure 9.6 represents the “batch consisting of the means of the populations from which a sample of 100 with a mean of 3.35 cm and a standard deviation of 0.50 cm might have come.”
+Plotting this is mildly complicated; the main feature of interest (in R terms) below is that we strip our plot of axes (<code>axes = F</code>) in order to then rebuild the x-axis that we want, and then we add the SE bar (using <code>arrows()</code> for the bar and <code>mtext()</code> for the label; the latter is necessary because the label we want to add is in the plot margins rather than in the main area of the plot). The complicated part - which you needn’t follow unless you want to - is the use of <code>approxfun()</code> to generate a sequence of y-values that lets us fill the area under the curve (by using <code>polygon()</code>).</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="confidence-and-population-means-ch.-9.html#cb244-1" tabindex="-1"></a>pop9<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">3.35</span>, .<span class="dv">5</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">100</span>))</span>
+<span id="cb244-2"><a href="confidence-and-population-means-ch.-9.html#cb244-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(pop9<span class="fl">.6</span>, <span class="at">bw =</span> .<span class="dv">01</span>), <span class="at">xlab =</span> <span class="st">&quot;cm&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">axes =</span> F)</span>
+<span id="cb244-3"><a href="confidence-and-population-means-ch.-9.html#cb244-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="fl">3.175</span>, <span class="fl">3.525</span>, <span class="at">by =</span>.<span class="dv">025</span>))</span>
+<span id="cb244-4"><a href="confidence-and-population-means-ch.-9.html#cb244-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">3.35</span> <span class="sc">-</span> (.<span class="dv">5</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">100</span>)), <span class="at">x1 =</span> <span class="fl">3.35</span> <span class="sc">+</span> (.<span class="dv">5</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">100</span>)), <span class="at">y0 =</span> <span class="sc">-</span><span class="fl">2.5</span>, </span>
+<span id="cb244-5"><a href="confidence-and-population-means-ch.-9.html#cb244-5" tabindex="-1"></a>       <span class="at">y1 =</span> <span class="sc">-</span><span class="fl">2.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> .<span class="dv">05</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">xpd=</span>T)</span>
+<span id="cb244-6"><a href="confidence-and-population-means-ch.-9.html#cb244-6" tabindex="-1"></a><span class="fu">mtext</span>(<span class="dv">1</span>, <span class="fl">2.4</span>, <span class="at">text =</span> <span class="st">&quot; +/- 1 SE&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb244-7"><a href="confidence-and-population-means-ch.-9.html#cb244-7" tabindex="-1"></a>get.y <span class="ot">&lt;-</span> <span class="fu">approxfun</span>(<span class="fu">density</span>(pop9<span class="fl">.6</span>, <span class="at">bw =</span> .<span class="dv">01</span>)<span class="sc">$</span>x, <span class="fu">density</span>(pop9<span class="fl">.6</span>, <span class="at">bw =</span> .<span class="dv">01</span>)<span class="sc">$</span>y)</span>
+<span id="cb244-8"><a href="confidence-and-population-means-ch.-9.html#cb244-8" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">3.3</span>, <span class="fu">seq</span>(<span class="fl">3.3</span>, <span class="fl">3.4</span>, .<span class="dv">001</span>), <span class="fl">3.4</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">get.y</span>(<span class="fu">seq</span>(<span class="fl">3.3</span>, <span class="fl">3.4</span>, .<span class="dv">001</span>)), <span class="dv">0</span>), </span>
+<span id="cb244-9"><a href="confidence-and-population-means-ch.-9.html#cb244-9" tabindex="-1"></a>        <span class="at">density =</span> <span class="dv">10</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">angle =</span> <span class="dv">0</span>)</span>
+<span id="cb244-10"><a href="confidence-and-population-means-ch.-9.html#cb244-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">3.35</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb244-11"><a href="confidence-and-population-means-ch.-9.html#cb244-11" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="fl">3.3</span>, <span class="fl">3.4</span>, .<span class="dv">001</span>), <span class="fu">get.y</span>(<span class="fu">seq</span>(<span class="fl">3.3</span>, <span class="fl">3.4</span>, .<span class="dv">001</span>))) <span class="co">#re-draw black curve</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-48-1.png" width="672" height="70%" /></p>
+<div id="students-t" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Student’s <em>t</em><a href="confidence-and-population-means-ch.-9.html#students-t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Probabilities that population means fall w/in different ranges (following Drennan, bottom of p.118):</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="confidence-and-population-means-ch.-9.html#cb245-1" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">pt</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="at">df =</span> <span class="dv">99</span>))</span></code></pre></div>
+<pre><code>## [1] 0.9517603</code></pre>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="confidence-and-population-means-ch.-9.html#cb247-1" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">pt</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">df =</span> <span class="dv">99</span>))</span></code></pre></div>
+<pre><code>## [1] 0.9965845</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="confidence-and-population-means-ch.-9.html#cb249-1" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">pt</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">df =</span> <span class="dv">99</span>))</span></code></pre></div>
+<pre><code>## [1] 0.6802515</code></pre>
+<p>It’s straightforward to estimate the number of standard errors for a particular confidence level using <em>t</em> quantiles.
+Either of the lines below will return a 90% confidence interval for a sample of 100. In the first you have to figure out for yourself which quantile you need for your desired confidence interval; in the second you can plug in your desired confidence interval and let R do the arithmetic.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="confidence-and-population-means-ch.-9.html#cb251-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">95</span>, <span class="at">df =</span> <span class="dv">99</span>)  </span></code></pre></div>
+<pre><code>## [1] 1.660391</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="confidence-and-population-means-ch.-9.html#cb253-1" tabindex="-1"></a><span class="fu">qt</span>((.<span class="dv">9</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">99</span>)</span></code></pre></div>
+<pre><code>## [1] 1.660391</code></pre>
+<p>Rim Diameter Measurements for a Sample of 25 Rim Sherds (Drennan Table 9.2):</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="confidence-and-population-means-ch.-9.html#cb255-1" tabindex="-1"></a>Rims <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.3</span>, <span class="fl">9.3</span>, <span class="fl">11.6</span>, <span class="fl">11.8</span>, <span class="fl">12.2</span>, <span class="fl">12.5</span>, <span class="fl">12.9</span>, <span class="fl">13.3</span>, <span class="fl">13.4</span>, <span class="fl">13.8</span>, <span class="fl">14.0</span>, <span class="fl">14.4</span>, <span class="fl">14.8</span>, </span>
+<span id="cb255-2"><a href="confidence-and-population-means-ch.-9.html#cb255-2" tabindex="-1"></a>          <span class="fl">14.9</span>, <span class="fl">15.6</span>, <span class="fl">15.7</span>, <span class="fl">15.8</span>, <span class="fl">16.2</span>, <span class="fl">16.5</span>, <span class="fl">17.3</span>, <span class="fl">17.7</span>, <span class="fl">18.8</span>, <span class="fl">19.4</span>, <span class="fl">19.5</span>, <span class="fl">21.0</span>)</span>
+<span id="cb255-3"><a href="confidence-and-population-means-ch.-9.html#cb255-3" tabindex="-1"></a><span class="fu">summary</span>(Rims)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    7.30   12.90   14.80   14.79   16.50   21.00</code></pre>
+<p>We can use the finite population corrector to illustrate the way that R makes it possible to build your own function to handle computations that you may do repeatedly. Just as <code>mean()</code> is an R function that performs a series of operations on an object, you can define your own function that performs a series of operations. The example here is based on Drennan p.123ff.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="confidence-and-population-means-ch.-9.html#cb257-1" tabindex="-1"></a>fpc <span class="ot">&lt;-</span> <span class="cf">function</span>(std, n, N) {std<span class="sc">/</span><span class="fu">sqrt</span>(n)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>(n<span class="sc">/</span>N))}</span>
+<span id="cb257-2"><a href="confidence-and-population-means-ch.-9.html#cb257-2" tabindex="-1"></a>fpc</span></code></pre></div>
+<pre><code>## &lt;srcref: file &quot;&quot; chars 1:8 to 1:54&gt;</code></pre>
+<p>Here we’ve called the function <code>fpc</code> (for “finite population corrector”). We assign that name using <code>&lt;-</code> as for any object, and then use <code>function()</code> to specify what inputs we expect the function to take (here three arguments: ‘std’, ‘n’, and ‘N’), and what (in the <code>{ }</code> that follows) we then want the function to do with those inputs.
+When you define the function (i.e. run that line of code that assigns your function to a name), there is no output unless there is an error, but the function has been written into your workspace environment (you can check R Studio’s ‘Gobal Environment’ tab, or run <code>ls()</code> to check).</p>
+<p>If you just type the function name in the console, R prints the definition of the function. To run it, you need to give it values for the necessary arguments, just as you would for <code>mean()</code> or anything else.<br />
+The function that we’ve defined - <code>fpc</code> - takes three values (arguments): the standard deviation, the sample size, and the population size. As with any R function, you can either put the values in order or call them by name.
+We can test our shiny new function using the sample of 25 rim sherds:</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="confidence-and-population-means-ch.-9.html#cb259-1" tabindex="-1"></a><span class="fu">fpc</span>(<span class="at">N =</span> <span class="dv">53</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">std =</span> <span class="fl">3.21</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4666337</code></pre>
+<p>“How large a sample do we need?” (Drennan, p.126)</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="confidence-and-population-means-ch.-9.html#cb261-1" tabindex="-1"></a>SampleSize <span class="ot">&lt;-</span> <span class="cf">function</span>(sd, t, ER) {(sd<span class="sc">*</span>t<span class="sc">/</span>ER)<span class="sc">^</span><span class="dv">2</span>} </span>
+<span id="cb261-2"><a href="confidence-and-population-means-ch.-9.html#cb261-2" tabindex="-1"></a><span class="co">#where sd = standard deviation, t = Student&#39;s t, ER = error range</span></span>
+<span id="cb261-3"><a href="confidence-and-population-means-ch.-9.html#cb261-3" tabindex="-1"></a><span class="fu">SampleSize</span>(.<span class="dv">9</span>, <span class="fl">1.96</span>, .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 12.44678</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="confidence-and-population-means-ch.-9.html#cb263-1" tabindex="-1"></a><span class="fu">qt</span>((.<span class="dv">95</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre><code>## [1] 2.178813</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="confidence-and-population-means-ch.-9.html#cb265-1" tabindex="-1"></a><span class="fu">SampleSize</span>(.<span class="dv">9</span>, <span class="fl">2.18</span>, .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 15.39778</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="confidence-and-population-means-ch.-9.html#cb267-1" tabindex="-1"></a><span class="fu">qt</span>((.<span class="dv">95</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## [1] 2.13145</code></pre>
+<p>The chapter ends with a discussion of assumptions and robust measures. As you will remember, R has features for computing trimmed means and standard deviations. We can run through his example using the data in Table 9.3:</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="confidence-and-population-means-ch.-9.html#cb269-1" tabindex="-1"></a><span class="co">#Weights of a Small Sample of Projectile Points:</span></span>
+<span id="cb269-2"><a href="confidence-and-population-means-ch.-9.html#cb269-2" tabindex="-1"></a>PtWgt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">96</span>, <span class="dv">37</span>, <span class="dv">28</span>, <span class="dv">34</span>, <span class="dv">52</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">39</span>, <span class="dv">156</span>, <span class="dv">43</span>, <span class="dv">44</span>, <span class="dv">19</span>, <span class="dv">30</span>, <span class="dv">108</span>, <span class="dv">55</span>, </span>
+<span id="cb269-3"><a href="confidence-and-population-means-ch.-9.html#cb269-3" tabindex="-1"></a>           <span class="dv">24</span>, <span class="dv">28</span>, <span class="dv">47</span>, <span class="dv">39</span>, <span class="dv">31</span>)</span>
+<span id="cb269-4"><a href="confidence-and-population-means-ch.-9.html#cb269-4" tabindex="-1"></a><span class="fu">mean</span>(PtWgt)</span></code></pre></div>
+<pre><code>## [1] 47.45</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="confidence-and-population-means-ch.-9.html#cb271-1" tabindex="-1"></a><span class="fu">mean</span>(PtWgt, <span class="at">trim =</span> .<span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## [1] 37.92857</code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="confidence-and-population-means-ch.-9.html#cb273-1" tabindex="-1"></a><span class="co">#remember that winsor.var requires the &#39;psych&#39; package</span></span>
+<span id="cb273-2"><a href="confidence-and-population-means-ch.-9.html#cb273-2" tabindex="-1"></a><span class="fu">winsor.var</span>(PtWgt, <span class="at">trim =</span> .<span class="dv">17</span>)</span></code></pre></div>
+<pre><code>## [1] 127.0754</code></pre>
+<p>For the ‘Practice’ problems, you’ll find a .pdf of Drennan p131 <a href="&#39;data/Drennan_datasets/Drennan_2009_p131.pdf&#39;">here</a>. Use Tabula to scrape the tables out of it, edit them as needed (putting all the data in a single column - what’s an efficient way to do this?), and then you can address Drennan’s questions.</p>
+<!-- If you are keen to do this all in R, you can use the **tabulapdf** package (I find this trickier than using the browser interface, because you can't see quite what you're doing with respect to the tables in the .pdf, but sometimes it's nice and efficient to keep everything in R.) -->
+<!-- ```{r cache=T} -->
+<!-- # library(tabulapdf) -->
+<!-- # library(tabulizerjars) -->
+<!-- drennan_Ch9tables <- extract_tables("data/Drennan_datasets/Drennan_2009_p131.pdf") -->
+<!-- ``` -->
+<!-- The result is a list (try `str(drennan_Ch9tables)`) of two matrices that you'll want to turn into two different tables.  The lines below index one element of the list (the `[[`), convert the extracted matrix to a character vector, and then make it numeric.  Clunkier than the GUI for Tabula, but worth knowing how to do... -->
+<!-- ```{r} -->
+<!-- table9.4 <- as.numeric(as.vector(drennan_Ch9tables[[1]])) -->
+<!-- table9.5 <- as.numeric(as.vector(drennan_Ch9tables[[2]])) -->
+<!-- ``` -->
+<!-- What happened to the third table?  That's why I tend usually to use the Tabula GUI... -->
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="different-samples-from-the-same-population-ch.-8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resampling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

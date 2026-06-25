@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>22 Principal Components Analysis (Ch.24) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="22 Principal Components Analysis (Ch.24) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="22 Principal Components Analysis (Ch.24) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="22 Principal Components Analysis (Ch.24) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="multidimensional-scaling-ch.html"/>
+<link rel="next" href="cluster-analysis-ch.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="principal-components-analysis-ch.24" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">22</span> Principal Components Analysis (Ch.24)<a href="principal-components-analysis-ch.html#principal-components-analysis-ch.24" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Where multidimensional scaling uses distance matrices to attempt to reduce the variability in a dataset to something interpretable, principal components analysis uses correlations between variables. As Drennan notes, the math that underlies PCA is not for the faint-hearted. Happily the magic of R is such that even the faint-hearted can <em>employ</em> PCA; the trick is beng able to make sense of the results. These can be interpreted in a similar fashion as MDS results; conceptually we hope to be identifying underlying (undocumented) factors responsible for the patterning in multiple variables. In the case of Drennan’s MDS examples in Ch. 23, wealth is hypothesized to drive the patterning in % bowls, investment in burials, % decorated ceramics, and % fauna - Drennan has not measured wealth directly, but argues that the patterning that MDS reveals in these variables is the result of this previously hidden factor. PCA would look for such a hidden factor through a different method: not by considering the (dis)similarity between cases, but rather by examining the ways in which variables are correlated across cases. Where variables can be demonstrated to be correlated (to co-vary), we infer that to be the result of some previously hidden factor.</p>
+<div id="correlations-and-variables" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Correlations and Variables<a href="principal-components-analysis-ch.html#correlations-and-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Correlation between variables will be familiar from regression analysis; picture a scatterplot of two variables that are perfectly correlated and the points will far perfectly along a 45<span class="math inline">\(^\circ\)</span> line, with y increasing as x increases. A matrix of correlations between variables summarizes the correlations for all the various combinations of variables in a dataset.
+Generally a principal components analysis in R will quietly build a correlation matrix simply as one of the steps that happens in the background, and you will never see it. We can look at one here, using <code>cor()</code>, to emphasize the logical parallels to MDS.</p>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="principal-components-analysis-ch.html#cb549-1" tabindex="-1"></a>ixcaq <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Drennan_datasets/Drennan_2009_Table21-1.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb549-2"><a href="principal-components-analysis-ch.html#cb549-2" tabindex="-1"></a></span>
+<span id="cb549-3"><a href="principal-components-analysis-ch.html#cb549-3" tabindex="-1"></a>ixcaq_cormatrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(ixcaq[,<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>]) <span class="co">#excluding first column of Household ID#s</span></span>
+<span id="cb549-4"><a href="principal-components-analysis-ch.html#cb549-4" tabindex="-1"></a>ixcaq_cormatrix</span></code></pre></div>
+<pre><code>##                            Bowls...of.Sherds Decoration...of.Sherds
+## Bowls...of.Sherds               1.0000000000             0.72678585
+## Decoration...of.Sherds          0.7267858492             1.00000000
+## Energy.Invested.in.Burials      0.8758430245             0.75181923
+## Mace.Heads                     -0.0776801253            -0.21491304
+## Fauna.Sherd.Ratio               0.8518046371             0.73618569
+## Platform                        0.0698137835            -0.11722529
+## Shell.Sherd.Ratio               0.0002272341            -0.12867837
+## Wasters...of.Sherds            -0.1324276494             0.08451137
+## Debitage...of.Lithics           0.1222637669            -0.08197672
+## Obsidian...of.Lithics          -0.0351885785            -0.12542541
+##                            Energy.Invested.in.Burials   Mace.Heads
+## Bowls...of.Sherds                          0.87584302 -0.077680125
+## Decoration...of.Sherds                     0.75181923 -0.214913037
+## Energy.Invested.in.Burials                 1.00000000 -0.056819099
+## Mace.Heads                                -0.05681910  1.000000000
+## Fauna.Sherd.Ratio                          0.92567782 -0.011904762
+## Platform                                  -0.05681910  0.523809524
+## Shell.Sherd.Ratio                         -0.02407279  0.744639567
+## Wasters...of.Sherds                       -0.05314075 -0.025051664
+## Debitage...of.Lithics                     -0.04223169  0.002283459
+## Obsidian...of.Lithics                     -0.13193526  0.065042662
+##                            Fauna.Sherd.Ratio    Platform Shell.Sherd.Ratio
+## Bowls...of.Sherds                 0.85180464  0.06981378      0.0002272341
+## Decoration...of.Sherds            0.73618569 -0.11722529     -0.1286783716
+## Energy.Invested.in.Burials        0.92567782 -0.05681910     -0.0240727884
+## Mace.Heads                       -0.01190476  0.52380952      0.7446395673
+## Fauna.Sherd.Ratio                 1.00000000 -0.04497354      0.0354590270
+## Platform                         -0.04497354  1.00000000      0.5612308069
+## Shell.Sherd.Ratio                 0.03545903  0.56123081      1.0000000000
+## Wasters...of.Sherds              -0.09618602  0.32288812     -0.2362898329
+## Debitage...of.Lithics             0.01420819 -0.01141729      0.1887392489
+## Obsidian...of.Lithics            -0.15104352  0.63741809     -0.2034200281
+##                            Wasters...of.Sherds Debitage...of.Lithics
+## Bowls...of.Sherds                  -0.13242765           0.122263767
+## Decoration...of.Sherds              0.08451137          -0.081976724
+## Energy.Invested.in.Burials         -0.05314075          -0.042231691
+## Mace.Heads                         -0.02505166           0.002283459
+## Fauna.Sherd.Ratio                  -0.09618602           0.014208187
+## Platform                            0.32288812          -0.011417293
+## Shell.Sherd.Ratio                  -0.23628983           0.188739249
+## Wasters...of.Sherds                 1.00000000          -0.395091981
+## Debitage...of.Lithics              -0.39509198           1.000000000
+## Obsidian...of.Lithics               0.59311141          -0.282578384
+##                            Obsidian...of.Lithics
+## Bowls...of.Sherds                    -0.03518858
+## Decoration...of.Sherds               -0.12542541
+## Energy.Invested.in.Burials           -0.13193526
+## Mace.Heads                            0.06504266
+## Fauna.Sherd.Ratio                    -0.15104352
+## Platform                              0.63741809
+## Shell.Sherd.Ratio                    -0.20342003
+## Wasters...of.Sherds                   0.59311141
+## Debitage...of.Lithics                -0.28257838
+## Obsidian...of.Lithics                 1.00000000</code></pre>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="principal-components-analysis-ch.html#cb551-1" tabindex="-1"></a><span class="co"># knitr::kable(ixcaq_cormatrix, &quot;latex&quot;) %&gt;%  </span></span>
+<span id="cb551-2"><a href="principal-components-analysis-ch.html#cb551-2" tabindex="-1"></a><span class="co">#   kableExtra::kable_styling(latex_options = &quot;scale_down&quot;)</span></span></code></pre></div>
+<p>The <code>cor()</code> function returns the entire matrix, rather than just the bottom half, but a quick look will show that it’s mirrored around the <code>1.000000</code> values that occupy the diagonal. It can be read like a similarity matrix; the high values at the intersection of ‘%Bowls’ and ‘%Decoration’ or of ‘%Bowls’ and ‘Energy Invested in Burials’ indicate that those variables are relatively highly correlated.</p>
+<p>A full PCA in R can be carried out with the <code>princomp()</code> function.</p>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="principal-components-analysis-ch.html#cb552-1" tabindex="-1"></a>ixcaq_pc <span class="ot">&lt;-</span> <span class="fu">princomp</span>(ixcaq[,<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>], <span class="at">cor=</span><span class="cn">TRUE</span>)</span>
+<span id="cb552-2"><a href="principal-components-analysis-ch.html#cb552-2" tabindex="-1"></a><span class="fu">str</span>(ixcaq_pc)</span></code></pre></div>
+<pre><code>## List of 7
+##  $ sdev    : Named num [1:10] 1.874 1.514 1.449 0.942 0.688 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;Comp.1&quot; &quot;Comp.2&quot; &quot;Comp.3&quot; &quot;Comp.4&quot; ...
+##  $ loadings: &#39;loadings&#39; num [1:10, 1:10] 0.485 0.458 0.504 -0.11 0.498 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:10] &quot;Bowls...of.Sherds&quot; &quot;Decoration...of.Sherds&quot; &quot;Energy.Invested.in.Burials&quot; &quot;Mace.Heads&quot; ...
+##   .. ..$ : chr [1:10] &quot;Comp.1&quot; &quot;Comp.2&quot; &quot;Comp.3&quot; &quot;Comp.4&quot; ...
+##  $ center  : Named num [1:10] 0.267 0.029 1.9 0.3 0.288 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;Bowls...of.Sherds&quot; &quot;Decoration...of.Sherds&quot; &quot;Energy.Invested.in.Burials&quot; &quot;Mace.Heads&quot; ...
+##  $ scale   : Named num [1:10] 0.111 0.0223 0.7681 0.4583 0.165 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;Bowls...of.Sherds&quot; &quot;Decoration...of.Sherds&quot; &quot;Energy.Invested.in.Burials&quot; &quot;Mace.Heads&quot; ...
+##  $ n.obs   : int 20
+##  $ scores  : num [1:20, 1:10] 0.417 3.061 -2.438 -0.678 2.458 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:10] &quot;Comp.1&quot; &quot;Comp.2&quot; &quot;Comp.3&quot; &quot;Comp.4&quot; ...
+##  $ call    : language princomp(x = ixcaq[, 2:11], cor = TRUE)
+##  - attr(*, &quot;class&quot;)= chr &quot;princomp&quot;</code></pre>
+<p>The <code>str(ixcaq_pc)</code> command lets us examine the object produced by running <code>princomp()</code>. As the ‘Value’ section of <code>?princomp</code> will tell you, this object is a list that has seven elements. These include:</p>
+<ul>
+<li>The standard deviations of the components (accessed by <code>ixcaq_pc$sdev</code>). Squaring produces the variances (eignenvalues) that Drennan gives in Table 24.1. An eigenvalue is the amount of variance in the dataset relative to a particular direction (the eigenvector, of which there are as many as there are dimensions - variables - in the dataset).</li>
+<li>The component loadings (<code>ixcaq_pc$loadings</code>) reflect the contribution of each of the original ten variables to the component. The <code>princomp()</code> function standardizes the loadings so that the sum of the squared loadings equals 1. Drennan uses loadings (e.g. in Table 24.2) that are standardized by the variance (eigenvalue) of the component. We can calculate these by multiplying the loadings that <code>princomp()</code> returns by the standard deviations (see below).</li>
+<li>The means and standard deviations of the original variables (<code>ixcaq_pc$center</code> and <code>ixcaq_pc$scale</code>).</li>
+<li>A matrix of the rows (cases/observations) and the component scores (<code>ixcaq_pc$scores</code>). The scores give us a way of plotting the original data in a reduced space (fewer than the 10 dimensions represented by the original data).</li>
+<li>The command we used to produce these results (<code>ixcaq_pc$call</code>).</li>
+</ul>
+<p>We can use the <code>ixcaq_pc</code> object to produce Tables 24.1 and 24.2, then.</p>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="principal-components-analysis-ch.html#cb554-1" tabindex="-1"></a>Table24<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Eigenvalue =</span> <span class="fu">round</span>(ixcaq_pc<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>,<span class="dv">3</span>), <span class="at">Eigenvalue.per.TotalVariables =</span></span>
+<span id="cb554-2"><a href="principal-components-analysis-ch.html#cb554-2" tabindex="-1"></a>                          (<span class="fu">round</span>((ixcaq_pc<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">10</span>,<span class="dv">4</span>))); Table24<span class="fl">.1</span></span></code></pre></div>
+<pre><code>##         Eigenvalue Eigenvalue.per.TotalVariables
+## Comp.1       3.511                        0.3511
+## Comp.2       2.291                        0.2291
+## Comp.3       2.100                        0.2100
+## Comp.4       0.887                        0.0887
+## Comp.5       0.473                        0.0473
+## Comp.6       0.326                        0.0326
+## Comp.7       0.213                        0.0213
+## Comp.8       0.110                        0.0110
+## Comp.9       0.063                        0.0063
+## Comp.10      0.027                        0.0027</code></pre>
+<p>Table 24.2 is a bit trickier, because we have to standardize the loadings by the eigenvalues. To perform the same function (multiplying by the standard deviation, in this case) on each column of a data frame, we can use <code>sweep()</code>.</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="principal-components-analysis-ch.html#cb556-1" tabindex="-1"></a>ixcaq_pc_loadings <span class="ot">&lt;-</span> <span class="fu">sweep</span>(ixcaq_pc<span class="sc">$</span>loadings, <span class="dv">2</span>, ixcaq_pc<span class="sc">$</span>sdev, <span class="st">&quot;*&quot;</span>); ixcaq_pc_loadings</span></code></pre></div>
+<pre><code>## 
+## Loadings:
+##                            Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7
+## Bowls...of.Sherds           0.909  0.223         0.193  0.145              
+## Decoration...of.Sherds      0.858         0.193        -0.261  0.257 -0.289
+## Energy.Invested.in.Burials  0.944  0.173                      -0.127  0.125
+## Mace.Heads                 -0.207  0.750 -0.399 -0.285        -0.320 -0.223
+## Fauna.Sherd.Ratio           0.933  0.197                      -0.144  0.110
+## Platform                   -0.205  0.905  0.111  0.251         0.207       
+## Shell.Sherd.Ratio          -0.108  0.683 -0.640 -0.171 -0.118  0.207  0.130
+## Wasters...of.Sherds        -0.157  0.291  0.788        -0.481 -0.128  0.128
+## Debitage...of.Lithics                    -0.593  0.747 -0.249 -0.125       
+## Obsidian...of.Lithics      -0.253  0.479  0.710  0.327  0.257        -0.116
+##                            Comp.8 Comp.9 Comp.10
+## Bowls...of.Sherds           0.238               
+## Decoration...of.Sherds                          
+## Energy.Invested.in.Burials        -0.193        
+## Mace.Heads                                      
+## Fauna.Sherd.Ratio          -0.198  0.122        
+## Platform                                 -0.101 
+## Shell.Sherd.Ratio                               
+## Wasters...of.Sherds                             
+## Debitage...of.Lithics                           
+## Obsidian...of.Lithics                           
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8 Comp.9
+## SS loadings     3.511  2.291   2.10  0.887  0.473  0.326  0.213  0.110  0.063
+## Proportion Var  0.351  0.229   0.21  0.089  0.047  0.033  0.021  0.011  0.006
+## Cumulative Var  0.351  0.580   0.79  0.879  0.926  0.959  0.980  0.991  0.997
+##                Comp.10
+## SS loadings      0.027
+## Proportion Var   0.003
+## Cumulative Var   1.000</code></pre>
+<p>A couple of things to note about <code>ixcaq_pc_loadings</code>:
+* First, in fact it combines Tables 24.1 and 24.2, including the former (in slightly different format) at the bottom. In addition to the eigenvalues (labeled ‘SS loadings’) and the eigenvalues as a proportion of the number of variables (‘Proportion Var’), this lower table also includes the cumulative amount of variation accounted for by each component.
+* Second, while the values in the upper table now match Table 24.2, it’s different in a couple of respects. You’ll notice that <code>princomp()</code> by default doesn’t display low values, so anything &lt;.10 shows up as a blank in the table (if you want to see these, try <code>ixcaq_pc_loadings[]</code>); it also defaults to showing the loadings on all the components, while Drennan truncates his table after the first five (quite reasonably, because a PCA that makes you think about more than half as many dimensions as you already had probably isn’t doing you any favors; the whole point is to reduce variability). Drennan has also reordered the data in Table 24.2 to highlight the highest loadings on each component. We could come up with a function to do this, but since it’s not something we’ll do again it’s simpler to just reorder the rows in the table manually:</p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="principal-components-analysis-ch.html#cb558-1" tabindex="-1"></a>Table24<span class="fl">.2</span> <span class="ot">&lt;-</span> ixcaq_pc_loadings[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">9</span>),<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<p>Note that the result demonstrates interesting things about both PCA and Springer. The positive and negative signs that we have generated for Component 1 are opposite those that Drennan gives, because in PCA results only the relative relationships of positive/negative matter. The other components that we’ve produced have a mix of positive and negative signs, while Drennan’s numbers are all positive, demonstrating that Springer’s copy-editing is half-assed: this is in fact a misprint, and some of the values in Drennan’s table should be negative.</p>
+</div>
+<div id="carrying-out-the-analysis" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Carrying Out the Analysis<a href="principal-components-analysis-ch.html#carrying-out-the-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Drennan does not provide any visual displays of PCA, but these can be quite useful. These are most intelligible as bivariate plots that display only two of the principal components, and are easy to construct in R using <code>biplot()</code>. We’ll monkey with the axis labels to make them more informative, using the results we’ve calculated for how much variance in the data is explained by each component.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="principal-components-analysis-ch.html#cb559-1" tabindex="-1"></a><span class="fu">biplot</span>(ixcaq_pc, <span class="at">cex =</span> .<span class="dv">8</span>, <span class="at">xlab =</span> </span>
+<span id="cb559-2"><a href="principal-components-analysis-ch.html#cb559-2" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;standardized PC1 (&quot;</span>, <span class="fu">round</span>(Table24<span class="fl">.1</span>[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">&quot;% explained var.)&quot;</span>), </span>
+<span id="cb559-3"><a href="principal-components-analysis-ch.html#cb559-3" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="fu">paste0</span>(<span class="st">&quot;standardized PC2 (&quot;</span>, <span class="fu">round</span>(Table24<span class="fl">.1</span>[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">&quot;% explained var.)&quot;</span>)) <span class="co">#defaults to first two components</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-195-1.png" width="672" /></p>
+<p>The plot uses the two principal components that we specify (by default the first two, i.e. those that explain the most variation in the dataset) as the x and y axes, and plots the cases (each row or observation - households, in this case) in that space. It <em>also</em> plots the original variables, as arrows (vectors) originating at the plot’s (0,0) point; the direction of the arrows reflects the component loadings and the length of the arrows reflects the amount of variance in that variable explained by that component. The arrows thus give a sense of which variables contribute most to each component (or, thought about the other way around, which components account for which variables).
+This is apparent in how this biplot and Table 24.2 complement one another. The red arrows roughly parallel to Component 1 indicate that %Decorated, %Bowls, %Fauna, and Energy Invested in Burials are strongly related to Component 1; not coincidentally these are the four loadings that Drennan highlights in Table 24.2 (p304). We can also see that three variables (Platforms, Mace heads in burials, and Shell/Sherd ratio) have strong loadings on Component 2, with to other variables (%Obisidian and %Wasters) somewhat related as well. The plotted locations of households in this space suggest that Households 2, 5, 9, and 15 score highly on PC1, while Households 8, 11, and 13 score highly on PC2. This is consistent with the groupings suggested by MDS in Ch. 23.</p>
+<p>We can look at other components than the first two by using the <code>choices=</code> argument to <code>biplot()</code>.</p>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="principal-components-analysis-ch.html#cb560-1" tabindex="-1"></a><span class="fu">biplot</span>(ixcaq_pc, <span class="at">cex =</span> .<span class="dv">8</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">xlab =</span> </span>
+<span id="cb560-2"><a href="principal-components-analysis-ch.html#cb560-2" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;standardized PC1 (&quot;</span>, <span class="fu">round</span>(Table24<span class="fl">.1</span>[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">&quot;% explained var.)&quot;</span>),</span>
+<span id="cb560-3"><a href="principal-components-analysis-ch.html#cb560-3" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="fu">paste0</span>(<span class="st">&quot;standardized PC3 (&quot;</span>, <span class="fu">round</span>(Table24<span class="fl">.1</span>[<span class="dv">3</span>,<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">&quot;% explained var.)&quot;</span>))</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-196-1.png" width="672" /></p>
+<p>In this case looking at PC3 makes it clear that the variables %Wasters and %Obsidian, which on the previous plot looked like they might be related to the variables strongly associated with PC2, are much more related to PC3, and in a way very different than Mace heads, Platforms, and Shell/Sherd ratio. That is, looking at the third principal component helps us to better interpret both the significance of PC2 and the overall patterning.</p>
+<p>To experiment with rotation of the component loadings (see Drennan p306) we have to turn to a different implementation of PCA in R: <code>principal()</code>, from the <strong>psych</strong> package.</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="principal-components-analysis-ch.html#cb561-1" tabindex="-1"></a>ixcaq_pcrot <span class="ot">&lt;-</span> <span class="fu">principal</span>(ixcaq[,<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>], <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>)</span>
+<span id="cb561-2"><a href="principal-components-analysis-ch.html#cb561-2" tabindex="-1"></a>Table24<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">round</span>(ixcaq_pcrot<span class="sc">$</span>loadings[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">9</span>,<span class="dv">8</span>),<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="dv">3</span>); Table24<span class="fl">.3</span></span></code></pre></div>
+<pre><code>##                               RC1    RC2    RC3    RC4    RC5
+## Energy.Invested.in.Burials  0.960 -0.008 -0.044 -0.068 -0.047
+## Fauna.Sherd.Ratio           0.950  0.045 -0.061 -0.020 -0.068
+## Bowls...of.Sherds           0.937 -0.027  0.129  0.127 -0.151
+## Decoration...of.Sherds      0.854 -0.128 -0.164 -0.022  0.272
+## Shell.Sherd.Ratio          -0.002  0.946 -0.058  0.151 -0.103
+## Mace.Heads                 -0.068  0.908  0.099 -0.087 -0.023
+## Platform                    0.008  0.597  0.744  0.087  0.155
+## Obsidian...of.Lithics      -0.089 -0.088  0.934 -0.166  0.237
+## Debitage...of.Lithics      -0.004  0.051 -0.097  0.970 -0.168
+## Wasters...of.Sherds        -0.041 -0.086  0.374 -0.224  0.874</code></pre>
+<p>Note that the signs for the first, fourth, and fifth components (labeled ‘RC1’ rather than ‘PC1’ to show that it is rotated) are opposite Drennan’s, and that we’ve had to reorder the rows manually to match Drennan’s ordering.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multidimensional-scaling-ch.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cluster-analysis-ch.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

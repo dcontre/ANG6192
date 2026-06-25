@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>18 Sampling a Site or Region with Spatial Units (Ch. 18) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="18 Sampling a Site or Region with Spatial Units (Ch. 18) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="18 Sampling a Site or Region with Spatial Units (Ch. 18) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="18 Sampling a Site or Region with Spatial Units (Ch. 18) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sampling-a-population-with-subgroups-ch.-17.html"/>
+<link rel="next" href="sampling-without-finding-anything-ch.-19.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sampling-a-site-or-region-with-spatial-units-ch.-18" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">18</span> Sampling a Site or Region with Spatial Units (Ch. 18)<a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#sampling-a-site-or-region-with-spatial-units-ch.-18" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The realities of sampling are such that we often sample spatially, and as a result in practice deal with cluster samples more often than simple random samples.</p>
+<div id="estimating-population-proportions" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> Estimating Population Proportions<a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calculating the standard error of a proportion from a cluster sample features a more complicated equation than simply calculating the standard error of a proportion, but needn’t in practice be difficult. That equation is <span class="math display">\[SE=\sqrt{(\frac{1}{n})(\frac{\Sigma{(\frac{x}{y}-P)^2(\frac{yn}{Y})^2}}{n-1})(1-\frac{n}{N})}\]</span>
+where <em>SE</em> is the standard error of the proportion, <em>n</em> is the sample size (the number of clusters sampled), <em>N</em> is the population size (the number of clusters in the population that <em>could</em> have been sampled), <em>x</em> is the quantity of object <em>x</em> in a given cluster, <em>y</em> is the quantity of object <em>y</em> in that same cluster, <em>P</em> is the estimate of the proportion <span class="math inline">\(\frac{x}{y}\)</span> for the population, and <em>Y</em> is <span class="math inline">\(\Sigma{y}\)</span> (the total quantity of object <em>y</em> in the population).
+Table 18.1 provides counts of sherds from ten randomly sampled excavation units, which Drennan uses to explore how to calculate the standard error of a proportion from a cluster sample.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb453-1" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Unit =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">29</span>, <span class="dv">31</span>,<span class="dv">37</span>, <span class="dv">56</span>, <span class="dv">72</span>, <span class="dv">83</span>, <span class="dv">87</span>, <span class="dv">91</span>), </span>
+<span id="cb453-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb453-2" tabindex="-1"></a>                     <span class="at">CMsherds =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">19</span>, <span class="dv">17</span>, <span class="dv">21</span>, <span class="dv">18</span>, <span class="dv">30</span>, <span class="dv">19</span>, <span class="dv">12</span>),</span>
+<span id="cb453-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb453-3" tabindex="-1"></a>                     <span class="at">TotalSherds =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">27</span>, <span class="dv">38</span>, <span class="dv">73</span>, <span class="dv">55</span>, <span class="dv">41</span>, <span class="dv">63</span>, <span class="dv">81</span>, <span class="dv">56</span>, <span class="dv">34</span>))</span>
+<span id="cb453-4"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb453-4" tabindex="-1"></a><span class="fu">kable_classic</span>(<span class="fu">kable</span>(sherds), <span class="at">full_width =</span> F)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Unit
+</th>
+<th style="text-align:right;">
+CMsherds
+</th>
+<th style="text-align:right;">
+TotalSherds
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+73
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+55
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+41
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+81
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+34
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table 18.2, which contains the elements of the standard error calculation, we can produce through vectorized operations. Note that because we are defining some of these columns with reference to others, they have to be calculated in the sequence written (e.g., <code>sherds$yn2</code> cannot be calculated until <code>sherds$yn</code> has been calculated). We could avoid this by writing more complicated code.</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-1" tabindex="-1"></a>sherds<span class="sc">$</span>xy.prop <span class="ot">&lt;-</span> <span class="fu">round</span>(sherds<span class="sc">$</span>CMsherds <span class="sc">/</span> sherds<span class="sc">$</span>TotalSherds, <span class="dv">3</span>)</span>
+<span id="cb454-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-2" tabindex="-1"></a>sherds<span class="sc">$</span>xy.prop.dev <span class="ot">&lt;-</span> <span class="fu">round</span>((sherds<span class="sc">$</span>CMsherds <span class="sc">/</span> sherds<span class="sc">$</span>TotalSherds) <span class="sc">-</span> </span>
+<span id="cb454-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-3" tabindex="-1"></a>  (<span class="fu">sum</span>(sherds<span class="sc">$</span>CMsherds) <span class="sc">/</span> <span class="fu">sum</span>(sherds<span class="sc">$</span>TotalSherds)), <span class="dv">3</span>)</span>
+<span id="cb454-4"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-4" tabindex="-1"></a>sherds<span class="sc">$</span>xy.prop.dev2 <span class="ot">&lt;-</span> <span class="fu">round</span>(sherds<span class="sc">$</span>xy.prop.dev<span class="sc">^</span><span class="dv">2</span>, <span class="dv">6</span>) </span>
+<span id="cb454-5"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-5" tabindex="-1"></a>sherds<span class="sc">$</span>yn <span class="ot">&lt;-</span> (sherds<span class="sc">$</span>TotalSherds<span class="sc">*</span><span class="fu">length</span>(sherds<span class="sc">$</span>Unit)) <span class="sc">/</span> <span class="fu">sum</span>(sherds<span class="sc">$</span>TotalSherds)</span>
+<span id="cb454-6"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-6" tabindex="-1"></a>sherds<span class="sc">$</span>yn2 <span class="ot">&lt;-</span> (sherds<span class="sc">$</span>yn)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb454-7"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-7" tabindex="-1"></a>sherds<span class="sc">$</span>weights <span class="ot">&lt;-</span> <span class="fu">round</span>(sherds<span class="sc">$</span>xy.prop.dev2 <span class="sc">*</span> sherds<span class="sc">$</span>yn2, <span class="dv">6</span>)</span>
+<span id="cb454-8"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb454-8" tabindex="-1"></a><span class="fu">head</span>(sherds)</span></code></pre></div>
+<pre><code>##   Unit CMsherds TotalSherds xy.prop xy.prop.dev xy.prop.dev2   yn    yn2
+## 1    7       10          32   0.312      -0.037     0.001369 0.64 0.4096
+## 2   18       13          27   0.481       0.131     0.017161 0.54 0.2916
+## 3   29       16          38   0.421       0.071     0.005041 0.76 0.5776
+## 4   31       19          73   0.260      -0.090     0.008100 1.46 2.1316
+## 5   37       17          55   0.309      -0.041     0.001681 1.10 1.2100
+## 6   56       21          41   0.512       0.162     0.026244 0.82 0.6724
+##    weights
+## 1 0.000561
+## 2 0.005004
+## 3 0.002912
+## 4 0.017266
+## 5 0.002034
+## 6 0.017646</code></pre>
+<p>Summing the last column provides the numerator for the middle term of the equation for calculating <em>SE</em> from cluster samples.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb456-1" tabindex="-1"></a><span class="fu">sum</span>(sherds<span class="sc">$</span>weights)</span></code></pre></div>
+<pre><code>## [1] 0.053132</code></pre>
+<p>That quantity - 0.053132 - can be plugged into the equation for calculating <em>SE</em>, along with values for <em>n</em> and <em>N</em>.</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb458-1" tabindex="-1"></a><span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>) <span class="sc">*</span> (<span class="fu">sum</span>(sherds<span class="sc">$</span>weights) <span class="sc">/</span> (<span class="dv">10-1</span>)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">10</span><span class="sc">/</span><span class="dv">100</span>)))</span></code></pre></div>
+<pre><code>## [1] 0.02305038</code></pre>
+<p>Calculating this way has the advantage of being easy to follow (and troubleshoot), but a function is much more efficient.</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-1" tabindex="-1"></a>SECluster <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, N, ...) {</span>
+<span id="cb460-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-2" tabindex="-1"></a>     P <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">sum</span>(y)</span>
+<span id="cb460-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-3" tabindex="-1"></a>     Y <span class="ot">&lt;-</span> <span class="fu">sum</span>(y)</span>
+<span id="cb460-4"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-4" tabindex="-1"></a>     n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb460-5"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-5" tabindex="-1"></a>     <span class="fu">return</span>(<span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">/</span>n)<span class="sc">*</span>(<span class="fu">sum</span>(((x<span class="sc">/</span>y <span class="sc">-</span> P)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>(y<span class="sc">*</span>n<span class="sc">/</span>Y)<span class="sc">^</span><span class="dv">2</span>), <span class="at">na.rm=</span>T)<span class="sc">/</span>(n <span class="sc">-</span> <span class="dv">1</span>))<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N)))</span>
+<span id="cb460-6"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-6" tabindex="-1"></a>}</span>
+<span id="cb460-7"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-7" tabindex="-1"></a></span>
+<span id="cb460-8"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb460-8" tabindex="-1"></a><span class="fu">SECluster</span>(sherds<span class="sc">$</span>CMsherds, sherds<span class="sc">$</span>TotalSherds, <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02306643</code></pre>
+</div>
+<div id="estimating-population-means" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Estimating Population Means<a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Estimating population means from cluster samples involves a similar procedure. The equation for standard error of the mean is <span class="math display">\[SE=\sqrt{(\frac{1}{n})(\frac{\Sigma{(\bar{x}-\bar{X})^2(\frac{yn}{Y})^2}}{n-1})(1-\frac{n}{N})}\]</span>
+where <em>SE</em> is the standard error of the mean, <em>n</em> is the number of clusters in the sample, <em>N</em> is the number of clusters in the population, <span class="math inline">\(\bar{x}\)</span> is the mean of <em>x</em> in a cluster, <span class="math inline">\(\bar{X}\)</span> is the estimated population mean of <em>x</em> (the overall sample mean), <em>y</em> is the quantity of objects in a cluster for which <em>x</em> has been measured, and <em>Y</em> is <span class="math inline">\(\Sigma{y}\)</span> (the total quantity of <em>y</em> in all the clusters in the sample).</p>
+<p>Table 18.3 provides some sample data, in a format that is a bit complicated: the second column (projectile point lengths) is itself a vector, with between 1 and 5 elements. We can produce this in R using a <code>list</code>, which is a useful thing to be familiar with.</p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb462-1" tabindex="-1"></a>ProjPointLengths <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Unit =</span> sherds<span class="sc">$</span>Unit, <span class="at">Lengths =</span> </span>
+<span id="cb462-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb462-2" tabindex="-1"></a>                                 <span class="fu">I</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">23</span>), <span class="dv">17</span>, <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">23</span>), </span>
+<span id="cb462-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb462-3" tabindex="-1"></a>                                   <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">27</span>), <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">19</span>), <span class="dv">24</span>, </span>
+<span id="cb462-4"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb462-4" tabindex="-1"></a>                                   <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">26</span>, <span class="dv">28</span>, <span class="dv">29</span>), <span class="dv">16</span>, <span class="dv">28</span>, <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">26</span>))))</span>
+<span id="cb462-5"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb462-5" tabindex="-1"></a>ProjPointLengths</span></code></pre></div>
+<pre><code>##    Unit      Lengths
+## 1     7   15, 19, 23
+## 2    18           17
+## 3    29       18, 23
+## 4    31   18, 18, 27
+## 5    37       18, 19
+## 6    56           24
+## 7    72 20, 21, ....
+## 8    83           16
+## 9    87           28
+## 10   91       25, 26</code></pre>
+<p>You can use this data frame to build Table 18.4, but we’ll skip straight to calculating standard error - with the exception of a quick note about the complications introduced by having a list within a data frame. We can no longer rely on simple vectorization (try <code>mean(ProjPointLengths$Lengths)</code>), because that column is a list rather than a simple vector; instead we have to use <code>sapply()</code> or something like it.</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb464-1" tabindex="-1"></a>ProjPointLengths<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ProjPointLengths<span class="sc">$</span>Lengths, length)</span>
+<span id="cb464-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb464-2" tabindex="-1"></a>ProjPointLengths<span class="sc">$</span>xbar <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ProjPointLengths<span class="sc">$</span>Lengths, mean)</span>
+<span id="cb464-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb464-3" tabindex="-1"></a><span class="fu">head</span>(ProjPointLengths)</span></code></pre></div>
+<pre><code>##   Unit    Lengths Y xbar
+## 1    7 15, 19, 23 3 19.0
+## 2   18         17 1 17.0
+## 3   29     18, 23 2 20.5
+## 4   31 18, 18, 27 3 21.0
+## 5   37     18, 19 2 18.5
+## 6   56         24 1 24.0</code></pre>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb466-1" tabindex="-1"></a>ProjPointLengths_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(ProjPointLengths<span class="sc">$</span>Lengths))</span></code></pre></div>
+<p>Rather than produce the remaining columns of Table 18.4 (and please note that the second column in Table 18.4 on Drennan p248 should be <em>y</em>, <strong>not</strong> <em>Y</em>), we’ll opt for a function that will take care of that for us.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-1" tabindex="-1"></a>SEmeanCluster <span class="ot">&lt;-</span> <span class="cf">function</span>(x, N) {</span>
+<span id="cb467-2"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-2" tabindex="-1"></a>     y <span class="ot">&lt;-</span> <span class="fu">sapply</span>(x, length)</span>
+<span id="cb467-3"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-3" tabindex="-1"></a>     xbar <span class="ot">&lt;-</span> <span class="fu">sapply</span>(x, mean)</span>
+<span id="cb467-4"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-4" tabindex="-1"></a>     Xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(x))</span>
+<span id="cb467-5"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-5" tabindex="-1"></a>     n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb467-6"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-6" tabindex="-1"></a>     Y <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unlist</span>(x))</span>
+<span id="cb467-7"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-7" tabindex="-1"></a>     <span class="fu">return</span>(<span class="fu">round</span>(<span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">/</span>n)<span class="sc">*</span>(<span class="fu">sum</span>(((xbar <span class="sc">-</span> Xbar)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>(y<span class="sc">*</span>n<span class="sc">/</span>Y)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(n <span class="sc">-</span> <span class="dv">1</span>))<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N))),<span class="dv">2</span>))</span>
+<span id="cb467-8"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-8" tabindex="-1"></a>}</span>
+<span id="cb467-9"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-9" tabindex="-1"></a></span>
+<span id="cb467-10"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb467-10" tabindex="-1"></a>ProjPointLengths_SE <span class="ot">&lt;-</span> <span class="fu">SEmeanCluster</span>(ProjPointLengths<span class="sc">$</span>Lengths, <span class="dv">100</span>); ProjPointLengths_SE</span></code></pre></div>
+<pre><code>## [1] 1.07</code></pre>
+<p>We can use that standard error to calculate the error range in our estimate of the mean at a given confidence level.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#cb469-1" tabindex="-1"></a><span class="fu">qt</span>((.<span class="dv">95</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df=</span><span class="dv">9</span>) <span class="sc">*</span> ProjPointLengths_SE</span></code></pre></div>
+<pre><code>## [1] 2.420508</code></pre>
+<p>We can be 95% confident that the mean length of all the projectile points at the site is 21.8mm ± 2.4mm.</p>
+</div>
+<div id="densities" class="section level2 hasAnchor" number="18.3">
+<h2><span class="header-section-number">18.3</span> Densities<a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note that whether a sample can be treated as a simple random sample or a cluster sample depends on the unit of analysis. As Drennan notes, for the example above a measure like density of sherds/unit could be treated as a simple random sample, because density is a property of the unit (e.g., the grid square), and since those units were selected randomly they can be treated as a simple random sample. You can follow Drennan’s logic (and math) on p249 using the methods covered in Ch.9.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sampling-a-population-with-subgroups-ch.-17.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sampling-without-finding-anything-ch.-19.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

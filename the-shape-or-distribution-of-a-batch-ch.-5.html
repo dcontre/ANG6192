@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 The Shape or Distribution of a Batch (Ch. 5) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="5 The Shape or Distribution of a Batch (Ch. 5) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 The Shape or Distribution of a Batch (Ch. 5) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 The Shape or Distribution of a Batch (Ch. 5) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="comparing-batches-ch.-4.html"/>
+<link rel="next" href="categories-ch.-6.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-shape-or-distribution-of-a-batch-ch.-5" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> The Shape or Distribution of a Batch (Ch. 5)<a href="the-shape-or-distribution-of-a-batch-ch.-5.html#the-shape-or-distribution-of-a-batch-ch.-5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>First we’ll need some data on volumes of Bell-Shaped Storage Pits at the Buena Vista and Buenos Aires Sites.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb134-1" tabindex="-1"></a>BVPits <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Volume =</span> <span class="fu">c</span>(<span class="fl">1.23</span>, <span class="fl">1.48</span>, <span class="fl">1.55</span>, <span class="fl">1.38</span>, <span class="fl">1.10</span>, <span class="fl">1.02</span>, <span class="fl">1.29</span>, <span class="fl">1.32</span>, <span class="fl">1.35</span>, </span>
+<span id="cb134-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb134-2" tabindex="-1"></a>                              <span class="fl">1.65</span>, <span class="fl">1.39</span>, <span class="fl">1.40</span>, <span class="fl">1.12</span>, <span class="fl">1.46</span>, <span class="fl">1.24</span>, <span class="fl">1.34</span>, <span class="fl">1.21</span>, <span class="fl">1.45</span>, <span class="fl">1.51</span>))</span>
+<span id="cb134-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb134-3" tabindex="-1"></a>aplpack<span class="sc">::</span><span class="fu">stem.leaf</span>(BVPits<span class="sc">$</span>Volume, <span class="at">unit =</span> .<span class="dv">01</span>)</span></code></pre></div>
+<pre><code>## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##    1    10 | 2
+##    3    11 | 02
+##    7    12 | 1349
+##   (5)   13 | 24589
+##    7    14 | 0568
+##    3    15 | 15
+##    1    16 | 5</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb136-1" tabindex="-1"></a>BAPits <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Volume =</span> <span class="fu">c</span>(<span class="fl">1.22</span>, <span class="fl">1.64</span>, <span class="fl">1.16</span>, <span class="fl">1.07</span>, <span class="fl">1.50</span>, <span class="fl">1.84</span>, <span class="fl">1.37</span>, <span class="fl">1.15</span>, <span class="fl">1.29</span>, </span>
+<span id="cb136-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb136-2" tabindex="-1"></a>                              <span class="fl">1.32</span>, <span class="fl">2.03</span>, <span class="fl">1.17</span>, <span class="fl">1.04</span>, <span class="fl">1.43</span>, <span class="fl">1.11</span>, <span class="fl">1.40</span>, <span class="fl">1.26</span>))</span>
+<span id="cb136-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb136-3" tabindex="-1"></a>aplpack<span class="sc">::</span><span class="fu">stem.leaf</span>(BAPits<span class="sc">$</span>Volume, <span class="at">unit =</span> .<span class="dv">01</span>, <span class="at">trim.outliers =</span> F)</span></code></pre></div>
+<pre><code>## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 17
+##    2    10 | 47
+##    6    11 | 1567
+##   (3)   12 | 269
+##    8    13 | 27
+##    6    14 | 03
+##    4    15 | 0
+##    3    16 | 4
+##         17 | 
+##    2    18 | 4
+##         19 | 
+##    1    20 | 3</code></pre>
+<p>Using those stem-and-leaf plots, compare the symmetry of storage pit volumes from the Buena Vista Site with the asymmetry of the pit volumes from the Buenos Aires Site.</p>
+<p>Drennan experiments with seven different transformations. We’ll produce those all at once, using <code>transform()</code>.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb138-1" tabindex="-1"></a><span class="co">#transform the pit volume data in various ways</span></span>
+<span id="cb138-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb138-2" tabindex="-1"></a>BVPits <span class="ot">&lt;-</span> <span class="fu">transform</span>(BVPits, <span class="at">Vsqrt =</span> <span class="fu">sqrt</span>(Volume), <span class="at">Vlog =</span> <span class="fu">log</span>(Volume), <span class="at">VInv =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>Volume,</span>
+<span id="cb138-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb138-3" tabindex="-1"></a>                    <span class="at">VInvsq =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>Volume<span class="sc">^</span><span class="dv">2</span>, <span class="at">V2 =</span> Volume<span class="sc">^</span><span class="dv">2</span>, <span class="at">V3 =</span> Volume<span class="sc">^</span><span class="dv">3</span>, <span class="at">V4 =</span> Volume<span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb138-4"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb138-4" tabindex="-1"></a>BVPits  <span class="co">#examine the result</span></span></code></pre></div>
+<pre><code>##    Volume    Vsqrt       Vlog       VInv     VInvsq     V2       V3       V4
+## 1    1.23 1.109054 0.20701417 -0.8130081 -0.6609822 1.5129 1.860867 2.288866
+## 2    1.48 1.216553 0.39204209 -0.6756757 -0.4565376 2.1904 3.241792 4.797852
+## 3    1.55 1.244990 0.43825493 -0.6451613 -0.4162331 2.4025 3.723875 5.772006
+## 4    1.38 1.174734 0.32208350 -0.7246377 -0.5250998 1.9044 2.628072 3.626739
+## 5    1.10 1.048809 0.09531018 -0.9090909 -0.8264463 1.2100 1.331000 1.464100
+## 6    1.02 1.009950 0.01980263 -0.9803922 -0.9611688 1.0404 1.061208 1.082432
+## 7    1.29 1.135782 0.25464222 -0.7751938 -0.6009254 1.6641 2.146689 2.769229
+## 8    1.32 1.148913 0.27763174 -0.7575758 -0.5739210 1.7424 2.299968 3.035958
+## 9    1.35 1.161895 0.30010459 -0.7407407 -0.5486968 1.8225 2.460375 3.321506
+## 10   1.65 1.284523 0.50077529 -0.6060606 -0.3673095 2.7225 4.492125 7.412006
+## 11   1.39 1.178983 0.32930375 -0.7194245 -0.5175716 1.9321 2.685619 3.733010
+## 12   1.40 1.183216 0.33647224 -0.7142857 -0.5102041 1.9600 2.744000 3.841600
+## 13   1.12 1.058301 0.11332869 -0.8928571 -0.7971939 1.2544 1.404928 1.573519
+## 14   1.46 1.208305 0.37843644 -0.6849315 -0.4691312 2.1316 3.112136 4.543719
+## 15   1.24 1.113553 0.21511138 -0.8064516 -0.6503642 1.5376 1.906624 2.364214
+## 16   1.34 1.157584 0.29266961 -0.7462687 -0.5569169 1.7956 2.406104 3.224179
+## 17   1.21 1.100000 0.19062036 -0.8264463 -0.6830135 1.4641 1.771561 2.143589
+## 18   1.45 1.204159 0.37156356 -0.6896552 -0.4756243 2.1025 3.048625 4.420506
+## 19   1.51 1.228821 0.41210965 -0.6622517 -0.4385773 2.2801 3.442951 5.198856</code></pre>
+<p>You’ll note from Fig. 5.1 that Drennan also examines the results by producing stem-and-leaf plots and boxplots for each of the transformed variables. We’ll use the powerful-but-confusing <code>apply()</code> function to do this, mostly just so that you can become aware of its existence (think about other ways you might do this). As <code>?apply</code> will tell you if you can decipher it, <code>apply()</code> takes an input array (a type of data structure; conveniently a data frame is similar to a two-dimensional array) and applies a function to one of its margins. In the case below, we specify that we’d like the <code>stem.leaf()</code> function - with some arguments that we include (e.g., <code>trim.outliers = F</code>) - applied to each column (<code>MARGIN = 2</code>) in <code>BVPits</code>.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb140-1" tabindex="-1"></a><span class="co">#Use apply() to have stem.leaf applied to each column</span></span>
+<span id="cb140-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb140-2" tabindex="-1"></a><span class="fu">apply</span>(BVPits, <span class="dv">2</span>, aplpack<span class="sc">::</span>stem.leaf, <span class="at">trim.outliers =</span> F, </span>
+<span id="cb140-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb140-3" tabindex="-1"></a>              <span class="at">depths =</span> F, <span class="at">style =</span> <span class="st">&quot;bare&quot;</span>)</span></code></pre></div>
+<pre><code>## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##    10 | 2
+##    11 | 02
+##    12 | 1349
+##    13 | 24589
+##    14 | 0568
+##    15 | 15
+##    16 | 5
+## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##    10 | 04
+##    10 | 5
+##    11 | 00134
+##    11 | 56778
+##    12 | 00124
+##    12 | 8
+## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##    0 | 1
+##    0 | 9
+##    1 | 1
+##    1 | 9
+##    2 | 01
+##    2 | 579
+##    3 | 0223
+##    3 | 779
+##    4 | 13
+##    4 | 
+##    5 | 0
+## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##     -9 | 8
+##     -9 | 0
+##     -8 | 9
+##     -8 | 210
+##     -7 | 75
+##     -7 | 44211
+##     -6 | 8876
+##     -6 | 40
+## 1 | 2: represents 0.12
+##  leaf unit: 0.01
+##             n: 19
+##     -9 | 6
+##     -9 | 
+##     -8 | 
+##     -8 | 2
+##     -7 | 9
+##     -7 | 
+##     -6 | 865
+##     -6 | 0
+##     -5 | 75
+##     -5 | 4211
+##     -4 | 765
+##     -4 | 31
+##     -3 | 6
+## 1 | 2: represents 1.2
+##  leaf unit: 0.1
+##             n: 19
+##    1 | 0
+##    1 | 22
+##    1 | 455
+##    1 | 677
+##    1 | 8999
+##    2 | 111
+##    2 | 2
+##    2 | 4
+##    2 | 7
+## 1 | 2: represents 1.2
+##  leaf unit: 0.1
+##             n: 19
+##    1 | 034
+##    1 | 789
+##    2 | 1244
+##    2 | 667
+##    3 | 0124
+##    3 | 7
+##    4 | 4
+## 1 | 2: represents 1.2
+##  leaf unit: 0.1
+##             n: 19
+##    1 | 045
+##    2 | 1237
+##    3 | 023678
+##    4 | 457
+##    5 | 17
+##    6 | 
+##    7 | 4</code></pre>
+<pre><code>## $Volume
+## $Volume$info
+## [1] &quot;1 | 2: represents 0.12&quot; &quot; leaf unit: 0.01&quot;       &quot;            n: 19&quot;     
+## 
+## $Volume$display
+## [1] &quot;   10 | 2&quot;     &quot;   11 | 02&quot;    &quot;   12 | 1349&quot;  &quot;   13 | 24589&quot;
+## [5] &quot;   14 | 0568&quot;  &quot;   15 | 15&quot;    &quot;   16 | 5&quot;    
+## 
+## $Volume$depths
+## [1] &quot;&quot;
+## 
+## $Volume$stem
+## [1] &quot;  10&quot; &quot;  11&quot; &quot;  12&quot; &quot;  13&quot; &quot;  14&quot; &quot;  15&quot; &quot;  16&quot; &quot;  17&quot;
+## 
+## $Volume$leaves
+## [1] &quot;| 2&quot;     &quot;| 02&quot;    &quot;| 1349&quot;  &quot;| 24589&quot; &quot;| 0568&quot;  &quot;| 15&quot;    &quot;| 5&quot;    
+## [8] &quot;| &quot;     
+## 
+## 
+## $Vsqrt
+## $Vsqrt$info
+## [1] &quot;1 | 2: represents 0.12&quot; &quot; leaf unit: 0.01&quot;       &quot;            n: 19&quot;     
+## 
+## $Vsqrt$display
+## [1] &quot;   10 | 04&quot;    &quot;   10 | 5&quot;     &quot;   11 | 00134&quot; &quot;   11 | 56778&quot;
+## [5] &quot;   12 | 00124&quot; &quot;   12 | 8&quot;    
+## 
+## $Vsqrt$depths
+## [1] &quot;&quot;
+## 
+## $Vsqrt$stem
+## [1] &quot;  10&quot; &quot;  10&quot; &quot;  11&quot; &quot;  11&quot; &quot;  12&quot; &quot;  12&quot; &quot;  13&quot;
+## 
+## $Vsqrt$leaves
+## [1] &quot;| 04&quot;    &quot;| 5&quot;     &quot;| 00134&quot; &quot;| 56778&quot; &quot;| 00124&quot; &quot;| 8&quot;     &quot;| &quot;     
+## 
+## 
+## $Vlog
+## $Vlog$info
+## [1] &quot;1 | 2: represents 0.12&quot; &quot; leaf unit: 0.01&quot;       &quot;            n: 19&quot;     
+## 
+## $Vlog$display
+##  [1] &quot;   0 | 1&quot;    &quot;   0 | 9&quot;    &quot;   1 | 1&quot;    &quot;   1 | 9&quot;    &quot;   2 | 01&quot;  
+##  [6] &quot;   2 | 579&quot;  &quot;   3 | 0223&quot; &quot;   3 | 779&quot;  &quot;   4 | 13&quot;   &quot;   4 | &quot;    
+## [11] &quot;   5 | 0&quot;   
+## 
+## $Vlog$depths
+## [1] &quot;&quot;
+## 
+## $Vlog$stem
+##  [1] &quot;  0&quot; &quot;  0&quot; &quot;  1&quot; &quot;  1&quot; &quot;  2&quot; &quot;  2&quot; &quot;  3&quot; &quot;  3&quot; &quot;  4&quot; &quot;  4&quot; &quot;  5&quot; &quot;  5&quot;
+## [13] &quot;  6&quot;
+## 
+## $Vlog$leaves
+##  [1] &quot;| 1&quot;    &quot;| 9&quot;    &quot;| 1&quot;    &quot;| 9&quot;    &quot;| 01&quot;   &quot;| 579&quot;  &quot;| 0223&quot; &quot;| 779&quot; 
+##  [9] &quot;| 13&quot;   &quot;| &quot;     &quot;| 0&quot;    &quot;| &quot;     &quot;| &quot;    
+## 
+## 
+## $VInv
+## $VInv$info
+## [1] &quot;1 | 2: represents 0.12&quot; &quot; leaf unit: 0.01&quot;       &quot;            n: 19&quot;     
+## 
+## $VInv$display
+## [1] &quot;    -9 | 8&quot;     &quot;    -9 | 0&quot;     &quot;    -8 | 9&quot;     &quot;    -8 | 210&quot;  
+## [5] &quot;    -7 | 75&quot;    &quot;    -7 | 44211&quot; &quot;    -6 | 8876&quot;  &quot;    -6 | 40&quot;   
+## 
+## $VInv$depths
+## [1] &quot;&quot;
+## 
+## $VInv$stem
+## [1] &quot;  -10&quot; &quot;   -9&quot; &quot;   -9&quot; &quot;   -8&quot; &quot;   -8&quot; &quot;   -7&quot; &quot;   -7&quot; &quot;   -6&quot; &quot;   -6&quot;
+## 
+## $VInv$leaves
+## [1] &quot;| &quot;      &quot;| 8&quot;     &quot;| 0&quot;     &quot;| 9&quot;     &quot;| 210&quot;   &quot;| 75&quot;    &quot;| 44211&quot;
+## [8] &quot;| 8876&quot;  &quot;| 40&quot;   
+## 
+## 
+## $VInvsq
+## $VInvsq$info
+## [1] &quot;1 | 2: represents 0.12&quot; &quot; leaf unit: 0.01&quot;       &quot;            n: 19&quot;     
+## 
+## $VInvsq$display
+##  [1] &quot;    -9 | 6&quot;    &quot;    -9 | &quot;     &quot;    -8 | &quot;     &quot;    -8 | 2&quot;   
+##  [5] &quot;    -7 | 9&quot;    &quot;    -7 | &quot;     &quot;    -6 | 865&quot;  &quot;    -6 | 0&quot;   
+##  [9] &quot;    -5 | 75&quot;   &quot;    -5 | 4211&quot; &quot;    -4 | 765&quot;  &quot;    -4 | 31&quot;  
+## [13] &quot;    -3 | 6&quot;   
+## 
+## $VInvsq$depths
+## [1] &quot;&quot;
+## 
+## $VInvsq$stem
+##  [1] &quot;  -10&quot; &quot;   -9&quot; &quot;   -9&quot; &quot;   -8&quot; &quot;   -8&quot; &quot;   -7&quot; &quot;   -7&quot; &quot;   -6&quot; &quot;   -6&quot;
+## [10] &quot;   -5&quot; &quot;   -5&quot; &quot;   -4&quot; &quot;   -4&quot; &quot;   -3&quot; &quot;   -3&quot;
+## 
+## $VInvsq$leaves
+##  [1] &quot;| &quot;     &quot;| 6&quot;    &quot;| &quot;     &quot;| &quot;     &quot;| 2&quot;    &quot;| 9&quot;    &quot;| &quot;     &quot;| 865&quot; 
+##  [9] &quot;| 0&quot;    &quot;| 75&quot;   &quot;| 4211&quot; &quot;| 765&quot;  &quot;| 31&quot;   &quot;| 6&quot;    &quot;| &quot;    
+## 
+## 
+## $V2
+## $V2$info
+## [1] &quot;1 | 2: represents 1.2&quot; &quot; leaf unit: 0.1&quot;       &quot;            n: 19&quot;    
+## 
+## $V2$display
+## [1] &quot;   1 | 0&quot;    &quot;   1 | 22&quot;   &quot;   1 | 455&quot;  &quot;   1 | 677&quot;  &quot;   1 | 8999&quot;
+## [6] &quot;   2 | 111&quot;  &quot;   2 | 2&quot;    &quot;   2 | 4&quot;    &quot;   2 | 7&quot;   
+## 
+## $V2$depths
+## [1] &quot;&quot;
+## 
+## $V2$stem
+##  [1] &quot;  1&quot; &quot;  1&quot; &quot;  1&quot; &quot;  1&quot; &quot;  1&quot; &quot;  2&quot; &quot;  2&quot; &quot;  2&quot; &quot;  2&quot; &quot;  2&quot; &quot;  3&quot;
+## 
+## $V2$leaves
+##  [1] &quot;| 0&quot;    &quot;| 22&quot;   &quot;| 455&quot;  &quot;| 677&quot;  &quot;| 8999&quot; &quot;| 111&quot;  &quot;| 2&quot;    &quot;| 4&quot;   
+##  [9] &quot;| 7&quot;    &quot;| &quot;     &quot;| &quot;    
+## 
+## 
+## $V3
+## $V3$info
+## [1] &quot;1 | 2: represents 1.2&quot; &quot; leaf unit: 0.1&quot;       &quot;            n: 19&quot;    
+## 
+## $V3$display
+## [1] &quot;   1 | 034&quot;  &quot;   1 | 789&quot;  &quot;   2 | 1244&quot; &quot;   2 | 667&quot;  &quot;   3 | 0124&quot;
+## [6] &quot;   3 | 7&quot;    &quot;   4 | 4&quot;   
+## 
+## $V3$depths
+## [1] &quot;&quot;
+## 
+## $V3$stem
+## [1] &quot;  1&quot; &quot;  1&quot; &quot;  2&quot; &quot;  2&quot; &quot;  3&quot; &quot;  3&quot; &quot;  4&quot; &quot;  4&quot; &quot;  5&quot;
+## 
+## $V3$leaves
+## [1] &quot;| 034&quot;  &quot;| 789&quot;  &quot;| 1244&quot; &quot;| 667&quot;  &quot;| 0124&quot; &quot;| 7&quot;    &quot;| 4&quot;    &quot;| &quot;    
+## [9] &quot;| &quot;    
+## 
+## 
+## $V4
+## $V4$info
+## [1] &quot;1 | 2: represents 1.2&quot; &quot; leaf unit: 0.1&quot;       &quot;            n: 19&quot;    
+## 
+## $V4$display
+## [1] &quot;   1 | 045&quot;    &quot;   2 | 1237&quot;   &quot;   3 | 023678&quot; &quot;   4 | 457&quot;   
+## [5] &quot;   5 | 17&quot;     &quot;   6 | &quot;       &quot;   7 | 4&quot;     
+## 
+## $V4$depths
+## [1] &quot;&quot;
+## 
+## $V4$stem
+## [1] &quot;  1&quot; &quot;  2&quot; &quot;  3&quot; &quot;  4&quot; &quot;  5&quot; &quot;  6&quot; &quot;  7&quot; &quot;  8&quot;
+## 
+## $V4$leaves
+## [1] &quot;| 045&quot;    &quot;| 1237&quot;   &quot;| 023678&quot; &quot;| 457&quot;    &quot;| 17&quot;     &quot;| &quot;       &quot;| 4&quot;     
+## [8] &quot;| &quot;</code></pre>
+<p>We can also make a boxplot of these transformed variables.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb143-1" tabindex="-1"></a><span class="fu">boxplot</span>(BVPits)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>This doesn’t look like Drennan’s boxplot, because he standardized the data before plotting into order to make the shapes of the distributions easily comparable.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-1" tabindex="-1"></a><span class="co">#standardize using median and midspread, then plot again</span></span>
+<span id="cb144-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-2" tabindex="-1"></a>BVStandard <span class="ot">&lt;-</span> <span class="fu">apply</span>(BVPits, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">scale</span>(x, <span class="at">center =</span> <span class="fu">median</span>(x), <span class="at">scale =</span> <span class="fu">IQR</span>(x))) </span>
+<span id="cb144-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-3" tabindex="-1"></a><span class="co">#This uses apply() as above and scale() as you saw in Ch.4</span></span>
+<span id="cb144-4"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-4" tabindex="-1"></a>BVStandard</span></code></pre></div>
+<pre><code>##            Volume      Vsqrt       Vlog        VInv      VInvsq          V2
+##  [1,] -0.54545455 -0.5566422 -0.5678419 -0.59024368 -0.61259210 -0.52314971
+##  [2,]  0.59090909  0.5757739  0.5608092  0.53141872  0.50279045  0.62166272
+##  [3,]  0.90909091  0.8753401  0.8427027  0.78064487  0.72267871  0.98006083
+##  [4,]  0.13636364  0.1352489  0.1340690  0.13152169  0.12873789  0.13839135
+##  [5,] -1.13636364 -1.1912738 -1.2492246 -1.37499949 -1.51530964 -1.03497803
+##  [6,] -1.50000000 -1.6006161 -1.7098128 -1.95735221 -2.25031132 -1.32156134
+##  [7,] -0.27272727 -0.2750835 -0.2773158 -0.28139524 -0.28494197 -0.26765799
+##  [8,] -0.13636364 -0.1367602 -0.1370821 -0.13749995 -0.13761485 -0.13534978
+##  [9,]  0.00000000  0.0000000  0.0000000  0.00000000  0.00000000  0.00000000
+## [10,]  1.36363636  1.2917924  1.2240704  1.09999959  0.98958997  1.52078405
+## [11,]  0.18181818  0.1800045  0.1781118  0.17410065  0.16980936  0.18519770
+## [12,]  0.22727273  0.2245995  0.2218388  0.21607135  0.21000387  0.23234201
+## [13,] -1.04545455 -1.0912865 -1.1393136 -1.24241025 -1.35571814 -0.95995269
+## [14,]  0.50000000  0.4888886  0.4778161  0.45582175  0.43408418  0.52230483
+## [15,] -0.50000000 -0.5092464 -0.5184498 -0.53669335 -0.55466370 -0.48141264
+## [16,] -0.04545455 -0.0454163 -0.0453526 -0.04514924 -0.04484596 -0.04545455
+## [17,] -0.63636364 -0.6520153 -0.6678424 -0.69999974 -0.73278728 -0.60561000
+## [18,]  0.45454545  0.4452228  0.4358922  0.41724122  0.39866003  0.47313282
+## [19,]  0.72727273  0.7050083  0.6832192  0.64105936  0.60077629  0.77323420
+##                V3         V4
+##  [1,] -0.50099487 -0.4790560
+##  [2,]  0.65301199  0.6848974
+##  [3,]  1.05587752  1.1368211
+##  [4,]  0.14014048  0.1416019
+##  [5,] -0.94379238 -0.8616766
+##  [6,] -1.16925128 -1.0387376
+##  [7,] -0.26214008 -0.2562092
+##  [8,] -0.13404839 -0.1324699
+##  [9,]  0.00000000  0.0000000
+## [10,]  1.69788616  1.8976399
+## [11,]  0.18823116  0.1909025
+## [12,]  0.23701881  0.2412787
+## [13,] -0.88201248 -0.8109154
+## [14,]  0.54466149  0.5670013
+## [15,] -0.46275681 -0.4441013
+## [16,] -0.04535301 -0.0451513
+## [17,] -0.57562582 -0.5464523
+## [18,]  0.49158682  0.5098414
+## [19,]  0.82111588  0.8709287</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb146-1" tabindex="-1"></a><span class="fu">boxplot</span>(BVStandard)</span>
+<span id="cb146-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb146-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">5</span>, .<span class="dv">5</span>), <span class="at">lty =</span> <span class="dv">2</span>) <span class="co">#add horizontal lines to the plot using abline()</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/standardize-1.png" width="672" /></p>
+<p>You can repeat this with the second dataset (using fewer transformations), as Drennan does to build Fig. 5.2.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb147-1" tabindex="-1"></a>BAPits <span class="ot">&lt;-</span> <span class="fu">transform</span>(BAPits, <span class="at">Vsqrt =</span> <span class="fu">sqrt</span>(Volume), <span class="at">Vlog =</span> <span class="fu">log</span>(Volume), </span>
+<span id="cb147-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb147-2" tabindex="-1"></a>                    <span class="at">VInv =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>Volume, <span class="at">VInvsq =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>Volume<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb147-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb147-3" tabindex="-1"></a><span class="fu">boxplot</span>(BAPits)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/second%20dataset-1.png" width="672" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb148-1" tabindex="-1"></a>BAStandard <span class="ot">&lt;-</span> <span class="fu">apply</span>(BAPits, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">scale</span>(x, <span class="at">center =</span> <span class="fu">median</span>(x), <span class="at">scale =</span> <span class="fu">IQR</span>(x)))</span>
+<span id="cb148-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb148-2" tabindex="-1"></a><span class="fu">boxplot</span>(BAStandard)</span>
+<span id="cb148-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb148-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">5</span>, .<span class="dv">5</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/second%20dataset-2.png" width="672" /></p>
+<p>If you haven’t already noticed in reading <code>?boxplot</code>, it’s possible to make these plots much prettier. In any R plot just about every parameter is manipulable (color, line weight, fill, background, font, etc).</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb149-1" tabindex="-1"></a><span class="co">#So, for instance, if you wanted to make a considerably uglier boxplot...</span></span>
+<span id="cb149-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb149-2" tabindex="-1"></a><span class="fu">boxplot</span>(BAStandard, <span class="at">col =</span> <span class="st">&quot;salmon&quot;</span>, <span class="at">border =</span> <span class="st">&quot;limegreen&quot;</span>, <span class="at">outpch =</span> <span class="dv">23</span>, <span class="at">outbg =</span> <span class="st">&quot;salmon&quot;</span>,</span>
+<span id="cb149-3"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb149-3" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Ow, my eyes&quot;</span>, <span class="at">col.main =</span> <span class="st">&quot;limegreen&quot;</span>, <span class="at">col.axis =</span> <span class="st">&quot;salmon&quot;</span>,</span>
+<span id="cb149-4"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb149-4" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Transformations&quot;</span>, <span class="at">col.lab =</span> <span class="st">&quot;salmon&quot;</span>, <span class="at">cex.lab =</span> <span class="fl">1.2</span>)  </span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/ugly%20boxplot-1.png" width="672" /></p>
+<p>Have a look and figure out which of the parameters added here have done what to the plot - this is knowledge that will come in very handy later.</p>
+<p>When - not if! - you want to explore boxplots and histograms of archaeological data a bit further, you can find a bit more <a href="#id_##add%20link%20to%20pretty%20boxplots###">here</a>.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comparing-batches-ch.-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="categories-ch.-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

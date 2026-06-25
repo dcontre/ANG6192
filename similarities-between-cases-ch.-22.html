@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>20 Similarities Between Cases (Ch. 22) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="20 Similarities Between Cases (Ch. 22) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="20 Similarities Between Cases (Ch. 22) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="20 Similarities Between Cases (Ch. 22) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sampling-without-finding-anything-ch.-19.html"/>
+<link rel="next" href="multidimensional-scaling-ch.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="similarities-between-cases-ch.-22" class="section level1 hasAnchor" number="20">
+<h1><span class="header-section-number">20</span> Similarities Between Cases (Ch. 22)<a href="similarities-between-cases-ch.-22.html#similarities-between-cases-ch.-22" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>You’ll find the Ixcaquixtla data in <a href="data/Drennan_datasets/Drennan_2009_Table21-1.csv">Drennan_2009_Table21-1.csv</a>.</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="similarities-between-cases-ch.-22.html#cb493-1" tabindex="-1"></a>ixcaq <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Drennan_datasets/Drennan_2009_Table21-1.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb493-2"><a href="similarities-between-cases-ch.-22.html#cb493-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ixcaq, <span class="st">&quot;html&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb493-3"><a href="similarities-between-cases-ch.-22.html#cb493-3" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> F)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Household.Unit
+</th>
+<th style="text-align:right;">
+Bowls…of.Sherds
+</th>
+<th style="text-align:right;">
+Decoration…of.Sherds
+</th>
+<th style="text-align:right;">
+Energy.Invested.in.Burials
+</th>
+<th style="text-align:right;">
+Mace.Heads
+</th>
+<th style="text-align:right;">
+Fauna.Sherd.Ratio
+</th>
+<th style="text-align:right;">
+Platform
+</th>
+<th style="text-align:right;">
+Shell.Sherd.Ratio
+</th>
+<th style="text-align:right;">
+Wasters…of.Sherds
+</th>
+<th style="text-align:right;">
+Debitage…of.Lithics
+</th>
+<th style="text-align:right;">
+Obsidian…of.Lithics
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.016
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.021
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.025
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.005
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>As Drennan points out (p267), there are several different <em>kinds</em> of variables in this table. Consequently, it’s a good idea to make sure that R is reading variables in the ways that we would like. The ‘Energy Invested in Burials’, ‘Mace Heads’, and ‘Platform’ columns are all categorical variables that use numeric codes. We want R to treat those as factors, and may as well recode them in the process, so that we can more easily tell what we’re dealing with. Recoding is a <em>very</em> useful thing to be able to do, and there are various ways to do it. One of the simplest uses <code>ifelse()</code>, while <code>dplyr::recode</code> (and <code>dplyr::recode_factor</code>) offers a more sophisticated alternative (as does <code>car::recode</code>). These have been superseded by <code>dplyr::case_when</code> but still run.</p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="similarities-between-cases-ch.-22.html#cb494-1" tabindex="-1"></a><span class="fu">str</span>(ixcaq)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    20 obs. of  11 variables:
+##  $ Household.Unit            : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Bowls...of.Sherds         : num  0.25 0.37 0.15 0.19 0.35 0.21 0.24 0.2 0.49 0.23 ...
+##  $ Decoration...of.Sherds    : num  0.03 0.07 0.01 0.01 0.04 0.01 0.01 0.05 0.09 0.02 ...
+##  $ Energy.Invested.in.Burials: int  2 3 1 2 3 1 1 2 3 2 ...
+##  $ Mace.Heads                : int  0 0 1 0 0 0 0 0 0 0 ...
+##  $ Fauna.Sherd.Ratio         : num  0.32 0.55 0.1 0.2 0.57 0.13 0.19 0.28 0.48 0.24 ...
+##  $ Platform                  : int  0 0 1 0 0 1 0 0 0 0 ...
+##  $ Shell.Sherd.Ratio         : num  0 0 0.008 0 0 0 0 0 0 0 ...
+##  $ Wasters...of.Sherds       : num  0 0 0 0 0 0 0 0.016 0 0 ...
+##  $ Debitage...of.Lithics     : num  0.79 0.35 0.32 0.26 0.69 0.31 0.86 0.19 0.28 0.29 ...
+##  $ Obsidian...of.Lithics     : num  0 0 0 0 0 0.12 0 0 0 0 ...</code></pre>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="similarities-between-cases-ch.-22.html#cb496-1" tabindex="-1"></a>ixcaq<span class="sc">$</span>Mace.Heads <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ixcaq<span class="sc">$</span>Mace.Heads <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>)</span>
+<span id="cb496-2"><a href="similarities-between-cases-ch.-22.html#cb496-2" tabindex="-1"></a>ixcaq<span class="sc">$</span>Platform <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ixcaq<span class="sc">$</span>Platform <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>)</span>
+<span id="cb496-3"><a href="similarities-between-cases-ch.-22.html#cb496-3" tabindex="-1"></a>ixcaq<span class="sc">$</span>Energy.Invested.in.Burials <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">recode_factor</span>(ixcaq<span class="sc">$</span>Energy.Invested.in.Burials, </span>
+<span id="cb496-4"><a href="similarities-between-cases-ch.-22.html#cb496-4" tabindex="-1"></a>                                                  <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;low&quot;</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;medium&quot;</span>, <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;high&quot;</span>)</span>
+<span id="cb496-5"><a href="similarities-between-cases-ch.-22.html#cb496-5" tabindex="-1"></a><span class="fu">str</span>(ixcaq) <span class="co">#note that ixcaq$Mace.Heads and ixcaq$Platform are now *character* vectors</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    20 obs. of  11 variables:
+##  $ Household.Unit            : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Bowls...of.Sherds         : num  0.25 0.37 0.15 0.19 0.35 0.21 0.24 0.2 0.49 0.23 ...
+##  $ Decoration...of.Sherds    : num  0.03 0.07 0.01 0.01 0.04 0.01 0.01 0.05 0.09 0.02 ...
+##  $ Energy.Invested.in.Burials: Factor w/ 3 levels &quot;low&quot;,&quot;medium&quot;,..: 2 3 1 2 3 1 1 2 3 2 ...
+##  $ Mace.Heads                : chr  &quot;Absent&quot; &quot;Absent&quot; &quot;Present&quot; &quot;Absent&quot; ...
+##  $ Fauna.Sherd.Ratio         : num  0.32 0.55 0.1 0.2 0.57 0.13 0.19 0.28 0.48 0.24 ...
+##  $ Platform                  : chr  &quot;Absent&quot; &quot;Absent&quot; &quot;Present&quot; &quot;Absent&quot; ...
+##  $ Shell.Sherd.Ratio         : num  0 0 0.008 0 0 0 0 0 0 0 ...
+##  $ Wasters...of.Sherds       : num  0 0 0 0 0 0 0 0.016 0 0 ...
+##  $ Debitage...of.Lithics     : num  0.79 0.35 0.32 0.26 0.69 0.31 0.86 0.19 0.28 0.29 ...
+##  $ Obsidian...of.Lithics     : num  0 0 0 0 0 0.12 0 0 0 0 ...</code></pre>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="similarities-between-cases-ch.-22.html#cb498-1" tabindex="-1"></a><span class="co">#convert to factor, ordering so that &#39;Present&#39; comes before &#39;Absent&#39;</span></span>
+<span id="cb498-2"><a href="similarities-between-cases-ch.-22.html#cb498-2" tabindex="-1"></a>ixcaq<span class="sc">$</span>Mace.Heads <span class="ot">&lt;-</span> <span class="fu">factor</span>(ixcaq<span class="sc">$</span>Mace.Heads, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>)) </span>
+<span id="cb498-3"><a href="similarities-between-cases-ch.-22.html#cb498-3" tabindex="-1"></a>ixcaq<span class="sc">$</span>Platform <span class="ot">&lt;-</span> <span class="fu">factor</span>(ixcaq<span class="sc">$</span>Platform, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>))</span></code></pre></div>
+<div id="euclidean-distance" class="section level2 hasAnchor" number="20.1">
+<h2><span class="header-section-number">20.1</span> Euclidean Distance<a href="similarities-between-cases-ch.-22.html#euclidean-distance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The sample projectile point measurements in Table 22.1 form the basis for the simple Euclidean distance examples.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="similarities-between-cases-ch.-22.html#cb499-1" tabindex="-1"></a>PPoints <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Length =</span> <span class="fu">c</span>(<span class="fl">4.3</span>, <span class="fl">4.5</span>, <span class="fl">4.4</span>, <span class="fl">2.3</span>), <span class="at">Width =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">1.4</span>, <span class="fl">1.1</span>, <span class="fl">0.9</span>),</span>
+<span id="cb499-2"><a href="similarities-between-cases-ch.-22.html#cb499-2" tabindex="-1"></a>                     <span class="at">Thickness =</span> <span class="fu">c</span>(<span class="fl">0.35</span>, <span class="fl">0.55</span>, <span class="fl">0.37</span>, <span class="fl">0.3</span>), <span class="at">Weight =</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">80</span>, <span class="dv">75</span>))</span></code></pre></div>
+<p>Euclidean distance is easy to visualize in two dimensions, as Drennan illustrates with Fig. 22.1.</p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="similarities-between-cases-ch.-22.html#cb500-1" tabindex="-1"></a><span class="fu">plot</span>(PPoints<span class="sc">$</span>Length, PPoints<span class="sc">$</span>Width, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="at">xlab =</span> <span class="st">&quot;Length (cm)&quot;</span>, </span>
+<span id="cb500-2"><a href="similarities-between-cases-ch.-22.html#cb500-2" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Width (cm)&quot;</span>, <span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb500-3"><a href="similarities-between-cases-ch.-22.html#cb500-3" tabindex="-1"></a><span class="fu">text</span>(PPoints<span class="sc">$</span>Length, PPoints<span class="sc">$</span>Width, <span class="at">labels=</span><span class="fu">rownames</span>(PPoints), <span class="at">pos =</span> <span class="dv">3</span>)<span class="co">#label the points</span></span>
+<span id="cb500-4"><a href="similarities-between-cases-ch.-22.html#cb500-4" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">1</span>], <span class="at">x1 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">4</span>], <span class="at">y0 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">1</span>], </span>
+<span id="cb500-5"><a href="similarities-between-cases-ch.-22.html#cb500-5" tabindex="-1"></a>         <span class="at">y1 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">4</span>]) <span class="co">#connect the dots</span></span>
+<span id="cb500-6"><a href="similarities-between-cases-ch.-22.html#cb500-6" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">4</span>], <span class="at">x1 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">1</span>], <span class="at">y0 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">4</span>], </span>
+<span id="cb500-7"><a href="similarities-between-cases-ch.-22.html#cb500-7" tabindex="-1"></a>         <span class="at">y1 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">4</span>]) <span class="co">#draw long leg of the triangle</span></span>
+<span id="cb500-8"><a href="similarities-between-cases-ch.-22.html#cb500-8" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">1</span>], <span class="at">x1 =</span> PPoints<span class="sc">$</span>Length[<span class="dv">1</span>], <span class="at">y0 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">1</span>], </span>
+<span id="cb500-9"><a href="similarities-between-cases-ch.-22.html#cb500-9" tabindex="-1"></a>         <span class="at">y1 =</span> PPoints<span class="sc">$</span>Width[<span class="dv">4</span>]) <span class="co">#draw short leg of the triangle</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p>You can make your geometry teacher proud by calculating the length of the line between points 1 and 4, which is the hypotenuse of the right triangle that we just plotted. That distance (2.02cm, Drennan calculates) has an analogue if we plot points 1 and 4 in three dimensions, or in <em>n</em> dimensions.<br />
+For any two cases (rows in a table, generally), we can calculate, for all the variables we have, a single measurement of the distance between cases. This distance is the square root of the sum of the squared differences between the values for each variable: <span class="math display">\[D_{1,2}=\sqrt{\Sigma(X_{j,1}-X_{j,2})^2}\]</span>
+where <span class="math inline">\(D_{1,2}\)</span> is the Euclidean distance between cases 1 and 2, <span class="math inline">\(X_{j,1}\)</span> is the value of the <em>j</em>th variable for case 1, and <span class="math inline">\(X_{j,2}\)</span> is the value of hte <em>j</em>th variable for case 2.</p>
+<p>Calculating this for the whole table of projectile points produces a matrix that gives the distance between any two cases (as in Table 22.2); R does this using <code>dist()</code>, which defaults to Euclidean distance but can also calculate other measures (see <code>?dist</code>).</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="similarities-between-cases-ch.-22.html#cb501-1" tabindex="-1"></a><span class="fu">dist</span>(PPoints)</span></code></pre></div>
+<pre><code>##           1         2         3
+## 2 5.0119856                    
+## 3 5.0020396 0.3638681          
+## 4 2.0229928 5.4911292 5.4272369</code></pre>
+<p>This is a dissimilarity matrix, which is to say that larger values indicate that points are more different from one another (i.e., points 2 and 4 are the most different).</p>
+<div id="euclidean-distance-with-standardized-variables" class="section level3 hasAnchor" number="20.1.1">
+<h3><span class="header-section-number">20.1.1</span> Euclidean Distance with Standardized Variables<a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Drennan discusses (pp274-275) the very good reasons why simply calculating a Euclidean distance matrix may not produce satisfying results. The basic issue is that a centimeter of difference in thickness <em>should</em> matter much more than a centimeter of difference in length, even though the units are the same: we want to be making comparisons while taking into account how meaningful the differences are.
+We can address this by standardizing the variables by removing the level and spread as we did in Ch.4. This is quite simple in R with <code>scale()</code>, which we can use to produce Table 22.3. We can then use <code>dist()</code> as above, but on the scaled version of our table, to produce Table 22.4.</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="similarities-between-cases-ch.-22.html#cb503-1" tabindex="-1"></a><span class="fu">scale</span>(PPoints)</span></code></pre></div>
+<pre><code>##          Length      Width  Thickness     Weight
+## [1,]  0.4035437  0.2401922 -0.3897333 -0.8660254
+## [2,]  0.5934466  1.2009612  1.4443059  0.8660254
+## [3,]  0.4984951 -0.2401922 -0.2063294  0.8660254
+## [4,] -1.4954853 -1.2009612 -0.8482432 -0.8660254
+## attr(,&quot;scaled:center&quot;)
+##    Length     Width Thickness    Weight 
+##    3.8750    1.1500    0.3925   77.5000 
+## attr(,&quot;scaled:scale&quot;)
+##    Length     Width Thickness    Weight 
+## 1.0531698 0.2081666 0.1090489 2.8867513</code></pre>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="similarities-between-cases-ch.-22.html#cb505-1" tabindex="-1"></a><span class="fu">dist</span>(<span class="fu">scale</span>(PPoints))</span></code></pre></div>
+<pre><code>##          1        2        3
+## 2 2.706075                  
+## 3 1.809260 2.193293         
+## 4 2.427646 4.288199 2.882896</code></pre>
+<blockquote>
+<p>In the vast majority of multivariate analyses, there is much to be gained by standardizing measurements before calculating Euclidean distances, and there is seldom anything to be lost by doing it. (Drennan p276)</p>
+</blockquote>
+</div>
+<div id="when-to-use-euclidean-distance" class="section level3 hasAnchor" number="20.1.2">
+<h3><span class="header-section-number">20.1.2</span> When To Use Euclidean Distance<a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Categorical variables with more than two categories pose problems for Euclidean distance measures. Consider the ‘Wall Construction’ variable that Drennan suggests (p267) that we might include in the Ixcaquixtla dataset.</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="similarities-between-cases-ch.-22.html#cb507-1" tabindex="-1"></a>WallConstruction <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;wattle and daub&quot;</span>, <span class="dv">7</span>), <span class="fu">rep</span>(<span class="st">&quot;wood plank&quot;</span>, <span class="dv">7</span>), </span>
+<span id="cb507-2"><a href="similarities-between-cases-ch.-22.html#cb507-2" tabindex="-1"></a>                      <span class="fu">rep</span>(<span class="st">&quot;mud brick&quot;</span>, <span class="dv">6</span>))</span>
+<span id="cb507-3"><a href="similarities-between-cases-ch.-22.html#cb507-3" tabindex="-1"></a><span class="fu">str</span>(WallConstruction) <span class="co">#produces a character vector</span></span></code></pre></div>
+<pre><code>##  chr [1:20] &quot;wattle and daub&quot; &quot;wattle and daub&quot; &quot;wattle and daub&quot; ...</code></pre>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="similarities-between-cases-ch.-22.html#cb509-1" tabindex="-1"></a>WallConstruction <span class="ot">&lt;-</span> <span class="fu">factor</span>(WallConstruction) <span class="co"># we prefer factors for categories</span></span>
+<span id="cb509-2"><a href="similarities-between-cases-ch.-22.html#cb509-2" tabindex="-1"></a>WallConstruction </span></code></pre></div>
+<pre><code>##  [1] wattle and daub wattle and daub wattle and daub wattle and daub
+##  [5] wattle and daub wattle and daub wattle and daub wood plank     
+##  [9] wood plank      wood plank      wood plank      wood plank     
+## [13] wood plank      wood plank      mud brick       mud brick      
+## [17] mud brick       mud brick       mud brick       mud brick      
+## Levels: mud brick wattle and daub wood plank</code></pre>
+<p>We now have a factor with three levels, and could code the categories numerically easily enough. But suppose we code them 1, 2, and 3 - is ‘mud brick’ really twice as different from ‘wattle and daub’ as ‘wood plank’ is?
+Drennan suggests breaking this variable into three, each a presence/absence variable, as a solution (in case you’re desperate to apply a Euclidean distance measure to data like these). You can apply the same techniques we used in recoding data above (<code>ifelse()</code> and/or <code>recode()</code>, for instance) to do this. In either case, we would put our vector in a data frame first, so that we can add columns. We won’t pursue this, but it’s a useful technique to be aware of.</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="similarities-between-cases-ch.-22.html#cb511-1" tabindex="-1"></a>WallConstruction <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">type =</span> WallConstruction) </span>
+<span id="cb511-2"><a href="similarities-between-cases-ch.-22.html#cb511-2" tabindex="-1"></a>WallConstruction<span class="sc">$</span>mudbrick <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (WallConstruction<span class="sc">$</span>type <span class="sc">==</span> <span class="st">&quot;mud brick&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb511-3"><a href="similarities-between-cases-ch.-22.html#cb511-3" tabindex="-1"></a><span class="co">#repeat as needed to create other columns</span></span></code></pre></div>
+</div>
+</div>
+<div id="presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity" class="section level2 hasAnchor" number="20.2">
+<h2><span class="header-section-number">20.2</span> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity<a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For presence/absence variables, various alternative measures exist. Drennan explores these using a small set of data on sherd attributes (Table 22.6).</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="similarities-between-cases-ch.-22.html#cb512-1" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Slip =</span> <span class="fu">c</span>(<span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Present&quot;</span>,</span>
+<span id="cb512-2"><a href="similarities-between-cases-ch.-22.html#cb512-2" tabindex="-1"></a>                            <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Present&quot;</span>), </span>
+<span id="cb512-3"><a href="similarities-between-cases-ch.-22.html#cb512-3" tabindex="-1"></a>                     <span class="at">Red.Paint =</span> <span class="fu">c</span>(<span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>,</span>
+<span id="cb512-4"><a href="similarities-between-cases-ch.-22.html#cb512-4" tabindex="-1"></a>                                   <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>), </span>
+<span id="cb512-5"><a href="similarities-between-cases-ch.-22.html#cb512-5" tabindex="-1"></a>                     <span class="at">Incising =</span> <span class="fu">c</span>(<span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>,</span>
+<span id="cb512-6"><a href="similarities-between-cases-ch.-22.html#cb512-6" tabindex="-1"></a>                                  <span class="st">&quot;Present&quot;</span>,  <span class="st">&quot;Present&quot;</span>), </span>
+<span id="cb512-7"><a href="similarities-between-cases-ch.-22.html#cb512-7" tabindex="-1"></a>                     <span class="at">Punctations =</span> <span class="fu">c</span>(<span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>,</span>
+<span id="cb512-8"><a href="similarities-between-cases-ch.-22.html#cb512-8" tabindex="-1"></a>                                     <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>), </span>
+<span id="cb512-9"><a href="similarities-between-cases-ch.-22.html#cb512-9" tabindex="-1"></a>                     <span class="at">Quartz =</span> <span class="fu">c</span>(<span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>,</span>
+<span id="cb512-10"><a href="similarities-between-cases-ch.-22.html#cb512-10" tabindex="-1"></a>                                <span class="st">&quot;Present&quot;</span>), </span>
+<span id="cb512-11"><a href="similarities-between-cases-ch.-22.html#cb512-11" tabindex="-1"></a>                     <span class="at">Mica =</span> <span class="fu">c</span>(<span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>, </span>
+<span id="cb512-12"><a href="similarities-between-cases-ch.-22.html#cb512-12" tabindex="-1"></a>                              <span class="st">&quot;Absent&quot;</span>, <span class="st">&quot;Absent&quot;</span>))</span>
+<span id="cb512-13"><a href="similarities-between-cases-ch.-22.html#cb512-13" tabindex="-1"></a><span class="fu">kable_classic</span>(<span class="fu">kable</span>(sherds), <span class="at">full_width =</span> F)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Slip
+</th>
+<th style="text-align:left;">
+Red.Paint
+</th>
+<th style="text-align:left;">
+Incising
+</th>
+<th style="text-align:left;">
+Punctations
+</th>
+<th style="text-align:left;">
+Quartz
+</th>
+<th style="text-align:left;">
+Mica
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+<td style="text-align:left;">
+Present
+</td>
+<td style="text-align:left;">
+Absent
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="similarities-between-cases-ch.-22.html#cb513-1" tabindex="-1"></a><span class="co">#reorder levels</span></span>
+<span id="cb513-2"><a href="similarities-between-cases-ch.-22.html#cb513-2" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sherds, <span class="cf">function</span>(x) <span class="fu">ordered</span>(x, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>)))</span>
+<span id="cb513-3"><a href="similarities-between-cases-ch.-22.html#cb513-3" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">do.call</span>(data.frame, sherds)</span></code></pre></div>
+<p>There are a variety of ways of calculating binary distance measures; here we’ll use <code>simba::sim()</code>, which will calculate both the Simple Matching Coefficient and Jaccard’s Coefficient (among many other measures). To use <code>sim()</code> we will need to convert the factors in our dataset into numeric values. We can do that using a baseR function called <code>data.matrix()</code>, and then can calculate both coefficients of similarity, matching Table 22.7 and Table 22.8.</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="similarities-between-cases-ch.-22.html#cb514-1" tabindex="-1"></a>sherds_bin <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(sherds) </span>
+<span id="cb514-2"><a href="similarities-between-cases-ch.-22.html#cb514-2" tabindex="-1"></a>sherds_bin <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sherds_bin <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co">#change &#39;2&#39;s to &#39;0&#39;s</span></span>
+<span id="cb514-3"><a href="similarities-between-cases-ch.-22.html#cb514-3" tabindex="-1"></a></span>
+<span id="cb514-4"><a href="similarities-between-cases-ch.-22.html#cb514-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;cran/simba&quot;)</span></span>
+<span id="cb514-5"><a href="similarities-between-cases-ch.-22.html#cb514-5" tabindex="-1"></a><span class="fu">library</span>(simba)</span>
+<span id="cb514-6"><a href="similarities-between-cases-ch.-22.html#cb514-6" tabindex="-1"></a><span class="fu">sim</span>(sherds_bin, <span class="at">method=</span><span class="st">&quot;simplematching&quot;</span>)</span></code></pre></div>
+<pre><code>##           1         2         3         4         5         6
+## 2 0.5000000                                                  
+## 3 0.5000000 0.6666667                                        
+## 4 0.6666667 0.5000000 0.5000000                              
+## 5 0.6666667 0.5000000 0.5000000 0.3333333                    
+## 6 0.6666667 0.5000000 0.1666667 0.6666667 0.3333333          
+## 7 0.6666667 0.5000000 0.1666667 0.6666667 0.3333333 1.0000000</code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="similarities-between-cases-ch.-22.html#cb516-1" tabindex="-1"></a><span class="fu">sim</span>(sherds_bin, <span class="at">method=</span><span class="st">&quot;jaccard&quot;</span>)</span></code></pre></div>
+<pre><code>##           1         2         3         4         5         6
+## 2 0.0000000                                                  
+## 3 0.0000000 0.3333333                                        
+## 4 0.3333333 0.2500000 0.2500000                              
+## 5 0.3333333 0.2500000 0.2500000 0.2000000                    
+## 6 0.3333333 0.2500000 0.0000000 0.5000000 0.2000000          
+## 7 0.3333333 0.2500000 0.0000000 0.5000000 0.2000000 1.0000000</code></pre>
+</div>
+<div id="mixed-variables-gowers-coefficient" class="section level2 hasAnchor" number="20.3">
+<h2><span class="header-section-number">20.3</span> Mixed Variables: Gower’s Coefficient<a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It should be obvious that neither Euclidean distance nor the similarity coefficients covered above will work with datasets that consist of combinations of different kinds of variables. Fortunately - since describing the real world often <em>does</em> involve combining different kinds of variables - there are measures for assessing similarity of such datsets. Gower’s Coefficient can be calculated by <code>cluster::daisy()</code>, which will guess at variable types for the different columns if we don’t specify them (which we should; see <code>?daisy</code>). To make sure that our binary factors behave as we would like, it’s safest to convert them back to numbers. Note that because <code>daisy()</code> calculates dissimilarities, we subtract the result from 1 to match Table 22.9.</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="similarities-between-cases-ch.-22.html#cb518-1" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb518-2"><a href="similarities-between-cases-ch.-22.html#cb518-2" tabindex="-1"></a>ixcaq<span class="sc">$</span>Mace.Heads <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ixcaq<span class="sc">$</span>Mace.Heads <span class="sc">==</span> <span class="st">&quot;Present&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb518-3"><a href="similarities-between-cases-ch.-22.html#cb518-3" tabindex="-1"></a>ixcaq<span class="sc">$</span>Platform <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ixcaq<span class="sc">$</span>Platform <span class="sc">==</span> <span class="st">&quot;Present&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb518-4"><a href="similarities-between-cases-ch.-22.html#cb518-4" tabindex="-1"></a>ixcaq_gower <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">daisy</span>(ixcaq[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">metric =</span> <span class="st">&quot;gower&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb518-5"><a href="similarities-between-cases-ch.-22.html#cb518-5" tabindex="-1"></a>                           <span class="fu">list</span>(<span class="at">ordratio =</span> <span class="dv">3</span>, <span class="at">asymm =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>)))</span>
+<span id="cb518-6"><a href="similarities-between-cases-ch.-22.html#cb518-6" tabindex="-1"></a>ixcaq_gower <span class="co">#still labeled &#39;Dissimilarities&#39; - but now are &#39;Similarities&#39; (due to subtracting from 1)</span></span></code></pre></div>
+<pre><code>## Dissimilarities :
+##            1         2         3         4         5         6         7
+## 2  0.7198033                                                            
+## 3  0.5120468 0.4036789                                                  
+## 4  0.8390284 0.7035686 0.6250346                                        
+## 5  0.8190956 0.8916168 0.3936390 0.6910187                              
+## 6  0.5864075 0.4659987 0.6970331 0.7037623 0.4548433                    
+## 7  0.8655386 0.5853419 0.6011948 0.8209181 0.6846342 0.6854609          
+## 8  0.7688221 0.6889178 0.4903341 0.8316245 0.6485902 0.5596507 0.6587925
+## 9  0.6589215 0.9073000 0.3628682 0.6657131 0.7989168 0.4235774 0.5244601
+## 10 0.8794425 0.7439826 0.6005981 0.9595860 0.7314327 0.6877218 0.8153725
+## 11 0.5192310 0.4158631 0.6171842 0.5789918 0.4058232 0.7201511 0.4738841
+## 12 0.7841707 0.6125266 0.6624880 0.8793527 0.6361610 0.7424533 0.8956057
+## 13 0.5757090 0.5335269 0.4538691 0.5875939 0.5223715 0.6956297 0.4561877
+## 14 0.5084476 0.6092132 0.6351143 0.4165125 0.6531712 0.3730565 0.4008785
+## 15 0.7814145 0.8696388 0.4319152 0.7388640 0.8709048 0.4973724 0.6469531
+## 16 0.5826806 0.4622718 0.8275173 0.7169945 0.4511164 0.6047577 0.6817340
+## 17 0.6737068 0.5382469 0.6269187 0.8003216 0.5256971 0.6715123 0.7573641
+## 18 0.6778575 0.4737002 0.7931366 0.5967570 0.5531340 0.5533010 0.6363862
+## 19 0.7942185 0.7227996 0.6505276 0.7914835 0.7116442 0.5688792 0.6746973
+## 20 0.8310706 0.5508739 0.5869032 0.7621445 0.6501661 0.6463490 0.9099764
+##            8         9        10        11        12        13        14
+## 2                                                                       
+## 3                                                                       
+## 4                                                                       
+## 5                                                                       
+## 6                                                                       
+## 7                                                                       
+## 8                                                                       
+## 9  0.6510623                                                            
+## 10 0.8434201 0.7028376                                                  
+## 11 0.6031499 0.3776839 0.6004139                                        
+## 12 0.7109772 0.5516447 0.8488072 0.4956318                              
+## 13 0.6921018 0.4998775 0.6147455 0.7905310 0.4803519                    
+## 14 0.4047919 0.5750532 0.4488437 0.4695207 0.3726263 0.4338318          
+## 15 0.6686576 0.8775070 0.7792780 0.4440994 0.6741378 0.5402092 0.6104213
+## 16 0.5673274 0.4256985 0.6898429 0.5321816 0.7745289 0.3741296 0.4808134
+## 17 0.7997239 0.5003914 0.7942644 0.5587344 0.8339806 0.5592378 0.2842552
+## 18 0.5074607 0.4249947 0.6290883 0.6497653 0.5528708 0.5159956 0.7618607
+## 19 0.7290779 0.6803783 0.8274071 0.6653434 0.6988614 0.5924323 0.6041773
+## 20 0.6493245 0.4899920 0.7593767 0.4240875 0.8550140 0.4255495 0.3733041
+##           15        16        17        18        19
+## 2                                                   
+## 3                                                   
+## 4                                                   
+## 5                                                   
+## 6                                                   
+## 7                                                   
+## 8                                                   
+## 9                                                   
+## 10                                                  
+## 11                                                  
+## 12                                                  
+## 13                                                  
+## 14                                                  
+## 15                                                  
+## 16 0.4936455                                        
+## 17 0.5735423 0.7211082                              
+## 18 0.5229891 0.6610579 0.4644997                    
+## 19 0.7541733 0.7394722 0.6445310 0.7076542          
+## 20 0.6124850 0.6456524 0.7718228 0.5892212 0.6440590
+## 
+## Metric :  mixed ;  Types = I, I, T, A, I, A, I, I, I, I 
+## Number of objects : 20</code></pre>
+</div>
+<div id="problem-set-1" class="section level2 hasAnchor" number="20.4">
+<h2><span class="header-section-number">20.4</span> Problem Set<a href="similarities-between-cases-ch.-22.html#problem-set-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using the similarity matrix that you’ve created for the Ixcaquixtla households, consider the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>What would it tell you if all the scores in your matrix were similar? What does it mean that they vary? What kind of patterned variability might you reasonably expect (think about scenarios, for instance, where you’d expect a clear divide between rich and poor households, or between households inhabited by three different ethnic groups)?</p></li>
+<li><p>You can group the scores and classify them either by hand or automatically. After looking at <code>?cut</code> to figure out what the function does, try:</p></li>
+</ol>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="similarities-between-cases-ch.-22.html#cb520-1" tabindex="-1"></a><span class="co">#first make similarity matrix into a full matrix</span></span>
+<span id="cb520-2"><a href="similarities-between-cases-ch.-22.html#cb520-2" tabindex="-1"></a>ixcaq_gower_matrix <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">as.matrix</span>(ixcaq_gower)<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">as.matrix</span>(ixcaq_gower))</span>
+<span id="cb520-3"><a href="similarities-between-cases-ch.-22.html#cb520-3" tabindex="-1"></a><span class="co">#then change to factors using cut()</span></span>
+<span id="cb520-4"><a href="similarities-between-cases-ch.-22.html#cb520-4" tabindex="-1"></a>ixcaq_gower_classed <span class="ot">&lt;-</span> <span class="fu">cut</span>(ixcaq_gower_matrix, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>,.<span class="dv">75</span>,.<span class="dv">99</span>,<span class="dv">1</span>), </span>
+<span id="cb520-5"><a href="similarities-between-cases-ch.-22.html#cb520-5" tabindex="-1"></a>                           <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;least similar&quot;</span>, <span class="st">&quot;moderately similar&quot;</span>,<span class="st">&quot;most similar&quot;</span>,</span>
+<span id="cb520-6"><a href="similarities-between-cases-ch.-22.html#cb520-6" tabindex="-1"></a>                                    <span class="st">&quot;same&quot;</span>))</span>
+<span id="cb520-7"><a href="similarities-between-cases-ch.-22.html#cb520-7" tabindex="-1"></a><span class="co">#and then put back into a matrix to match the one you started with</span></span>
+<span id="cb520-8"><a href="similarities-between-cases-ch.-22.html#cb520-8" tabindex="-1"></a>ixcaq_gower_classed_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(ixcaq_gower_classed, <span class="at">nrow=</span><span class="dv">20</span>, <span class="at">ncol=</span><span class="dv">20</span>)</span></code></pre></div>
+<p>Your new matrix is just like the similarity matrix of Gower coefficients (although it’s a full matrix, because working with half-empty matrices is difficult), but has replaced the numerical coefficients with (arbitrary) categories.</p>
+<p>In order to more easily identify which households fall in this group, we can separate out the houses from the “most similar” class.</p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="similarities-between-cases-ch.-22.html#cb521-1" tabindex="-1"></a>sim_households <span class="ot">&lt;-</span> <span class="fu">which</span>(ixcaq_gower_classed_mat <span class="sc">==</span> <span class="st">&quot;most similar&quot;</span>, <span class="at">arr.ind =</span> T)</span>
+<span id="cb521-2"><a href="similarities-between-cases-ch.-22.html#cb521-2" tabindex="-1"></a>sim_households <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(sim_households, <span class="dv">1</span>, sort)) <span class="co"># sorts rows </span></span>
+<span id="cb521-3"><a href="similarities-between-cases-ch.-22.html#cb521-3" tabindex="-1"></a>sim_households <span class="ot">&lt;-</span> <span class="fu">unique</span>(sim_households) <span class="co">#removes duplicates</span></span></code></pre></div>
+<p>This leaves you with a list of 42 pairs of households that fell into the “most similar” category that you defined above.</p>
+<p>You can use <code>unique(as.vector(sim_households))</code> to find out that 19 households are represented here, which is to say that every household but one is very similar to <em>some</em> other household. <em>Without</em> necessarily going through the process, discuss how you might try to reach some more interesting conclusions than that. How - conceptually, not with respect to the coding in R - would you look for patterns of interest (and what might those patterns might be) in <code>sim_households</code>? How might you change either the classification process or the categories you extract in pursuit of this goal?</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sampling-without-finding-anything-ch.-19.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multidimensional-scaling-ch.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

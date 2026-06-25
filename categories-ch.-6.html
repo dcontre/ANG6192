@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Categories (Ch. 6) | Statisics for Archaeologists…with R!</title>
+  <meta name="description" content="6 Categories (Ch. 6) | Statisics for Archaeologists…with R!" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Categories (Ch. 6) | Statisics for Archaeologists…with R!" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Categories (Ch. 6) | Statisics for Archaeologists…with R!" />
+  
+  
+  
+
+<meta name="author" content="Daniel A. Contreras" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="the-shape-or-distribution-of-a-batch-ch.-5.html"/>
+<link rel="next" href="samples-and-populations-ch.-7.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i>To do</a></li>
+<li class="chapter" data-level="1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html"><i class="fa fa-check"></i><b>1</b> Batches of Numbers (Ch. 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="batches-of-numbers-ch.-1.html"><a href="batches-of-numbers-ch.-1.html#import-the-scraper-data."><i class="fa fa-check"></i><b>1.1</b> Import the Scraper data.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-level-or-center-of-a-batch-ch.-2.html"><a href="the-level-or-center-of-a-batch-ch.-2.html"><i class="fa fa-check"></i><b>2</b> The Level or Center of a Batch (Ch. 2)</a></li>
+<li class="chapter" data-level="3" data-path="the-spread-or-dispersion-of-a-batch-ch.-3.html"><a href="the-spread-or-dispersion-of-a-batch-ch.-3.html"><i class="fa fa-check"></i><b>3</b> The Spread or Dispersion of a Batch (Ch. 3)</a></li>
+<li class="chapter" data-level="4" data-path="comparing-batches-ch.-4.html"><a href="comparing-batches-ch.-4.html"><i class="fa fa-check"></i><b>4</b> Comparing Batches (Ch. 4)</a></li>
+<li class="chapter" data-level="5" data-path="the-shape-or-distribution-of-a-batch-ch.-5.html"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html"><i class="fa fa-check"></i><b>5</b> The Shape or Distribution of a Batch (Ch. 5)</a></li>
+<li class="chapter" data-level="6" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html"><i class="fa fa-check"></i><b>6</b> Categories (Ch. 6)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="categories-ch.-6.html"><a href="categories-ch.-6.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="samples-and-populations-ch.-7.html"><a href="samples-and-populations-ch.-7.html"><i class="fa fa-check"></i><b>7</b> Samples and Populations (Ch. 7)</a></li>
+<li class="chapter" data-level="8" data-path="different-samples-from-the-same-population-ch.-8.html"><a href="different-samples-from-the-same-population-ch.-8.html"><i class="fa fa-check"></i><b>8</b> Different Samples from the Same Population (Ch. 8)</a></li>
+<li class="chapter" data-level="9" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html"><i class="fa fa-check"></i><b>9</b> Confidence and Population Means (Ch. 9)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="confidence-and-population-means-ch.-9.html"><a href="confidence-and-population-means-ch.-9.html#students-t"><i class="fa fa-check"></i><b>9.1</b> Student’s <em>t</em></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resampling.html"><a href="resampling.html"><i class="fa fa-check"></i><b>10</b> Medians and Resampling (Ch. 10)</a></li>
+<li class="chapter" data-level="11" data-path="categories-and-population-proportions-ch.-11.html"><a href="categories-and-population-proportions-ch.-11.html"><i class="fa fa-check"></i><b>11</b> Categories and Population Proportions (Ch. 11)</a></li>
+<li class="chapter" data-level="12" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html"><i class="fa fa-check"></i><b>12</b> Comparing Two Sample Means (Ch. 12)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#confidence-significance-and-strength"><i class="fa fa-check"></i><b>12.1</b> Confidence, Significance, and Strength</a></li>
+<li class="chapter" data-level="12.2" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#comparison-by-t-test"><i class="fa fa-check"></i><b>12.2</b> Comparison by <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.3" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#the-one-sample-t-test"><i class="fa fa-check"></i><b>12.3</b> The One-Sample <em>t</em> Test</a></li>
+<li class="chapter" data-level="12.4" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#assumptions-and-robust-methods"><i class="fa fa-check"></i><b>12.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="12.5" data-path="comparing-two-sample-means-ch.-12.html"><a href="comparing-two-sample-means-ch.-12.html#practice-1"><i class="fa fa-check"></i><b>12.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html"><i class="fa fa-check"></i><b>13</b> Comparing Means of More Than Two Samples (Ch. 13)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-with-estimated-means-and-error-ranges"><i class="fa fa-check"></i><b>13.1</b> Comparison with Estimated Means and Error Ranges</a></li>
+<li class="chapter" data-level="13.2" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#comparison-by-analysis-of-variance"><i class="fa fa-check"></i><b>13.2</b> Comparison by Analysis of Variance</a></li>
+<li class="chapter" data-level="13.3" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#differences-between-populations-versus-relationships-between-variables"><i class="fa fa-check"></i><b>13.3</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#assumptions-and-robust-methods-1"><i class="fa fa-check"></i><b>13.4</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="13.5" data-path="comparing-means-of-more-than-two-samples-ch.-13.html"><a href="comparing-means-of-more-than-two-samples-ch.-13.html#practice-2"><i class="fa fa-check"></i><b>13.5</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html"><i class="fa fa-check"></i><b>14</b> Comparing Proportions of Different Samples (Ch. 14)</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-estimated-proportions-and-error-ranges"><i class="fa fa-check"></i><b>14.1</b> Comparison with Estimated Proportions and Error Ranges</a></li>
+<li class="chapter" data-level="14.2" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparison-with-chi2"><i class="fa fa-check"></i><b>14.2</b> Comparison with <span class="math inline">\(\chi^2\)</span></a></li>
+<li class="chapter" data-level="14.3" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#measures-of-strength"><i class="fa fa-check"></i><b>14.3</b> Measures of Strength</a></li>
+<li class="chapter" data-level="14.4" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#the-effect-of-sample-size"><i class="fa fa-check"></i><b>14.4</b> The Effect of Sample Size</a></li>
+<li class="chapter" data-level="14.5" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#differences-between-populations-versus-relationships-between-variables-1"><i class="fa fa-check"></i><b>14.5</b> Differences between Populations versus Relationships between Variables</a></li>
+<li class="chapter" data-level="14.6" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#assumptions-and-robust-methods-2"><i class="fa fa-check"></i><b>14.6</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="14.7" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#comparing-proportions-to-a-theoretical-expectation"><i class="fa fa-check"></i><b>14.7</b> Comparing Proportions to a Theoretical Expectation</a></li>
+<li class="chapter" data-level="14.8" data-path="comparing-proportions-of-different-samples-ch.-14.html"><a href="comparing-proportions-of-different-samples-ch.-14.html#practice-3"><i class="fa fa-check"></i><b>14.8</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><i class="fa fa-check"></i><b>15</b> Relating a Measurement Variable to Another Measurement Variable (Ch. 15)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html"><a href="relating-a-measurement-variable-to-another-measurement-variable-ch.-15.html#practice-4"><i class="fa fa-check"></i><b>15.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html"><i class="fa fa-check"></i><b>16</b> Relating Ranks (Ch. 16)</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#calculating-spearmans-rank-correlation-rho"><i class="fa fa-check"></i><b>16.1</b> Calculating Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="16.2" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#significance"><i class="fa fa-check"></i><b>16.2</b> Significance</a></li>
+<li class="chapter" data-level="16.3" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#assumptions-and-robust-methods-3"><i class="fa fa-check"></i><b>16.3</b> Assumptions and Robust Methods</a></li>
+<li class="chapter" data-level="16.4" data-path="relating-ranks-ch.-16.html"><a href="relating-ranks-ch.-16.html#practice-5"><i class="fa fa-check"></i><b>16.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html"><i class="fa fa-check"></i><b>17</b> Sampling a Population with Subgroups (Ch. 17)</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sampling-a-population-with-subgroups-ch.-17.html"><a href="sampling-a-population-with-subgroups-ch.-17.html#pooling-estimates"><i class="fa fa-check"></i><b>17.1</b> Pooling Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><i class="fa fa-check"></i><b>18</b> Sampling a Site or Region with Spatial Units (Ch. 18)</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-proportions"><i class="fa fa-check"></i><b>18.1</b> Estimating Population Proportions</a></li>
+<li class="chapter" data-level="18.2" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#estimating-population-means"><i class="fa fa-check"></i><b>18.2</b> Estimating Population Means</a></li>
+<li class="chapter" data-level="18.3" data-path="sampling-a-site-or-region-with-spatial-units-ch.-18.html"><a href="sampling-a-site-or-region-with-spatial-units-ch.-18.html#densities"><i class="fa fa-check"></i><b>18.3</b> Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance"><i class="fa fa-check"></i><b>20.1</b> Euclidean Distance</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#euclidean-distance-with-standardized-variables"><i class="fa fa-check"></i><b>20.1.1</b> Euclidean Distance with Standardized Variables</a></li>
+<li class="chapter" data-level="20.1.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#when-to-use-euclidean-distance"><i class="fa fa-check"></i><b>20.1.2</b> When To Use Euclidean Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
+<li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#configurations-in-different-numbers-of-dimensions"><i class="fa fa-check"></i><b>21.1</b> Configurations in Different Numbers of Dimensions</a></li>
+<li class="chapter" data-level="21.2" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html#interpreting-the-configuration"><i class="fa fa-check"></i><b>21.2</b> Interpreting the Configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html"><i class="fa fa-check"></i><b>22</b> Principal Components Analysis (Ch.24)</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#correlations-and-variables"><i class="fa fa-check"></i><b>22.1</b> Correlations and Variables</a></li>
+<li class="chapter" data-level="22.2" data-path="principal-components-analysis-ch.html"><a href="principal-components-analysis-ch.html#carrying-out-the-analysis"><i class="fa fa-check"></i><b>22.2</b> Carrying Out the Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html"><i class="fa fa-check"></i><b>23</b> Cluster Analysis (Ch.25)</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#single-linkage-clustering"><i class="fa fa-check"></i><b>23.1</b> Single Linkage Clustering</a></li>
+<li class="chapter" data-level="23.2" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#complete-linkage-clustering"><i class="fa fa-check"></i><b>23.2</b> Complete Linkage Clustering</a></li>
+<li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
+<li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
+<li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards"><i class="fa fa-check"></i><b>24.1</b> An Archaeological Case Study: Danish Bronze Age Hoards</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
+<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
+<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statisics for Archaeologists…with R!</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="categories-ch.-6" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Categories (Ch. 6)<a href="categories-ch.-6.html#categories-ch.-6" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>First download and import the data (remember that if your copy of ‘sherds.csv’ does not occupy the same relative location you will need to modify the filepath here to match the location of your local copy of sherds.csv).</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="categories-ch.-6.html#cb150-1" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">read.csv</span> (<span class="st">&quot;data/Drennan_datasets/sherds.csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<p>Rather than look at the whole dataset - it doesn’t all fit in the console anyway - let’s use <code>head()</code> to examine just the first several rows (note that <code>tail()</code> is analogous).</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="categories-ch.-6.html#cb151-1" tabindex="-1"></a><span class="fu">head</span>(sherds)</span></code></pre></div>
+<pre><code>##            Site     Style
+## 1     Oak Grove Unincised
+## 2   Maple Knoll   Incised
+## 3 Cypress Swamp Unincised
+## 4 Cypress Swamp   Incised
+## 5 Cypress Swamp   Incised
+## 6 Cypress Swamp Unincised</code></pre>
+<p>Here we are dealing with a <em>categorical</em> variable rather than a <em>numeric</em> one (and this is a kind of data that both archaeologists and anthropologists very often have). In R, this means that the columns of data will be <em>factors</em>. We can check that by using <code>str()</code> to examine the data.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="categories-ch.-6.html#cb153-1" tabindex="-1"></a><span class="fu">str</span>(sherds<span class="sc">$</span>Site) </span></code></pre></div>
+<pre><code>##  Factor w/ 3 levels &quot;Cypress Swamp&quot;,..: 3 2 1 1 1 1 1 3 3 2 ...</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="categories-ch.-6.html#cb155-1" tabindex="-1"></a><span class="fu">levels</span>(sherds<span class="sc">$</span>Site) </span></code></pre></div>
+<pre><code>## [1] &quot;Cypress Swamp&quot; &quot;Maple Knoll&quot;   &quot;Oak Grove&quot;</code></pre>
+<p>The 3 levels that <code>str()</code> references are the possible values of the factor - i.e., the categories. We can look at those levels directly - and you’ll notice that since R defaults to ordering factors alphabetically, our ordering doesn’t match Drennan’s. For our interests here this matters not at all, but it’s useful to understand how to reorder a factor.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="categories-ch.-6.html#cb157-1" tabindex="-1"></a>sherds<span class="sc">$</span>Site <span class="ot">&lt;-</span> <span class="fu">factor</span>(sherds<span class="sc">$</span>Site,</span>
+<span id="cb157-2"><a href="categories-ch.-6.html#cb157-2" tabindex="-1"></a>                      <span class="fu">levels</span>(sherds<span class="sc">$</span>Site)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)])  </span>
+<span id="cb157-3"><a href="categories-ch.-6.html#cb157-3" tabindex="-1"></a><span class="co">#reorder by re-making sherds$Site as a factor, ordering the levels in the process. </span></span></code></pre></div>
+<p>If you want to know what you’re reordering <em>to</em>, just run that piece of code to check:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="categories-ch.-6.html#cb158-1" tabindex="-1"></a><span class="fu">levels</span>(sherds<span class="sc">$</span>Site)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Cypress Swamp&quot; &quot;Maple Knoll&quot;   &quot;Oak Grove&quot;</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="categories-ch.-6.html#cb160-1" tabindex="-1"></a><span class="co">#since we&#39;re not assigning the result to an object, running this has no consequences beyond displaying the result</span></span></code></pre></div>
+<p>Note that the order of factor levels is basically arbitrary - but can effect, e.g., the order in which categories will appear in data plots, so it’s useful to be able to manipulate.</p>
+<p>Note also that there is an importantly <em>wrong</em> way to do this, which we can diagnose as problematic by using the <code>summary()</code> function to count up all of the occurences of each value (i.e., how many sherds from each site). If you take the seemingly reasonable step of reordering the levels by simply overwriting them, you scramble your data values. Examing the alarming ‘before’ and ‘after’ outputs of <code>summary()</code> here, and keep in mind that if you want to re-order factors, this is <em>not</em> the way to do it!</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="categories-ch.-6.html#cb161-1" tabindex="-1"></a><span class="fu">summary</span>(sherds<span class="sc">$</span>Site)</span></code></pre></div>
+<pre><code>##     Oak Grove   Maple Knoll Cypress Swamp 
+##            59            37            44</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="categories-ch.-6.html#cb163-1" tabindex="-1"></a><span class="fu">levels</span>(sherds<span class="sc">$</span>Site) <span class="ot">&lt;-</span> <span class="fu">levels</span>(sherds<span class="sc">$</span>Site)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)]</span>
+<span id="cb163-2"><a href="categories-ch.-6.html#cb163-2" tabindex="-1"></a><span class="fu">summary</span>(sherds<span class="sc">$</span>Site)</span></code></pre></div>
+<pre><code>## Cypress Swamp   Maple Knoll     Oak Grove 
+##            59            37            44</code></pre>
+<p>The easiest way to restore your <code>sherds</code> object is to re-run the line above that reads in the object - and make sure that you don’t accidentally run the lines immediately above and re-scramble it.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="categories-ch.-6.html#cb165-1" tabindex="-1"></a>sherds <span class="ot">&lt;-</span> <span class="fu">read.csv</span> (<span class="st">&quot;data/Drennan_datasets/sherds.csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb165-2"><a href="categories-ch.-6.html#cb165-2" tabindex="-1"></a>sherds<span class="sc">$</span>Site <span class="ot">&lt;-</span> <span class="fu">factor</span>(sherds<span class="sc">$</span>Site,</span>
+<span id="cb165-3"><a href="categories-ch.-6.html#cb165-3" tabindex="-1"></a>                      <span class="fu">levels</span>(sherds<span class="sc">$</span>Site)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)]) </span></code></pre></div>
+<p>Now we can begin to explore the data, in various ways. The <code>summary()</code> function gives us an overview, and we can use <code>table()</code> to summarize just the counts of sherds from each site.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="categories-ch.-6.html#cb166-1" tabindex="-1"></a> <span class="co">#first simply</span></span>
+<span id="cb166-2"><a href="categories-ch.-6.html#cb166-2" tabindex="-1"></a><span class="fu">summary</span>(sherds) </span></code></pre></div>
+<pre><code>##             Site          Style   
+##  Oak Grove    :59   Incised  :64  
+##  Maple Knoll  :37   Unincised:76  
+##  Cypress Swamp:44</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="categories-ch.-6.html#cb168-1" tabindex="-1"></a><span class="fu">table</span>(sherds<span class="sc">$</span>Site) </span></code></pre></div>
+<pre><code>## 
+##     Oak Grove   Maple Knoll Cypress Swamp 
+##            59            37            44</code></pre>
+<p>To produce Table 6.2, we need to calculate and display frequencies and proportions. We’ll do that by building a table as above, and then using <code>addmargins()</code> to add a row sum. We can also use <code>prop.table()</code> to calculate relative proportions, but it won’t do the counting that <code>table()</code> does, so needs to operate on the output of <code>table()</code>.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="categories-ch.-6.html#cb170-1" tabindex="-1"></a>SiteTable <span class="ot">&lt;-</span> <span class="fu">table</span>(sherds<span class="sc">$</span>Site)</span>
+<span id="cb170-2"><a href="categories-ch.-6.html#cb170-2" tabindex="-1"></a><span class="fu">addmargins</span>(SiteTable) <span class="co">#table with row sum</span></span></code></pre></div>
+<pre><code>## 
+##     Oak Grove   Maple Knoll Cypress Swamp           Sum 
+##            59            37            44           140</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="categories-ch.-6.html#cb172-1" tabindex="-1"></a><span class="co">#run prop.table converting proportions to %, adding a row sum, and rounding </span></span>
+<span id="cb172-2"><a href="categories-ch.-6.html#cb172-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">addmargins</span>(<span class="fu">prop.table</span>(SiteTable))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## 
+##     Oak Grove   Maple Knoll Cypress Swamp           Sum 
+##         42.14         26.43         31.43        100.00</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="categories-ch.-6.html#cb174-1" tabindex="-1"></a><span class="co">#combine the two tables</span></span>
+<span id="cb174-2"><a href="categories-ch.-6.html#cb174-2" tabindex="-1"></a>sherdsbysite <span class="ot">&lt;-</span> <span class="fu">rbind</span> (<span class="fu">addmargins</span>(SiteTable), </span>
+<span id="cb174-3"><a href="categories-ch.-6.html#cb174-3" tabindex="-1"></a>                       <span class="fu">round</span>(<span class="fu">addmargins</span>(<span class="fu">prop.table</span>(SiteTable))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>))</span>
+<span id="cb174-4"><a href="categories-ch.-6.html#cb174-4" tabindex="-1"></a><span class="co">#add row names</span></span>
+<span id="cb174-5"><a href="categories-ch.-6.html#cb174-5" tabindex="-1"></a><span class="fu">rownames</span>(sherdsbysite) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Frequency&quot;</span>, <span class="st">&quot;Proportion&quot;</span>)</span>
+<span id="cb174-6"><a href="categories-ch.-6.html#cb174-6" tabindex="-1"></a>sherdsbysite</span></code></pre></div>
+<pre><code>##            Oak Grove Maple Knoll Cypress Swamp Sum
+## Frequency      59.00       37.00         44.00 140
+## Proportion     42.14       26.43         31.43 100</code></pre>
+<p>It should be clear that you could produce Table 6.3 by doing the same but with <code>sherds$Style</code>.</p>
+<p>Table 6.4 involves cross-tabulating the two variables - asking whether the frequencies and proportions of different ceramic styles vary at different sites. If you’ve used pivot tables in Microsoft Excel you may recognize this sort of summarizing by different variables - there’s considerable conceptual overlap.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="categories-ch.-6.html#cb176-1" tabindex="-1"></a><span class="fu">table</span>(sherds<span class="sc">$</span>Site, sherds<span class="sc">$</span>Style)</span></code></pre></div>
+<pre><code>##                
+##                 Incised Unincised
+##   Oak Grove          25        34
+##   Maple Knoll        21        16
+##   Cypress Swamp      18        26</code></pre>
+<p>Using <code>t()</code> will transpose the table, producing something that matches the ‘Frequencies’ portion of Table 6.4.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="categories-ch.-6.html#cb178-1" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">table</span>(sherds<span class="sc">$</span>Site, sherds<span class="sc">$</span>Style))  </span></code></pre></div>
+<pre><code>##            
+##             Oak Grove Maple Knoll Cypress Swamp
+##   Incised          25          21            18
+##   Unincised        34          16            26</code></pre>
+<p>We can do the same thing more elegantly using the <code>xtabs()</code> function.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="categories-ch.-6.html#cb180-1" tabindex="-1"></a>Xtable <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="sc">~</span>Style <span class="sc">+</span> Site, <span class="at">data =</span> sherds)</span>
+<span id="cb180-2"><a href="categories-ch.-6.html#cb180-2" tabindex="-1"></a>Xtable</span></code></pre></div>
+<pre><code>##            Site
+## Style       Oak Grove Maple Knoll Cypress Swamp
+##   Incised          25          21            18
+##   Unincised        34          16            26</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="categories-ch.-6.html#cb182-1" tabindex="-1"></a><span class="co">#convert XTable to a data frame</span></span>
+<span id="cb182-2"><a href="categories-ch.-6.html#cb182-2" tabindex="-1"></a>Ftable <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Xtable)</span>
+<span id="cb182-3"><a href="categories-ch.-6.html#cb182-3" tabindex="-1"></a>Ftable  </span></code></pre></div>
+<pre><code>##       Style          Site Freq
+## 1   Incised     Oak Grove   25
+## 2 Unincised     Oak Grove   34
+## 3   Incised   Maple Knoll   21
+## 4 Unincised   Maple Knoll   16
+## 5   Incised Cypress Swamp   18
+## 6 Unincised Cypress Swamp   26</code></pre>
+<p>The Ftable object that we’ve just produced is a compact version of ‘sherds’; we didn’t need to produce this but you might well encounter data in this format that you’d then want to manipulate with <code>xtabs()</code>, like so:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="categories-ch.-6.html#cb184-1" tabindex="-1"></a><span class="fu">xtabs</span>(Freq<span class="sc">~</span>Style<span class="sc">+</span>Site, <span class="at">data=</span>Ftable)</span></code></pre></div>
+<pre><code>##            Site
+## Style       Oak Grove Maple Knoll Cypress Swamp
+##   Incised          25          21            18
+##   Unincised        34          16            26</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="categories-ch.-6.html#cb186-1" tabindex="-1"></a><span class="co">#various ways of plotting &#39;sherds&#39; (first making a crosstab), using barplot</span></span>
+<span id="cb186-2"><a href="categories-ch.-6.html#cb186-2" tabindex="-1"></a><span class="fu">barplot</span>(Xtable, <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="co"># Stacked bar graph </span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/barplots-1.png" width="672" /></p>
+<p>A stacked bar graph is, in this case, not very useful - unstacked bars allow better comparison.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="categories-ch.-6.html#cb187-1" tabindex="-1"></a><span class="fu">barplot</span>(Xtable, <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">beside =</span> T) <span class="co"># Side-by-side bar graph</span></span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>Several more options that you should compare. What are the advantages/disadvantages to each? What information is each good at conveying; which comparisons does each facilitate?</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="categories-ch.-6.html#cb188-1" tabindex="-1"></a><span class="fu">barplot</span>(Xtable, <span class="at">ylab  =</span>  <span class="st">&quot;Frequency&quot;</span>, <span class="at">beside  =</span>  T, <span class="at">legend.text =</span> T) <span class="co"># with legend</span></span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="categories-ch.-6.html#cb189-1" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(Xtable), <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)    <span class="co"># Stacked bar graph, flip rows/columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="categories-ch.-6.html#cb190-1" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(Xtable), <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">beside =</span> T) <span class="co"># Side-by-side bar graph, rows/columns flipped</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="categories-ch.-6.html#cb191-1" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(Xtable), <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">beside =</span> T, <span class="at">legend.text =</span> T) <span class="co"># with legend</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="categories-ch.-6.html#cb192-1" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(Xtable), <span class="at">beside =</span> T, <span class="at">legend.text =</span> T, </span>
+<span id="cb192-2"><a href="categories-ch.-6.html#cb192-2" tabindex="-1"></a>        <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="st">&quot;topleft&quot;</span>)) <span class="co">#moves the legend</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="categories-ch.-6.html#cb193-1" tabindex="-1"></a><span class="co"># The next two use percentages to match Figure 6.1</span></span>
+<span id="cb193-2"><a href="categories-ch.-6.html#cb193-2" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T,</span>
+<span id="cb193-3"><a href="categories-ch.-6.html#cb193-3" tabindex="-1"></a>        <span class="at">legend.text =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="categories-ch.-6.html#cb194-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T,</span>
+<span id="cb194-2"><a href="categories-ch.-6.html#cb194-2" tabindex="-1"></a>        <span class="at">legend.text =</span> T)</span></code></pre></div>
+<p>We can also reproduce Fig. 6.1 by putting these in the same plot. The simplest way to do this uses base R graphics and divides the plotting space into multiple panes; each subsequent plot command then populates the next pane in the sequence.
+If we want to label the bars as Drennan does, we can then grab the values of the midpoints of the bars.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="categories-ch.-6.html#cb195-1" tabindex="-1"></a><span class="co">#set the mfrow parameter in par() to one rows and two columns</span></span>
+<span id="cb195-2"><a href="categories-ch.-6.html#cb195-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow  =</span>  <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))  </span>
+<span id="cb195-3"><a href="categories-ch.-6.html#cb195-3" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb195-4"><a href="categories-ch.-6.html#cb195-4" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T)</span>
+<span id="cb195-5"><a href="categories-ch.-6.html#cb195-5" tabindex="-1"></a></span>
+<span id="cb195-6"><a href="categories-ch.-6.html#cb195-6" tabindex="-1"></a>midpts <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb195-7"><a href="categories-ch.-6.html#cb195-7" tabindex="-1"></a>                            <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T, <span class="at">plot =</span> F))</span>
+<span id="cb195-8"><a href="categories-ch.-6.html#cb195-8" tabindex="-1"></a><span class="co">#And the heights of the bars:</span></span>
+<span id="cb195-9"><a href="categories-ch.-6.html#cb195-9" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(base<span class="sc">::</span><span class="fu">t</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>))</span>
+<span id="cb195-10"><a href="categories-ch.-6.html#cb195-10" tabindex="-1"></a><span class="co">#...and then use those as coordinates for adding some text to the plot:</span></span>
+<span id="cb195-11"><a href="categories-ch.-6.html#cb195-11" tabindex="-1"></a><span class="fu">text</span>(midpts, heights<span class="sc">+</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">levels</span>(sherds<span class="sc">$</span>Site), <span class="at">srt =</span> <span class="dv">90</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">8</span>) </span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/multiplots-1.png" width="672" /></p>
+<p>This may seem like more trouble than it’s worth, but it turns out often to be quite useful to be able to figure out exactly where elements of a plot are, and place text accordingly.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="categories-ch.-6.html#cb196-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T)</span>
+<span id="cb196-2"><a href="categories-ch.-6.html#cb196-2" tabindex="-1"></a>midpts2 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">barplot</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, </span>
+<span id="cb196-3"><a href="categories-ch.-6.html#cb196-3" tabindex="-1"></a>                             <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T, <span class="at">plot =</span> F))</span>
+<span id="cb196-4"><a href="categories-ch.-6.html#cb196-4" tabindex="-1"></a>heights2 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb196-5"><a href="categories-ch.-6.html#cb196-5" tabindex="-1"></a><span class="fu">text</span>(midpts2, heights2<span class="sc">+</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">levels</span>(sherds<span class="sc">$</span>Style), <span class="at">srt =</span> <span class="dv">90</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">8</span>)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="categories-ch.-6.html#cb197-1" tabindex="-1"></a><span class="co">#to restore your plot space to normal (instead of having two panes), run:</span></span>
+<span id="cb197-2"><a href="categories-ch.-6.html#cb197-2" tabindex="-1"></a><span class="co"># dev.off()</span></span></code></pre></div>
+<p>As we’ve seen with boxplots, it’s easy to manipulate color as well.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="categories-ch.-6.html#cb198-1" tabindex="-1"></a><span class="fu">barplot</span>(base<span class="sc">::</span><span class="fu">t</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), </span>
+<span id="cb198-2"><a href="categories-ch.-6.html#cb198-2" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T, <span class="at">legend.text =</span> T, </span>
+<span id="cb198-3"><a href="categories-ch.-6.html#cb198-3" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="st">&quot;topleft&quot;</span>))</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/plot%20color-1.png" width="672" /></p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="categories-ch.-6.html#cb199-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), </span>
+<span id="cb199-2"><a href="categories-ch.-6.html#cb199-2" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, <span class="at">beside =</span> T, <span class="at">legend.text =</span> T, </span>
+<span id="cb199-3"><a href="categories-ch.-6.html#cb199-3" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="st">&quot;topright&quot;</span>))</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/plot%20color-2.png" width="672" /></p>
+<p>Bonus fun: it’s often a good idea to add sample size to your plots. You can do this in various places/ways. If you’re using <code>barplot()</code> and what to include it in the labels below each bar, the relevant argument is <code>names.arg =</code> (see <code>?barplot</code>). You can do this by calculating the sample size and adding the text yourself, or you can add an object with the sample size to your labels, so that if the sample size changes your plot stays up-to-date (it’s a bit more hassle at first, but will save grief later).</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="categories-ch.-6.html#cb200-1" tabindex="-1"></a><span class="co">#figure out the relevant sample sizes (total number of sherds/site)</span></span>
+<span id="cb200-2"><a href="categories-ch.-6.html#cb200-2" tabindex="-1"></a><span class="co">#then make an object that pastes that together with some text</span></span>
+<span id="cb200-3"><a href="categories-ch.-6.html#cb200-3" tabindex="-1"></a>barnames <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">colnames</span>(Xtable), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">(n = &quot;</span>, <span class="fu">colSums</span>(Xtable), <span class="st">&quot;)&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb200-4"><a href="categories-ch.-6.html#cb200-4" tabindex="-1"></a><span class="co">#and use that object as an argument to names.arg</span></span>
+<span id="cb200-5"><a href="categories-ch.-6.html#cb200-5" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(Xtable, <span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">75</span>), <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>, </span>
+<span id="cb200-6"><a href="categories-ch.-6.html#cb200-6" tabindex="-1"></a>        <span class="at">beside =</span> T, <span class="at">legend.text =</span> T, <span class="at">names.arg =</span> barnames)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/add-n-1.png" width="672" /></p>
+<div id="practice" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Practice<a href="categories-ch.-6.html#practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data for the Ch.6 Practice are in <a href="data/Drennan_datasets/AlAmadiyah.csv">AlAmadiyah.csv</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-shape-or-distribution-of-a-batch-ch.-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="samples-and-populations-ch.-7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
