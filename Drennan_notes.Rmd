@@ -1,5 +1,6 @@
 ---
 title: "*Statisics for Archaeologists*...with **R**!"
+subtitle: "Working Notes for ANG6192/ANT4117"
 author: "Daniel A. Contreras"
 site: bookdown::bookdown_site
 documentclass: book
