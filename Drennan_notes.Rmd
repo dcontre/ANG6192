@@ -19,13 +19,13 @@ library(kableExtra)
 
 # Preface {-}
 
-These notes, intended to serve as a guide to implementing Drennan's *Statistics for Archaeologists* (@Drennan_2009) in R, are built upon David Carlson's [*R Companion to Statistics for Archaeologists*](https://sites.google.com/a/tamu.edu/dlcarlson/home/r-project/companion-guides). I have written the text and rewritten most of the code, but without the foundation - and inspiration - that he provided this document would not exist.
+These notes, intended to serve as a guide to implementing Drennan's *Statistics for Archaeologists* [@Drennan_2009] in R, are built upon David Carlson's [*R Companion to Statistics for Archaeologists*](https://sites.google.com/a/tamu.edu/dlcarlson/home/r-project/companion-guides). I have written the text and rewritten most of the code, but without the foundation - and inspiration - that he provided this document would not exist.
 
 ```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
 include_graphics("imgs/drennan.jpg")
 ```
 
-They primarily use Base R, with additional packages generally noted when used. This is not to say that these are the only - or even the most efficient - ways of carrying out these operations! However, they are the easiest to follow when learning both statistics and R because they are (relatively) transparent; largely for this reason you won't find much of the so-called [*tidyverse*](https://tidyverse.org/) here, though it is indubitably a useful and often efficient way to use R. One major exception is the **dplyr** package (@Wickham_2018), which I have come to rely on for efficient data wrangling (see my intro to [Data Wrangling for Archaeology](https://dcontre.github.io/DataWrangling_notes/introduction.html)) and occasionally use here. A few other packages are added for select chapters; I have tried to confine this to the beginning of each chapter so that you can easily see which packages are being loaded.
+They primarily use Base R, with additional packages generally noted when used. This is not to say that these are the only - or even the most efficient - ways of carrying out these operations! However, they are the easiest to follow when learning both statistics and R because they are (relatively) transparent; largely for this reason you won't find much of the so-called [*tidyverse*](https://tidyverse.org/) here, though it is indubitably a useful and often efficient way to use R. One major exception is the **dplyr** package [@Wickham_2018], which I have come to rely on for efficient data wrangling (see my intro to [Data Wrangling for Archaeology](https://dcontre.github.io/DataWrangling_notes/introduction.html)) and occasionally use here. A few other packages are added for select chapters; I have tried to confine this to the beginning of each chapter so that you can easily see which packages are being loaded.
 
 Please note that you will not find much explanatory text about the concepts involved in each chapter here either - Drennan provides that. Rather, this text focuses on how to implement in R the kinds of analysis and visualization of archaeological data that Drennan describes. 
 
@@ -74,7 +74,7 @@ scrapers <- read.delim("data/Drennan_datasets/scrapers.txt",
 ```
 
 You'll use `read.delim()` for tab-delimited; `read.table()` or `read.csv()` are comparable for other data structures. (There are R packages that also enable reading data with more complex formats - Excel tables or Google sheets, most commonly.). Get used to examining the structure of any data file so that you can figure out how to use it (and about what specifically to curse the original author if necessary).  There are various tricks for this - select + spacebar on a Mac, or TextEdit (included w/ the OS; [TextWrangler and its spawn, BBEdit](https://www.barebones.com/products/bbedit/) are free and better); on a PC try the free utility [Notepad++](https://notepad-plus-plus.org/).
-Using - not to mention producing and maintaining - tabular data is a generally-overlooked but vital part of archaeological practice. One important advantage of working with data in R is that you can leave the original data file alone, instead making modifications to the objects you're working with in R. This removes the risk - endemic to spreadsheet use - of corruption or loss of original data.  Warning: making active use of tabular data will lead to you develop opinions about how one *should* manage such data (and there are in fact better and worse practices; for spreadsheets in particular see Broman and Woo (-@broman2018)). For notes on wrangling data in R, see [here](https://dcontre.github.io/DataWrangling_notes/introduction.html).  
+Using - not to mention producing and maintaining - tabular data is a generally-overlooked but vital part of archaeological practice. One important advantage of working with data in R is that you can leave the original data file alone, instead making modifications to the objects you're working with in R. This removes the risk - endemic to spreadsheet use - of corruption or loss of original data.  Warning: making active use of tabular data will lead to you develop opinions about how one *should* manage such data (and there are in fact better and worse practices; for spreadsheets in particular see Broman and Woo [-@broman2018]). For notes on wrangling data in R, see [here](https://dcontre.github.io/DataWrangling_notes/introduction.html).  
 
 ```{r}
 scrapers
@@ -2257,7 +2257,7 @@ snodgrass_sample
 ```
 
 
-Screwing up your courage, you explain that even though it's not as fashionable as it once was, you've read Flannery's *Early Mesoamerican Village* (-@Flannery_1976), and are acutely aware of the Teotihuacan problem: a purely random spatial samples risks missing things that you know are there! 
+Screwing up your courage, you explain that even though it's not as fashionable as it once was, you've read Flannery's *Early Mesoamerican Village* [-@Flannery_1976], and are acutely aware of the Teotihuacan problem: a purely random spatial samples risks missing things that you know are there! 
 
 ```{r echo = F, out.width= "35%", out.extra='style="float:left; padding:10px"'}
 include_graphics("imgs/EarlyMesoVillage1976.jpg")
@@ -2935,7 +2935,7 @@ plot(as.dendrogram(ixcaq_varclust), horiz = TRUE, xlab = "Distance")
 
 ## Problem Set
 
-Since Drennan does not provide a problem set for cluster analysis, we'll use one adapted from Shennan (-@Shennan_1997, Ch. 11).
+Since Drennan does not provide a problem set for cluster analysis, we'll use one adapted from Shennan [-@Shennan_1997, Ch. 11].
 
 The excavator of a series of Andean sites is interested in the factors affecting the occurrence of different plant species at those sites: possibilities are site location, the period to which the sites belong, and the status of the parts of the site from which the plant remains come. Abashed at their inability to use R, they've come to you with a data table and thrown themselves on your mercy. The table below (and available [here](data/Shennan1997_11.2_ProblemSetData.csv)) shows the site name, phase and social status (elite versus commoner) for ten different site areas. For each area the ubiquity of four different plant species is recorded, i.e. the percentage of excavated units in each site area in which that species was found.
 
@@ -2953,7 +2953,7 @@ kable(marcas) %>% kable_classic %>%
 
 # Correspondence Analysis {#correspondence-analysis}
 
-Drennan does not cover correspondence analysis, but because archaeologists are so likely to work with categorical data, it's useful to be familiar with this method. This section is based on Ch.13 of Shennan's *Quantifying Archaeology* (-@Shennan_1997). 
+Drennan does not cover correspondence analysis, but because archaeologists are so likely to work with categorical data, it's useful to be familiar with this method. This section is based on Ch.13 of Shennan's *Quantifying Archaeology* [-@Shennan_1997]. 
 
 
 ```{r message=F, warning=F}
@@ -3192,10 +3192,10 @@ Complex analyses can be vital means of developing insights and testing ideas, bu
 
 ## Other analytical approaches
 
-Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. For a brief review of books on quantitative methods in archaeology, see Drennan's section on 'Suggested Reading' (-@Drennan_2009, 321-325). More recent texts not covered there include include the 2nd edition of Baxter's *Exploratory multivariate Analysis in Archaeology* (-@baxter2015exploratory), VanPool and Leonard's *Quantitative Analysis in Archaeology* (-@VanPool_Leonard_2011), McCall's *Strategies for Quantitative Research: Archaeology by Numbers* (-@mccall2018strategies), Carlson's *Quantitative methods in Archaeology Using R* (-@carlson2017quantitative), and the first half of Banning's *The Archaeologist’s Laboratory* (-@banning2020, Ch.1-8). Baxter's *Notes on Quantitative Archaeology and R* (-@Baxter2015quantarchR), available [here](https://www.researchgate.net/publication/277931925_Notes_on_Quantitative_Archaeology_and_R) though not formally published, is at least as cogent and useful as many things that are.
+Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. For a brief review of books on quantitative methods in archaeology, see Drennan's section on 'Suggested Reading' [-@Drennan_2009, 321-325]. More recent texts not covered there include include the 2nd edition of Baxter's *Exploratory multivariate Analysis in Archaeology* [-@baxter2015exploratory], VanPool and Leonard's *Quantitative Analysis in Archaeology* [-@VanPool_Leonard_2011], McCall's *Strategies for Quantitative Research: Archaeology by Numbers* [-@mccall2018strategies], Carlson's *Quantitative methods in Archaeology Using R* [-@carlson2017quantitative], and the first half of Banning's *The Archaeologist’s Laboratory* [-@banning2020, Ch.1-8]. Baxter's *Notes on Quantitative Archaeology and R* [-@Baxter2015quantarchR], available [here](https://www.researchgate.net/publication/277931925_Notes_on_Quantitative_Archaeology_and_R) though not formally published, is at least as cogent and useful as many things that are.
 
-There are several recent chapters and papers presenting introduction to particular topics, especially multivariate (@glascock2023; @lopezgarcia2026), Bayesian (@OtarolaCastillo2018; @OtarolaCastillo2022), and modeling (@crema2025) approaches. There are even more examples of their application, particularly in spheres where analytical approaches are fundamental to data interpretation (for example in use of chemical compositional data); listing those is beyond what I can do here. 
-Attention to these topics results at least in part from the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling). They also tend to reflect the reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (though they certainly do not originate with him (see @Cowgill1977), and are becoming common in the sciences more broadly [see @Amrhein2019; @wasserstein2019].
+There are several recent chapters and papers presenting introduction to particular topics, especially multivariate [@glascock2023; @lopezgarcia2026], Bayesian [@OtarolaCastillo2018; @OtarolaCastillo2022], and modeling [@crema2025] approaches. There are even more examples of their application, particularly in spheres where analytical approaches are fundamental to data interpretation (for example in use of chemical compositional data); listing those is beyond what I can do here. 
+Attention to these topics results at least in part from the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling). They also tend to reflect the reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (though they certainly do not originate with him [see @Cowgill1977], and are becoming common in the sciences more broadly [see @Amrhein2019; @wasserstein2019]).
 
 
 ## Others?

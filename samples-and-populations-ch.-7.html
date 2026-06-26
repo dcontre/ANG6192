@@ -305,22 +305,22 @@ Perhaps the simplest way to sample these would be to assign a number to each hec
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="samples-and-populations-ch.-7.html#cb201-1" tabindex="-1"></a>grids <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7500</span>, <span class="dv">100</span>) <span class="co">#randomly select 100 numbers from 1-7500, w/o replacement</span></span>
 <span id="cb201-2"><a href="samples-and-populations-ch.-7.html#cb201-2" tabindex="-1"></a><span class="co">#if you have reason to sample with replacement instead, use replace = TRUE in sample()</span></span>
 <span id="cb201-3"><a href="samples-and-populations-ch.-7.html#cb201-3" tabindex="-1"></a>grids <span class="co">#by default these are ordered as selected</span></span></code></pre></div>
-<pre><code>##   [1] 1296 3149 5807 2738 4517   18 2051 7377  981 2161  787 7128 6112 2598 6213
-##  [16]  591 3241 2925 1609 4477 6113 1768 4714 5242  994 3862  280 6184 7175 7429
-##  [31]  163 1821  972 3910 5316 4521 2526 4815  446 1019 2367 6913 4594  855  282
-##  [46] 3584 4817 2903  113 5478 5100  461 1660 6086 1900 1547 4249 3225 4933 6832
-##  [61] 3877 2314 4389 5763 5621 2640 3279  152 4348 6222 4284 2160 2426 2029  246
-##  [76] 3648   72 3390  151 5282 5722 4089 6627 6305  800 7016 3284 7211 4076 1339
-##  [91] 1546 3483 3385 5104 5014 4120 1207 5810 7300 2940</code></pre>
+<pre><code>##   [1]  340 1940 1777 5988 4378  438 6246 5302 2346  224 6899 3889   43 7204 5268
+##  [16] 4743 4395 2571 1001 2437 6378 3094 4768 2865  353 2136 3326 7209 7447 2339
+##  [31] 3258 1925 6969 3389 2579 4269 3273 7082 7023 5801  402 7287  804 2116 5483
+##  [46] 6578 6209 6067 6479 5858 1385 1215 5420 6731 4343 5896 3718  682 6217 7301
+##  [61]  368  720 1946 5687 5337 5603 6129 2452 3243   20 3745 7250 2234 6771  997
+##  [76] 4004 4674 7302 6210  786 4788 5892 6472 4495  316  200 7151 2355 7431 6627
+##  [91] 5788 1107 1910 6351 3991 2012 3898 1628 3377 2723</code></pre>
 <p>Probably - think about the practical realities of working your way around the landscape collecting samples - you’d find it more practical to order these sequentially.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="samples-and-populations-ch.-7.html#cb203-1" tabindex="-1"></a><span class="fu">sort</span>(grids) </span></code></pre></div>
-<pre><code>##   [1]   18   72  113  151  152  163  246  280  282  446  461  591  787  800  855
-##  [16]  972  981  994 1019 1207 1296 1339 1546 1547 1609 1660 1768 1821 1900 2029
-##  [31] 2051 2160 2161 2314 2367 2426 2526 2598 2640 2738 2903 2925 2940 3149 3225
-##  [46] 3241 3279 3284 3385 3390 3483 3584 3648 3862 3877 3910 4076 4089 4120 4249
-##  [61] 4284 4348 4389 4477 4517 4521 4594 4714 4815 4817 4933 5014 5100 5104 5242
-##  [76] 5282 5316 5478 5621 5722 5763 5807 5810 6086 6112 6113 6184 6213 6222 6305
-##  [91] 6627 6832 6913 7016 7128 7175 7211 7300 7377 7429</code></pre>
+<pre><code>##   [1]   20   43  200  224  316  340  353  368  402  438  682  720  786  804  997
+##  [16] 1001 1107 1215 1385 1628 1777 1910 1925 1940 1946 2012 2116 2136 2234 2339
+##  [31] 2346 2355 2437 2452 2571 2579 2723 2865 3094 3243 3258 3273 3326 3377 3389
+##  [46] 3718 3745 3889 3898 3991 4004 4269 4343 4378 4395 4495 4674 4743 4768 4788
+##  [61] 5268 5302 5337 5420 5483 5603 5687 5788 5801 5858 5892 5896 5988 6067 6129
+##  [76] 6209 6210 6217 6246 6351 6378 6472 6479 6578 6627 6731 6771 6899 6969 7023
+##  [91] 7082 7151 7204 7209 7250 7287 7301 7302 7431 7447</code></pre>
 <p>As Drennan (p85) is at pains to point out - and as you would be very wise to note! - <em>random</em> is not the same thing as <em>representative</em>. The concepts underlying Drennan’s discussion of random and nonrandom samples, sampling bias, and representativeness <em>are at least as important as any statistical technique</em>. As Drennan notes (p88), these are issues fundamental to inference generally, not just to statistical inference (i.e., you cannot avoid the need to think about these issues by simply eschewing statistics!).</p>
 <p>Note that R code that generates random samples is very unlikely to draw the same number twice! So…if you run the code a second time, you’re likely to get a different answer. If you want to, for illustrative purposes, makes sure that you always draw the same random number, use the <code>set.seed()</code> function.</p>
 <p>Compare the result of running both lines of code below two or three times to the result of running only the second line of code two or three times.</p>
