@@ -2257,7 +2257,7 @@ snodgrass_sample
 ```
 
 
-Screwing up your courage, you explain that even though it's not as fashionable as it once was, you've read Flannery's *Early Mesoamerican Village* (@Flannery_1976), and are acutely aware of the Teotihuacan problem: a purely random spatial samples risks missing things that you know are there! 
+Screwing up your courage, you explain that even though it's not as fashionable as it once was, you've read Flannery's *Early Mesoamerican Village* (-@Flannery_1976), and are acutely aware of the Teotihuacan problem: a purely random spatial samples risks missing things that you know are there! 
 
 ```{r echo = F, out.width= "35%", out.extra='style="float:left; padding:10px"'}
 include_graphics("imgs/EarlyMesoVillage1976.jpg")
@@ -2935,7 +2935,7 @@ plot(as.dendrogram(ixcaq_varclust), horiz = TRUE, xlab = "Distance")
 
 ## Problem Set
 
-Since Drennan does not provide a problem set for cluster analysis, we'll use one adapted from Shennan (@Shennan_1997, Ch. 11).
+Since Drennan does not provide a problem set for cluster analysis, we'll use one adapted from Shennan (-@Shennan_1997, Ch. 11).
 
 The excavator of a series of Andean sites is interested in the factors affecting the occurrence of different plant species at those sites: possibilities are site location, the period to which the sites belong, and the status of the parts of the site from which the plant remains come. Abashed at their inability to use R, they've come to you with a data table and thrown themselves on your mercy. The table below (and available [here](data/Shennan1997_11.2_ProblemSetData.csv)) shows the site name, phase and social status (elite versus commoner) for ten different site areas. For each area the ubiquity of four different plant species is recorded, i.e. the percentage of excavated units in each site area in which that species was found.
 
@@ -2953,7 +2953,7 @@ kable(marcas) %>% kable_classic %>%
 
 # Correspondence Analysis {#correspondence-analysis}
 
-Drennan does not cover correspondence analysis, but because archaeologists are so likely to work with categorical data, it's useful to be familiar with this method. This section is based on Ch.13 of Shennan's *Quantifying Archaeology* (@Shennan_1997). 
+Drennan does not cover correspondence analysis, but because archaeologists are so likely to work with categorical data, it's useful to be familiar with this method. This section is based on Ch.13 of Shennan's *Quantifying Archaeology* (-@Shennan_1997). 
 
 
 ```{r message=F, warning=F}
@@ -3192,15 +3192,15 @@ Complex analyses can be vital means of developing insights and testing ideas, bu
 
 ## Other analytical approaches
 
-Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019, @wasserstein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
+Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019; @wasserstein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
 
 ### Bayesian Approaches
 
-(@OtarolaCastillo2018, @OtarolaCastillo2022)
+(@OtarolaCastillo2018; @OtarolaCastillo2022)
 
 ### Model Fitting
 
-(@Codding2024)
+(@crema2025; @Codding2024)
 
 ### MCMC
 
