@@ -3192,11 +3192,11 @@ Complex analyses can be vital means of developing insights and testing ideas, bu
 
 ## Other analytical approaches
 
-Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The undercurrent of skepticism about null-hypothesis statistical testing (NHST) and the fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
+Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019, @wasserstein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
 
 ### Bayesian Approaches
 
-(@OtarolaCastillo2018, @OtarolaCastillo2023)
+(@OtarolaCastillo2018, @OtarolaCastillo2022)
 
 ### Model Fitting
 
