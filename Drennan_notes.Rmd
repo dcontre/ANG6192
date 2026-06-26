@@ -3192,17 +3192,10 @@ Complex analyses can be vital means of developing insights and testing ideas, bu
 
 ## Other analytical approaches
 
-Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. The reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (and this course, and perhaps the sciences more broadly [see @Amrhein2019; @wasserstein2019]), combined with the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling), has led to a number of recent explorations of alternatives. 
+Correspondence analysis is, of course, only one of many methods that don't make it into Drennan's book. For a brief review of books on quantitative methods in archaeology, see Drennan's section on 'Suggested Reading' (-@Drennan_2009, 321-325). More recent texts not covered there include include the 2nd edition of Baxter's *Exploratory multivariate Analysis in Archaeology* (-@baxter2015exploratory), VanPool and Leonard's *Quantitative Analysis in Archaeology* (-@VanPool_Leonard_2011), McCall's *Strategies for Quantitative Research: Archaeology by Numbers* (-@mccall2018strategies), Carlson's *Quantitative methods in Archaeology Using R* (-@carlson2017quantitative), and the first half of Banning's *The Archaeologist’s Laboratory* (-@banning2020, Ch.1-8). Baxter's *Notes on Quantitative Archaeology and R* (-@Baxter2015quantarchR), available [here](https://www.researchgate.net/publication/277931925_Notes_on_Quantitative_Archaeology_and_R) though not formally published, is at least as cogent and useful as many things that are.
 
-### Bayesian Approaches
-
-(@OtarolaCastillo2018; @OtarolaCastillo2022)
-
-### Model Fitting
-
-(@crema2025; @Codding2024)
-
-### MCMC
+There are several recent chapters and papers presenting introduction to particular topics, especially multivariate (@glascock2023; @lopezgarcia2026), Bayesian (@OtarolaCastillo2018; @OtarolaCastillo2022), and modeling (@crema2025) approaches. There are even more examples of their application, particularly in spheres where analytical approaches are fundamental to data interpretation (for example in use of chemical compositional data); listing those is beyond what I can do here. 
+Attention to these topics results at least in part from the increase in easily-available computational power that we touched on when we covered [resampling approaches](#resampling). They also tend to reflect the reservations about null-hypothesis statistical testing (NHST) and the skepticism about fetishization of p-values that runs through Drennan (though they certainly do not originate with him (see @Cowgill1977), and are becoming common in the sciences more broadly [see @Amrhein2019; @wasserstein2019].
 
 
 ## Others?

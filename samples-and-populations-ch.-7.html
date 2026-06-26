@@ -276,12 +276,7 @@ div.csl-indent {
 <li class="chapter" data-level="25" data-path="what-next.html"><a href="what-next.html"><i class="fa fa-check"></i><b>25</b> What next?</a>
 <ul>
 <li class="chapter" data-level="25.1" data-path="what-next.html"><a href="what-next.html#data-wrangling-and-visualization"><i class="fa fa-check"></i><b>25.1</b> Data wrangling and visualization</a></li>
-<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a>
-<ul>
-<li class="chapter" data-level="25.2.1" data-path="what-next.html"><a href="what-next.html#bayesian-approaches"><i class="fa fa-check"></i><b>25.2.1</b> Bayesian Approaches</a></li>
-<li class="chapter" data-level="25.2.2" data-path="what-next.html"><a href="what-next.html#model-fitting"><i class="fa fa-check"></i><b>25.2.2</b> Model Fitting</a></li>
-<li class="chapter" data-level="25.2.3" data-path="what-next.html"><a href="what-next.html#mcmc"><i class="fa fa-check"></i><b>25.2.3</b> MCMC</a></li>
-</ul></li>
+<li class="chapter" data-level="25.2" data-path="what-next.html"><a href="what-next.html#other-analytical-approaches"><i class="fa fa-check"></i><b>25.2</b> Other analytical approaches</a></li>
 <li class="chapter" data-level="25.3" data-path="what-next.html"><a href="what-next.html#others"><i class="fa fa-check"></i><b>25.3</b> Others?</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -310,22 +305,22 @@ Perhaps the simplest way to sample these would be to assign a number to each hec
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="samples-and-populations-ch.-7.html#cb201-1" tabindex="-1"></a>grids <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7500</span>, <span class="dv">100</span>) <span class="co">#randomly select 100 numbers from 1-7500, w/o replacement</span></span>
 <span id="cb201-2"><a href="samples-and-populations-ch.-7.html#cb201-2" tabindex="-1"></a><span class="co">#if you have reason to sample with replacement instead, use replace = TRUE in sample()</span></span>
 <span id="cb201-3"><a href="samples-and-populations-ch.-7.html#cb201-3" tabindex="-1"></a>grids <span class="co">#by default these are ordered as selected</span></span></code></pre></div>
-<pre><code>##   [1] 1377 2994 1964  171 3667 5932 2679 5601 3613  902 5649 4867  747  768 3525
-##  [16] 4667 3388 1163  773 1536 3709 5713  939 1086  507  108  570 6597  565 5722
-##  [31] 1021  752 6129 4237 7334 7475 6527 2802  746 5747 7427 3043 2451 7423 5995
-##  [46] 3513 5626  790 6968 5285 3755 2584 2466  206 7066  745 4339 2583 1762  139
-##  [61] 4356 2144 4377 4257 2992 4391 4545 2691 3038  684 4906 5845 2757 7052 7225
-##  [76] 2406 3823 6734 1187 1961 1970 3481 4544 5519 6746 2792 4787 2689 1803 2610
-##  [91] 6931 4223 6468 5711  819 4804 2838 4268 6115  788</code></pre>
+<pre><code>##   [1] 1296 3149 5807 2738 4517   18 2051 7377  981 2161  787 7128 6112 2598 6213
+##  [16]  591 3241 2925 1609 4477 6113 1768 4714 5242  994 3862  280 6184 7175 7429
+##  [31]  163 1821  972 3910 5316 4521 2526 4815  446 1019 2367 6913 4594  855  282
+##  [46] 3584 4817 2903  113 5478 5100  461 1660 6086 1900 1547 4249 3225 4933 6832
+##  [61] 3877 2314 4389 5763 5621 2640 3279  152 4348 6222 4284 2160 2426 2029  246
+##  [76] 3648   72 3390  151 5282 5722 4089 6627 6305  800 7016 3284 7211 4076 1339
+##  [91] 1546 3483 3385 5104 5014 4120 1207 5810 7300 2940</code></pre>
 <p>Probably - think about the practical realities of working your way around the landscape collecting samples - you’d find it more practical to order these sequentially.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="samples-and-populations-ch.-7.html#cb203-1" tabindex="-1"></a><span class="fu">sort</span>(grids) </span></code></pre></div>
-<pre><code>##   [1]  108  139  171  206  507  565  570  684  745  746  747  752  768  773  788
-##  [16]  790  819  902  939 1021 1086 1163 1187 1377 1536 1762 1803 1961 1964 1970
-##  [31] 2144 2406 2451 2466 2583 2584 2610 2679 2689 2691 2757 2792 2802 2838 2992
-##  [46] 2994 3038 3043 3388 3481 3513 3525 3613 3667 3709 3755 3823 4223 4237 4257
-##  [61] 4268 4339 4356 4377 4391 4544 4545 4667 4787 4804 4867 4906 5285 5519 5601
-##  [76] 5626 5649 5711 5713 5722 5747 5845 5932 5995 6115 6129 6468 6527 6597 6734
-##  [91] 6746 6931 6968 7052 7066 7225 7334 7423 7427 7475</code></pre>
+<pre><code>##   [1]   18   72  113  151  152  163  246  280  282  446  461  591  787  800  855
+##  [16]  972  981  994 1019 1207 1296 1339 1546 1547 1609 1660 1768 1821 1900 2029
+##  [31] 2051 2160 2161 2314 2367 2426 2526 2598 2640 2738 2903 2925 2940 3149 3225
+##  [46] 3241 3279 3284 3385 3390 3483 3584 3648 3862 3877 3910 4076 4089 4120 4249
+##  [61] 4284 4348 4389 4477 4517 4521 4594 4714 4815 4817 4933 5014 5100 5104 5242
+##  [76] 5282 5316 5478 5621 5722 5763 5807 5810 6086 6112 6113 6184 6213 6222 6305
+##  [91] 6627 6832 6913 7016 7128 7175 7211 7300 7377 7429</code></pre>
 <p>As Drennan (p85) is at pains to point out - and as you would be very wise to note! - <em>random</em> is not the same thing as <em>representative</em>. The concepts underlying Drennan’s discussion of random and nonrandom samples, sampling bias, and representativeness <em>are at least as important as any statistical technique</em>. As Drennan notes (p88), these are issues fundamental to inference generally, not just to statistical inference (i.e., you cannot avoid the need to think about these issues by simply eschewing statistics!).</p>
 <p>Note that R code that generates random samples is very unlikely to draw the same number twice! So…if you run the code a second time, you’re likely to get a different answer. If you want to, for illustrative purposes, makes sure that you always draw the same random number, use the <code>set.seed()</code> function.</p>
 <p>Compare the result of running both lines of code below two or three times to the result of running only the second line of code two or three times.</p>
