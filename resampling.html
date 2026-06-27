@@ -305,7 +305,7 @@ div.csl-indent {
 <p>Compare Early Classic and Late Classic site areas with a boxplot, and by measures of central tendency. For the latter we can use the handy <code>aggregate()</code> function, which like <code>boxplot()</code> can take a formula input (the first use of <code>aggregate()</code> below can be read as “aggregate area by period, then calculate the mean for each group”).</p>
 <div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="resampling.html#cb275-1" tabindex="-1"></a><span class="fu">boxplot</span>(Area <span class="sc">~</span> Period, <span class="at">data =</span> ClassicSites, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;Early Classic&quot;</span>, <span class="st">&quot;Late Classic&quot;</span>),</span>
 <span id="cb275-2"><a href="resampling.html#cb275-2" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Area (ha)&quot;</span>, <span class="at">boxwex =</span> .<span class="dv">25</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">outpch =</span> <span class="dv">21</span>, <span class="at">outbg =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="resampling.html#cb276-1" tabindex="-1"></a><span class="fu">aggregate</span>(Area <span class="sc">~</span> Period, <span class="at">data =</span> ClassicSites, mean)</span></code></pre></div>
 <pre><code>##          Period     Area
 ## 1 Early Classic 35.79646
@@ -323,7 +323,7 @@ div.csl-indent {
 <span id="cb280-6"><a href="resampling.html#cb280-6" tabindex="-1"></a><span class="co">#add vertical lines showing the medians of both bootstrapped samples and actual sites</span></span>
 <span id="cb280-7"><a href="resampling.html#cb280-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(MedianBootstrap), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb280-8"><a href="resampling.html#cb280-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(EClassic<span class="sc">$</span>Area), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <p>We can calculate percentiles (to use as confidence intervals) using <code>quantile()</code>.</p>
 <div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="resampling.html#cb281-1" tabindex="-1"></a><span class="fu">quantile</span>(MedianBootstrap, <span class="at">p=</span><span class="fu">c</span>(.<span class="dv">01</span>, .<span class="dv">025</span>, .<span class="dv">05</span>, .<span class="dv">95</span>, .<span class="dv">975</span>, .<span class="dv">99</span>))     </span></code></pre></div>
 <pre><code>##    1%  2.5%    5%   95% 97.5%   99% 
@@ -334,7 +334,7 @@ div.csl-indent {
 <span id="cb283-2"><a href="resampling.html#cb283-2" tabindex="-1"></a><span class="fu">hist</span>(MeanBootstrap, <span class="at">breaks =</span> <span class="dv">20</span>) </span>
 <span id="cb283-3"><a href="resampling.html#cb283-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(MeanBootstrap), <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb283-4"><a href="resampling.html#cb283-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(EClassic<span class="sc">$</span>Area), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
             </section>
 

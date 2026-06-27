@@ -608,7 +608,7 @@ div.csl-indent {
 ## [8] &quot;| &quot;</code></pre>
 <p>We can also make a boxplot of these transformed variables.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb143-1" tabindex="-1"></a><span class="fu">boxplot</span>(BVPits)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>This doesn’t look like Drennan’s boxplot, because he standardized the data before plotting into order to make the shapes of the distributions easily comparable.</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-1" tabindex="-1"></a><span class="co">#standardize using median and midspread, then plot again</span></span>
 <span id="cb144-2"><a href="the-shape-or-distribution-of-a-batch-ch.-5.html#cb144-2" tabindex="-1"></a>BVStandard <span class="ot">&lt;-</span> <span class="fu">apply</span>(BVPits, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">scale</span>(x, <span class="at">center =</span> <span class="fu">median</span>(x), <span class="at">scale =</span> <span class="fu">IQR</span>(x))) </span>

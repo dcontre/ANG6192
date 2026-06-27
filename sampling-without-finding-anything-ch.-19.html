@@ -328,7 +328,7 @@ div.csl-indent {
 <span id="cb475-6"><a href="sampling-without-finding-anything-ch.-19.html#cb475-6" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass<span class="sc">$</span>East, Snodgrass<span class="sc">$</span>South, <span class="at">cex =</span> Snodgrass<span class="sc">$</span>Radius,</span>
 <span id="cb475-7"><a href="sampling-without-finding-anything-ch.-19.html#cb475-7" tabindex="-1"></a>     <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside)</span>
 <span id="cb475-8"><a href="sampling-without-finding-anything-ch.-19.html#cb475-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Extramural&quot;</span>, <span class="st">&quot;Intramural&quot;</span>))</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p>You begin to feel first restored, and then inspired. Since you have artifactual data from all 91 house pits, the Snodgrass data offer the possibility of exploring the effects of sampling. Reasoning that you’ll rarely have the luxury of the time and funds to excavate 91 house pits, you wonder what the effects would be of sampling the site instead.
 An useful initial step is to re-establish the excavator’s grid over the site. You spread out your sitemap on the bar, and using the edge of your trowel establish a 10x10m grid on it.</p>
 <div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="sampling-without-finding-anything-ch.-19.html#cb476-1" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass<span class="sc">$</span>East, Snodgrass<span class="sc">$</span>South, <span class="at">cex =</span> Snodgrass<span class="sc">$</span>Radius,</span>
@@ -340,7 +340,7 @@ An useful initial step is to re-establish the excavator’s grid over the site. 
 <span id="cb476-7"><a href="sampling-without-finding-anything-ch.-19.html#cb476-7" tabindex="-1"></a>               <span class="fu">round</span>(<span class="fu">max</span>(Snodgrass<span class="sc">$</span>South), <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> <span class="dv">20</span>, </span>
 <span id="cb476-8"><a href="sampling-without-finding-anything-ch.-19.html#cb476-8" tabindex="-1"></a>               <span class="at">by =</span> <span class="dv">10</span>), </span>
 <span id="cb476-9"><a href="sampling-without-finding-anything-ch.-19.html#cb476-9" tabindex="-1"></a>               <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-151-1.png" width="576" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-152-1.png" width="576" /></p>
 <p><img src="imgs/samelliott_sketch.jpg" width="35%" style="float:right; padding:10px" /></p>
 <p>You briefly consider using the dartboard in the back of the bar to randomly select 16 grid squares, but worry that years of practice have made your aim somewhat better than random. And then there’d still be the problem of selecting a stratified random sample…</p>
 <p>While you’re pondering this dilemma, the mysterious stranger seated next to you at the bar volunteers to work out the sampling for you in R, so that you can focus on considering what the results mean. Moved nearly to tears, you buy him a beer and look over his shoulder.</p>
@@ -355,7 +355,7 @@ An useful initial step is to re-establish the excavator’s grid over the site. 
 <div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="sampling-without-finding-anything-ch.-19.html#cb478-1" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_grd)</span>
 <span id="cb478-2"><a href="sampling-without-finding-anything-ch.-19.html#cb478-2" tabindex="-1"></a><span class="co">#add house pits, plotting only the centerpoints</span></span>
 <span id="cb478-3"><a href="sampling-without-finding-anything-ch.-19.html#cb478-3" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass, <span class="at">add =</span> T, <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
 <p>With that grid established, we can select random grid cells and examine the artifacts found within them.</p>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="sampling-without-finding-anything-ch.-19.html#cb479-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb479-2"><a href="sampling-without-finding-anything-ch.-19.html#cb479-2" tabindex="-1"></a><span class="co">#select 16 random squares</span></span>
@@ -364,7 +364,7 @@ An useful initial step is to re-establish the excavator’s grid over the site. 
 <span id="cb479-5"><a href="sampling-without-finding-anything-ch.-19.html#cb479-5" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_grd)</span>
 <span id="cb479-6"><a href="sampling-without-finding-anything-ch.-19.html#cb479-6" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_grd_random, <span class="at">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">add=</span>T, <span class="at">density=</span><span class="dv">5</span>) <span class="co">#plot to make sure that these make sense</span></span>
 <span id="cb479-7"><a href="sampling-without-finding-anything-ch.-19.html#cb479-7" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass, <span class="at">add =</span> T, <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p>Seeing a problem already, you start to twitch, risking spilling the stranger’s beer. He gives you a long stare. “Our sample’s going to be empty!” you cry.</p>
 <div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="sampling-without-finding-anything-ch.-19.html#cb480-1" tabindex="-1"></a>snodgrass_sample <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(snodgrass_grd_random, Snodgrass)</span>
 <span id="cb480-2"><a href="sampling-without-finding-anything-ch.-19.html#cb480-2" tabindex="-1"></a>snodgrass_sample</span></code></pre></div>
@@ -387,9 +387,9 @@ An useful initial step is to re-establish the excavator’s grid over the site. 
 You pipe down. “Now that we’ve established the method and recognized some pitfalls,” he adds, “we can change the resolution of our grid. And because you at least recognize the problem, I’ll show you how to do quadrat sampling as well.”</p>
 <hr />
 <p>Make a new grid with a resolution of 40m, expanding the coverage a bit.</p>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
-<p>And sample it randomly.</p>
 <p><img src="Drennan_notes_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<p>And sample it randomly.</p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
 <p>Examine the house pit data from that sample.</p>
 <div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="sampling-without-finding-anything-ch.-19.html#cb482-1" tabindex="-1"></a><span class="co">#identify house pit centers that fall within those squares</span></span>
 <span id="cb482-2"><a href="sampling-without-finding-anything-ch.-19.html#cb482-2" tabindex="-1"></a>snodgrass_40sample <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(snodgrass_grd40_random, Snodgrass)</span>
@@ -762,7 +762,7 @@ POINT (943.43 74.49)
 <span id="cb484-5"><a href="sampling-without-finding-anything-ch.-19.html#cb484-5" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_grd40)</span>
 <span id="cb484-6"><a href="sampling-without-finding-anything-ch.-19.html#cb484-6" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_quadrats, <span class="at">add =</span> T, <span class="at">border =</span> <span class="st">&quot;orange&quot;</span>) </span>
 <span id="cb484-7"><a href="sampling-without-finding-anything-ch.-19.html#cb484-7" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass, <span class="at">add =</span> T, <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
 <div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="sampling-without-finding-anything-ch.-19.html#cb485-1" tabindex="-1"></a><span class="co">#loop through these quadrat polygons, selecting a single random square in each one</span></span>
 <span id="cb485-2"><a href="sampling-without-finding-anything-ch.-19.html#cb485-2" tabindex="-1"></a>snodgrass_quadrats_points <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length=</span><span class="dv">16</span>) <span class="co">#empty list to populate</span></span>
 <span id="cb485-3"><a href="sampling-without-finding-anything-ch.-19.html#cb485-3" tabindex="-1"></a></span>
@@ -783,7 +783,7 @@ POINT (943.43 74.49)
 <span id="cb485-18"><a href="sampling-without-finding-anything-ch.-19.html#cb485-18" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_quadrats, <span class="at">add =</span> T, <span class="at">border =</span> <span class="st">&quot;orange&quot;</span>) </span>
 <span id="cb485-19"><a href="sampling-without-finding-anything-ch.-19.html#cb485-19" tabindex="-1"></a><span class="fu">plot</span>(snodgrass_quadratsampled_grd, <span class="at">col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">add =</span> T)</span>
 <span id="cb485-20"><a href="sampling-without-finding-anything-ch.-19.html#cb485-20" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass, <span class="at">add =</span> T, <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="sampling-without-finding-anything-ch.-19.html#cb486-1" tabindex="-1"></a><span class="co">#since that makes sense, identify house pit centers that fall within those squares</span></span>
 <span id="cb486-2"><a href="sampling-without-finding-anything-ch.-19.html#cb486-2" tabindex="-1"></a>snodgrass_40quadsample <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(snodgrass_quadratsampled_grd, Snodgrass)</span>
 <span id="cb486-3"><a href="sampling-without-finding-anything-ch.-19.html#cb486-3" tabindex="-1"></a><span class="co">#index house pit data to select only those housepits that fall within squares</span></span>
@@ -834,17 +834,17 @@ POINT (943.43 74.49)
 <span id="cb489-2"><a href="sampling-without-finding-anything-ch.-19.html#cb489-2" tabindex="-1"></a>samp_inside <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(Snodgrass[Snodgrass<span class="sc">$</span>Inside <span class="sc">==</span> <span class="st">&quot;Inside&quot;</span>,], </span>
 <span id="cb489-3"><a href="sampling-without-finding-anything-ch.-19.html#cb489-3" tabindex="-1"></a>                         <span class="at">size =</span> <span class="fu">round</span>(.<span class="dv">25</span> <span class="sc">*</span> <span class="fu">nrow</span>(Snodgrass[Snodgrass<span class="sc">$</span>Inside <span class="sc">==</span> <span class="st">&quot;Inside&quot;</span>,])), <span class="dv">0</span>)</span>
 <span id="cb489-4"><a href="sampling-without-finding-anything-ch.-19.html#cb489-4" tabindex="-1"></a><span class="fu">plot</span>(samp_inside)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-165-1.png" width="672" /></p>
 <div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="sampling-without-finding-anything-ch.-19.html#cb490-1" tabindex="-1"></a>samp_inside <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(samp_inside)</span>
 <span id="cb490-2"><a href="sampling-without-finding-anything-ch.-19.html#cb490-2" tabindex="-1"></a>samp_inside <span class="ot">&lt;-</span> <span class="fu">st_join</span>(samp_inside, Snodgrass)</span>
 <span id="cb490-3"><a href="sampling-without-finding-anything-ch.-19.html#cb490-3" tabindex="-1"></a></span>
 <span id="cb490-4"><a href="sampling-without-finding-anything-ch.-19.html#cb490-4" tabindex="-1"></a>samp_outside <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(Snodgrass[Snodgrass<span class="sc">$</span>Inside <span class="sc">==</span> <span class="st">&quot;Outside&quot;</span>,], </span>
 <span id="cb490-5"><a href="sampling-without-finding-anything-ch.-19.html#cb490-5" tabindex="-1"></a>                         <span class="at">size =</span> <span class="fu">round</span>(.<span class="dv">15</span> <span class="sc">*</span> <span class="fu">nrow</span>(Snodgrass[Snodgrass<span class="sc">$</span>Inside <span class="sc">==</span> <span class="st">&quot;Outside&quot;</span>,])), <span class="dv">0</span>)</span>
 <span id="cb490-6"><a href="sampling-without-finding-anything-ch.-19.html#cb490-6" tabindex="-1"></a><span class="fu">plot</span>(samp_outside)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-164-2.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-165-2.png" width="672" /></p>
 <div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="sampling-without-finding-anything-ch.-19.html#cb491-1" tabindex="-1"></a><span class="fu">plot</span>(Snodgrass[<span class="st">&quot;Area&quot;</span>], <span class="at">col =</span> Snodgrass<span class="sc">$</span>Inside, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> Snodgrass<span class="sc">$</span>Area<span class="sc">/</span><span class="dv">100</span>)</span>
 <span id="cb491-2"><a href="sampling-without-finding-anything-ch.-19.html#cb491-2" tabindex="-1"></a><span class="fu">plot</span>(samp_inside[<span class="st">&quot;Area&quot;</span>], <span class="at">add =</span> T, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> samp_inside<span class="sc">$</span>Area<span class="sc">/</span><span class="dv">100</span>, <span class="at">col =</span> <span class="st">&quot;yellow&quot;</span>)</span></code></pre></div>
-<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-164-3.png" width="672" /></p>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-165-3.png" width="672" /></p>
 </div>
 </div>
 </div>

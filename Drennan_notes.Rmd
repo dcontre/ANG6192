@@ -19,10 +19,16 @@ library(kableExtra)
 
 # Preface {-}
 
-These notes, intended to serve as a guide to implementing Drennan's *Statistics for Archaeologists* [@Drennan_2009] in R, are built upon David Carlson's [*R Companion to Statistics for Archaeologists*](https://sites.google.com/a/tamu.edu/dlcarlson/home/r-project/companion-guides). I have written the text and rewritten most of the code, but without the foundation - and inspiration - that he provided this document would not exist.
+These notes, intended to serve as a guide to implementing Drennan's *Statistics for Archaeologists* [@Drennan_2009] in R, are built upon David Carlson's [*R Companion to Statistics for Archaeologists*](https://sites.google.com/a/tamu.edu/dlcarlson/home/r-project/companion-guides). I have not used Carlson's text, and I have rewritten most of the code, but without the foundation - and inspiration - that he provided this document would not exist.
 
 ```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
 include_graphics("imgs/drennan.jpg")
+```
+
+Note that there is now a Spanish-language edition of Drennan's book available. If you'd like these notes in Spanish as well (or another language, for that matter), paste the url into Google Translate or your LLM of choice. 
+
+```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
+include_graphics("imgs/drennan_espanol.png")
 ```
 
 They primarily use Base R, with additional packages generally noted when used. This is not to say that these are the only - or even the most efficient - ways of carrying out these operations! However, they are the easiest to follow when learning both statistics and R because they are (relatively) transparent; largely for this reason you won't find much of the so-called [*tidyverse*](https://tidyverse.org/) here, though it is indubitably a useful and often efficient way to use R. One major exception is the **dplyr** package [@Wickham_2018], which I have come to rely on for efficient data wrangling (see my intro to [Data Wrangling for Archaeology](https://dcontre.github.io/DataWrangling_notes/introduction.html)) and occasionally use here. A few other packages are added for select chapters; I have tried to confine this to the beginning of each chapter so that you can easily see which packages are being loaded.
