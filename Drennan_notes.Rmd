@@ -1,7 +1,7 @@
 ---
 title: "*Statisics for Archaeologists*...with **R**!"
 subtitle: "Working Notes for ANG6192/ANT4117"
-author: "Daniel A. Contreras"
+author: "[Daniel A. Contreras](https://dcontre.github.io/academic/)"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -25,7 +25,7 @@ These notes, intended to serve as a guide to implementing Drennan's *Statistics 
 include_graphics("imgs/drennan.jpg")
 ```
 
-Note that there is now a Spanish-language edition of Drennan's book available. If you'd like these notes in Spanish as well (or another language, for that matter), paste the url into Google Translate or your LLM of choice. 
+Note that there is now a Spanish-language edition of Drennan's book available. If you'd like these notes in Spanish as well (or another language, for that matter), paste the url into [Google Translate](https://translate.google.com/?sl=es&tl=en&op=websites) or your LLM of choice.  
 
 ```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
 include_graphics("imgs/drennan_espanol.png")
@@ -1066,6 +1066,7 @@ HuancabambaBlades <- data.frame(Zinc = c(53, 37, 60, 49, 66, 55, 41, 33, 82, 59,
 # Medians and Resampling (Ch. 10) {#resampling}
 
 Create a dataset to approximate the data underlying Drennan's Table 10.1.
+
 ```{r cache=T}
 ClassicSites<-read.csv("data/Drennan_datasets/AllClassic.csv", 
                    header=T)[,-1] #[,-1] removes extraneous leading column of rownames
@@ -1110,6 +1111,8 @@ hist(MeanBootstrap, breaks = 20)
 abline(v = mean(MeanBootstrap), col="blue", lwd = 2)
 abline(v = mean(EClassic$Area), col = "red", lty = 2, lwd = 2)
 ```
+
+Resampling has become increasingly common as computers have made it practical; for more, see (here)[###addd link###]).
 
 # Categories and Population Proportions (Ch. 11)
 
@@ -1496,6 +1499,7 @@ legend("topright", legend = c("99%", "95%", "80%"), lwd = LWD, col = COL, title 
 ```
 
 To examine these plots in the same pane, use `mfrow` argument to `par()`. (For more on building complex plots in R, see (here)[###addd link###])
+
 ```{r cache=T}
 par(mfrow=c(1,2))
 boxplot(Wgt~Archaic.SubPeriod, data=ArchaicPts, lwd=2, notch=F, boxwex=.4, 
@@ -1778,8 +1782,8 @@ lm(RioSeco_Hoes$Hoes ~ RioSeco_Hoes$Area)
 The `matlines()` function plots one matrix against another, simplifying the problem of plotting our x coords against three different sets of y coords (examine `xp` and `yp` to see why this is necessary); we could also do this with `lines()`, which is more familiar but requires more lines of code:
 
 ```{r cache=T}
-plot(RioSeco_Hoes$Hoes ~ RioSeco_Hoes$Area, xlab="Site Area (ha)", ylab="Number of Hoes", 
-     las=1, pch=4, xlim=c(5,20), ylim=c(10,40))
+plot(RioSeco_Hoes$Hoes ~ RioSeco_Hoes$Area, xlab = "Site Area (ha)", ylab = "Number of Hoes", 
+     las = 1, pch = 4, xlim = c(5,20), ylim = c(10,40))
 lines(xp$Area, yp[,1], lty=1, col="black")
 lines(xp$Area, yp[,2], lty=2, col="red")
 lines(xp$Area, yp[,3], lty=2, col="red")
@@ -1815,8 +1819,8 @@ kable(RioSeco_Hoes) %>% kableExtra::kable_classic(full_width = F)
 With those values added, we can now create Drennan's Figure 15.6, illustrating the residuals:
 
 ```{r cache=T}
-plot(RioSeco_Hoes$Hoes ~ RioSeco_Hoes$Area, xlab="Site Area (ha)", 
-     ylab="Number of Hoes", las = 1, pch = 4, xlim = c(5,20), ylim = c(10,40))
+plot(RioSeco_Hoes$Hoes ~ RioSeco_Hoes$Area, xlab = "Site Area (ha)", 
+     ylab = "Number of Hoes", las = 1, pch = 4, xlim = c(5,20), ylim = c(10,40))
 abline(RegModel.1, col = "blue")
 matlines(t(cbind(RioSeco_Hoes$Area, RioSeco_Hoes$Area)), 
          t(cbind(RioSeco_Hoes[,4], RioSeco_Hoes[,4] + RioSeco_Hoes[,5])), 
@@ -1857,7 +1861,7 @@ plot(RioSeco_Hoes$residual ~ RioSeco_Hoes$MaizeProductivity, xlab =
        "Maize Productivity (kg/ha)", ylab = "Residuals (Number of Hoes)", 
      las = 1, pch = 4, xlim = c(0,3000), ylim = c(-20,20))
 xp <- seq(0, 3000, 1)   
-yp <- predict(RegModel.2, list(MaizeProductivity = xp), int="c")
+yp <- predict(RegModel.2, list(MaizeProductivity = xp), int = "c")
 matlines(xp, yp, lty = c(1,2,2), col = c("black","red","red")) 
 ```
 
@@ -1879,7 +1883,8 @@ RegModel.3 <- lm(Hoes ~ Area + MaizeProductivity, data = RioSeco_Hoes)
 summary(RegModel.3)
 ```
 
-                 
+While linear regression is very commonly used, count data are better approached through generalized linear models (GLMs) [@Codding2024; @mccall2024]. Drennan does not address these, but see (here)[###addd link###]).
+
 ## Practice
 Data for the practice problems can be found in [Yenang.txt](data/Drennan_datasets/Yenang.txt).
 
@@ -3194,7 +3199,7 @@ plot(hoards_ca, dim=c(1,3), xlim=c(-2.5, 2.5))
 
 ## Data wrangling and visualization
 
-Complex analyses can be vital means of developing insights and testing ideas, but often simple reorganization and visualization of data are at least as useful. Particularly for the former, *tidyverse* tools are efficient and flexible (if sometimes reliant on syntax that is difficult to decipher). Even as you add additional analytical methods to your toolbox, you may want to revisit the notes on [Data Wrangling for Archaeology](https://dcontre.github.io/DataWrangling_notes/introduction.html) and plotting (using both [Base R](###add link###) and [ggplot](###add link###)). There are *many* guides available to using R for data visualization; a good place to start is Joe Roe's slides on [*Data Visualization for Archaeologists in R*](https://joeroe.io/r4r_visualisation/r4r_visualisation_slides.html#1). 
+Complex analyses can be vital means of developing insights and testing ideas, but often simple reorganization and visualization of data are at least as useful. Particularly for the former, *tidyverse* tools are efficient and flexible (if sometimes reliant on syntax that is difficult to decipher). Even as you add additional analytical methods to your toolbox, you may want to revisit the notes on [Data Wrangling for Archaeology](https://dcontre.github.io/DataWrangling_notes/introduction.html) and plotting (using both [Base R](###add link###) and [ggplot](###add link###)). There are *many* guides available to using R for data visualization, and a few specifically archaeological treatments (e.g., [@banning2020_viz; @Baxter2016graphics]; the latter is available [here](http://www.barbicanra.co.uk/simple-r.html)). See also Joe Roe's slides on [*Data Visualization for Archaeologists in R*](https://joeroe.io/r4r_visualisation/r4r_visualisation_slides.html#1). 
 
 ## Other analytical approaches
 
