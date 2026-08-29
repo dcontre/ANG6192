@@ -71,7 +71,7 @@ You've just recreated Drennan's Fig. 1.2.
 
 ## Import the Scraper data.
 
-Often you'll want to read an existing table (.xls, .csv, .txt, etc.) into R. Get used to figuring out where files live on your hard drive, and learn how to access the filepath (shift + rightclick on Windows; Option + Command + C on Mac). 
+Download ['scrapers.txt'](data/Drennan_datasets/scrapers.txt). Often you'll want to read an existing table (.xls, .csv, .txt, etc.) into R. Get used to figuring out where files live on your hard drive, and learn how to access the filepath (shift + rightclick on Windows; Option + Command + C on Mac). 
 Note that the filepath can be either absolute ("where this lives on this machine") or relative ("where this lives in this folder"). The former will never get lost (unless you move the file or rename folders), while the latter risks getting lost but is more portable.
 
 ```{r scraper data}
