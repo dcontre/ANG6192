@@ -362,7 +362,7 @@ div.csl-indent {
 <p>You’ve just recreated Drennan’s Fig. 1.2.</p>
 <div id="import-the-scraper-data." class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Import the Scraper data.<a href="batches-of-numbers-ch.-1.html#import-the-scraper-data." class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Often you’ll want to read an existing table (.xls, .csv, .txt, etc.) into R. Get used to figuring out where files live on your hard drive, and learn how to access the filepath (shift + rightclick on Windows; Option + Command + C on Mac).
+<p>Download <a href="data/Drennan_datasets/scrapers.txt">‘scrapers.txt’</a>. Often you’ll want to read an existing table (.xls, .csv, .txt, etc.) into R. Get used to figuring out where files live on your hard drive, and learn how to access the filepath (shift + rightclick on Windows; Option + Command + C on Mac).
 Note that the filepath can be either absolute (“where this lives on this machine”) or relative (“where this lives in this folder”). The former will never get lost (unless you move the file or rename folders), while the latter risks getting lost but is more portable.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="batches-of-numbers-ch.-1.html#cb7-1" tabindex="-1"></a>scrapers <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;data/Drennan_datasets/scrapers.txt&quot;</span>,</span>
 <span id="cb7-2"><a href="batches-of-numbers-ch.-1.html#cb7-2" tabindex="-1"></a>                       <span class="at">header=</span>T)</span></code></pre></div>
