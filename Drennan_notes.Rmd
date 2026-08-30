@@ -3175,10 +3175,11 @@ plot(Meso_ca, map = "symmetric")
 ## An Archaeological Case Study: Danish Bronze Age Hoards
 
 This starts to look a *lot* more interesting (and appealing) with datasets that are too big to grasp by simply eyeballing them. Shennan's example is one of 63 Bronze Age hoards from Denmark.
-![](Shennan_Table13-8.jpg)
+![](imgs/Shennan_Table13-8.jpg)
 
 
-As you can imagine, the resulting CA table has a lot going on. 
+The full table is [here](data/HoardsWide.RData), in '.Rdata' format, which you can load directly into R. As you can imagine, the resulting CA table has a lot going on. 
+
 ```{r}
 load("data/HoardsWide.RData")
 hoards_ca <- ca(HoardsWide, nd=4)

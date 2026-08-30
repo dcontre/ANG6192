@@ -938,8 +938,8 @@ Sum
 <div id="an-archaeological-case-study-danish-bronze-age-hoards" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> An Archaeological Case Study: Danish Bronze Age Hoards<a href="correspondence-analysis.html#an-archaeological-case-study-danish-bronze-age-hoards" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This starts to look a <em>lot</em> more interesting (and appealing) with datasets that are too big to grasp by simply eyeballing them. Shennan’s example is one of 63 Bronze Age hoards from Denmark.
-<img src="Shennan_Table13-8.jpg" /></p>
-<p>As you can imagine, the resulting CA table has a lot going on.</p>
+<img src="imgs/Shennan_Table13-8.jpg" /></p>
+<p>The full table is <a href="data/HoardsWide.RData">here</a>, in ‘.Rdata’ format, which you can load directly into R. As you can imagine, the resulting CA table has a lot going on.</p>
 <div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="correspondence-analysis.html#cb609-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/HoardsWide.RData&quot;</span>)</span>
 <span id="cb609-2"><a href="correspondence-analysis.html#cb609-2" tabindex="-1"></a>hoards_ca <span class="ot">&lt;-</span> <span class="fu">ca</span>(HoardsWide, <span class="at">nd=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>There’s useful information there - to be discussed - but we’ll cut straight to generating the resulting plots.</p>
