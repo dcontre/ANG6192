@@ -546,7 +546,7 @@ When - not if! - you want to explore boxplots and histograms of archaeological d
 
 # Categories (Ch. 6)
 
-First download and import the data (remember that if your copy of 'sherds.csv' does not occupy the same relative location you will need to modify the filepath here to match the location of your local copy of sherds.csv).
+First download and import the data ([sherds.csv](data/Drennan_datasets/sherds.csv); remember that if your copy of 'sherds.csv' does not occupy the same relative location you will need to modify the filepath here to match the location of your local copy of sherds.csv).
 
 ```{r read}
 sherds <- read.csv ("data/Drennan_datasets/sherds.csv", stringsAsFactors = T)
@@ -624,6 +624,65 @@ sherdsbysite
 ```
 
 It should be clear that you could produce Table 6.3 by doing the same but with `sherds$Style`.
+
+## Interlude: Fun with object classes in R
+
+Note that `addmargins()` wants as input a 'table' or an 'array'. Most immediately, this means the output of the `table()` function, which produces an object of class 'table' (try `class(SiteTable)` on the contingency table you just produced; more generally, you can use the `class()` function to investigate the class of any R object). Most importantly for our purposes, this means that `addmargins()` will *not* run on an object of class data frame - the kind of table with which we work most commonly. (Why so many classes of object? They have distinct properties. For instance, a data frame has two dimensions [rows and columns] can contain in its cells various kinds of data, and can mix columns of different types [numeric, categorical, etc]; an array can have *more* than two dimensions). 
+
+If you have a data frame and you want to add marginal totals to rows and/or columns, and/or you want to calculate marginal proportions, you can either isolate the numeric columns and convert them to an array, or use the `adorn` functions in the **janitor** package. Let's try these by making a data frame from one of the cross tabulations that Drennan generates later in the chapter (see below). 
+
+```{r}
+# details on cross-tabulation using `table()` below
+# here we're only worried about the data frame that we make from the output
+sherds_df <- as.data.frame.matrix(table(sherds$Site, sherds$Style))
+
+class(sherds_df)
+
+# addmargins(sherds_df) 
+# produces error, because it doesn't like data frames
+
+
+```
+
+If you *start* with an object like `sherds_df`, you can calculate marginal totals and/or proportions by converting it to an object that `addmargins()` will digest. We'll use a 'matrix', which is a special case of an array that a) has two dimensions, and b) in which all elements are the same data type. 
+
+```{r}
+addmargins(as.matrix(sherds_df), 2)
+
+prop.table(as.matrix(sherds_df), 1)
+```
+This works smoothly here because we have a data frame the only two columns, both of which are numeric (sites are included as *row names*, not a column). If you have a data frame with mixed data types (which is in fact a good reason to have a data frame), then using `as.matrix()` is a bit more involved.
+
+```{r}
+#convert rownames to a column
+sherds_df$Site <- rownames(sherds_df); rownames(sherds_df) <- NULL
+#reorder columns
+sherds_df <- sherds_df[,c(3,1,2)]
+sherds_df
+```
+
+Using `as.matrix()` produces *character* variables (displayed in quotation marks), because that's the only way to accommodate the mix of text strings and numbers in 'sherds_df'. This is fine...except that we can't calculate marginal totals if our columns are not numeric. We can solve this by using `as.matrix()` on only *part* of our data frame.
+
+```{r}
+#index numeric columns
+as.matrix(sherds_df[,2:3])
+
+addmargins(as.matrix(sherds_df[,2:3]), 2)
+
+prop.table(as.matrix(sherds_df[,2:3]), 1)
+```
+This is not ideal, because we lose the clear association of rows with sites, and would have to go through some contortions to add them again. An elegant alternative is the `adorn` family of functions in the handy **janitor** package ("Simple Tools for Examining and Cleaning Dirty Data"), which are written specifically for data frames. 
+
+```{r}
+#install.packages("janitor")
+library(janitor)
+
+adorn_totals(sherds_df, where = c("row", "col"))
+
+adorn_percentages(sherds_df, denominator = "row")
+```
+
+## Cross-tabulation
 
 Table 6.4 involves cross-tabulating the two variables - asking whether the frequencies and proportions of different ceramic styles vary at different sites.  If you've used pivot tables in Microsoft Excel you may recognize this sort of summarizing by different variables - there's considerable conceptual overlap.
 
@@ -744,7 +803,7 @@ The data for the Ch.6 Practice are in [AlAmadiyah.csv](data/Drennan_datasets/AlA
 
 # Samples and Populations (Ch. 7)
 
-Drennan dwells at some length on sampling because it is so fundamental. It's important to remember that often our most basic concern with sampling is understanding the nature of the sample we have, and how it relates to the population in which we are interested - but a much more immediate and practical concern is how to efficiently draw random samples.  A simple but very powerful tool for doing this in R is `sample()`, which can replace the table of random numbers that Drennan discusses.
+Drennan dwells at some length on sampling because it is so fundamental in archaeology. It's important to remember that often our most basic concern with sampling is understanding the nature of the sample we have, and how it relates to the population in which we are interested - but a much more immediate and practical concern is how to efficiently draw random samples.  A simple but very powerful tool for doing this in R is `sample()`, which can replace the table of random numbers that Drennan discusses.
 
 Suppose that you had gridded an area in 1 ha blocks and wanted to select a random sample of grid squares in which to collect cultural material, or crop varieties, or butterflies.  If the area you were studying was 10 km x 7.5 km, you would have 7500 ha to choose from [(10000 * 7500)/10000], from which you might want to sample only 100.
 Perhaps the simplest way to sample these would be to assign a number to each hectare block within the grid, and then randomly select 100.
