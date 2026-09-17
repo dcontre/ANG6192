@@ -1083,7 +1083,7 @@ mean(PtWgt, trim = .15)
 winsor.var(PtWgt, trim = .17)
 ```
 
-For the 'Practice' problems, you'll find a .pdf of Drennan p131 [here]('data/Drennan_datasets/Drennan_2009_p131.pdf').  Use Tabula to scrape the tables out of it, edit them as needed (putting all the data in a single column - what's an efficient way to do this?), and then you can address Drennan's questions.
+For the 'Practice' problems, you'll find a .pdf of Drennan p131 [here](data/Drennan_datasets/Drennan_2009_p131.pdf).  Use Tabula to scrape the tables out of it, edit them as needed (putting all the data in a single column - what's an efficient way to do this?), and then you can address Drennan's questions.
 
 <!-- If you are keen to do this all in R, you can use the **tabulapdf** package (I find this trickier than using the browser interface, because you can't see quite what you're doing with respect to the tables in the .pdf, but sometimes it's nice and efficient to keep everything in R.) -->
 
