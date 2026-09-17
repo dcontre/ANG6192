@@ -381,7 +381,7 @@ div.csl-indent {
 <span id="cb176-5"><a href="categories-ch.-6.html#cb176-5" tabindex="-1"></a><span class="fu">class</span>(sherds_df)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="categories-ch.-6.html#cb178-1" tabindex="-1"></a><span class="co"># addmargins(sherds_df) </span></span>
-<span id="cb178-2"><a href="categories-ch.-6.html#cb178-2" tabindex="-1"></a><span class="co"># produces error, because it doesn&#39;t like data frames</span></span></code></pre></div>
+<span id="cb178-2"><a href="categories-ch.-6.html#cb178-2" tabindex="-1"></a><span class="co"># produces error, because `addmargins()` doesn&#39;t like data frames</span></span></code></pre></div>
 <p>If you <em>start</em> with an object like <code>sherds_df</code>, you can calculate marginal totals and/or proportions by converting it to an object that <code>addmargins()</code> will digest. We’ll use a ‘matrix’, which is a special case of an array that a) has two dimensions, and b) in which all elements are the same data type.</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="categories-ch.-6.html#cb179-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">as.matrix</span>(sherds_df), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               Incised Unincised Sum
