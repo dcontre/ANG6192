@@ -639,8 +639,7 @@ sherds_df <- as.data.frame.matrix(table(sherds$Site, sherds$Style))
 class(sherds_df)
 
 # addmargins(sherds_df) 
-# produces error, because it doesn't like data frames
-
+# produces error, because `addmargins()` doesn't like data frames
 
 ```
 
