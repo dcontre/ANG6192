@@ -2235,233 +2235,346 @@ ss.absence <- function (ep, cl){
 ss.absence(ep=.01, cl=.95)
 ```
 
-## Problem Set
+# Problem Set Ch. 18 & 19 - Spatial sampling
 
-### rework questions
+Consider the following scenario, adapted from the example presented by Richardson and Gajewski [-@richardson2003]: A large public university, flush with funds provided by a state legislature eager to invest in higher education, plans to replace a parking lot with a new archaeological research facility. Before ground can be broken for construction, the university must consider the possibility that archaeological remains may exist under the parking lot ([not unheard of!](https://kriii.com/about-kriii/an-incredible-discovery/)). Because any unexpected finds of archaeological material would involve costly and time-consuming consultation and mitigation, there's considerable incentive to assess the archaeological features present beforehand, so that an alternative site may be selected if necessary. In ideal conditions near-surface geophysics are often employed to this end, but even when that's practical, those results generally require some ground-truthing - i.e., test excavations based on some sampling strategy.
 
-```{r message=F, warning=F}
+We'll consider four sampling strategies: simple random sampling, stratified random sampling, systematic random sampling, and cluster random sampling. 
+
+- *simple random sampling*: each possible sample of size n units has an equal chance of being selected 
+  - "some practitioners worry that a true simple random sample has the appearance of “bunching” and seek to avoid it; systematic sampling is one way of doing so." This can be driven by a desire to avoid leaving large areas unsampled. 
+- *systematic random sampling*: order the population units in some fashion, randomly select one unit from among the first *k* ordered units, and then select subsequent units by taking every *k*th ordered unit. 
+  - "Archaeologists often seem to prefer systematic samples, partly because they appear to give “better coverage” or an “even spread” of a site, and partly because they are easier and quicker to select. These points must be weighed against the possibility of the sampling interval matching some regularity in the data."
+- *stratified random sampling*: forming subgroups of the population units ("sampling strata") and selecting a simple random sample of units from within each subgroup 
+  - "The definition of strata could be based on any property, or combination of properties, such
+as geology or elevation, or on any aspect that is thought likely to affect the parameters under study, for
+example, the density of artifacts located in a site." This is likely to work best in conditions of some prior knowledge and/or theoretical expectation about the distribution of archaeological features. 
+- *cluster random sampling*: places the sampling units into subgroups; a simple random sample of the subgroups
+is then taken, and *every unit within the selected subgroup* is a part of the sample. Here we'll use quadrat sampling, following Drennan [-@Drennan_2009, 241].
+
+Suppose that the parking lot to be redeveloped covers an area of ~6400 $m^2$ - an 80×80m square. The time and funding initially allotted allow for sampling only 20 8×8m test areas, located by dividing the parking lot into 100 8×8m grid squares and stripping the asphalt from the selected squares. If enough areas contain archaeological material, then further archaeological work may be warranted (how many is enough? - a policy problem, not a sampling problem).  
+
+In an **R** sandbox, we can explore these sampling strategies for different simulated patterns of archaeological remains. We'll look at two different arrangements of archaeological remains, and explore what happens when we sample each repeatedly with different sampling strategies in order to compare how those sampling strategies perform in different scenarios. 
+
+For purposes of exploring various sampling strategies, let's suppose that we know quite a bit about the archaeological remains under the parking lot. In fact, we can look at them in plan, and check the results of each sampling strategy. Conveniently, the archaeological features consist of pithouses and associated artifacts that always fall within grid squares, and all we will worry about is the presence/absence of pithouses in a sampled area.  
+
+```{r}
+#install the 'sf' package if you haven't previously
+#install.packages("sf")
 library(sf)
-library(archdata) 
-```
 
-Having developed a healthy distaste for rhinos (not to mention malaria, and hills), you have shifted your research attention to Missouri. Your diligent colleagues have mapped and excavated 91 house pits at the Snodgrass site, and argued that they detect two areas (inside and outside an interior dividing wall; see `?Snodgrass` for more detail on these data). Worn out after a long day of supervising, you retire to the bar with the plot of the site in order to consider your next move.
-
-```{r}
-#note that you'll need to install and load the *archdata* package
-data(Snodgrass) #loads data included in the package
-#estimate house pit radius from house pit area, converting to metric
-Snodgrass$Radius <- sqrt(Snodgrass$Area/pi)/3.28
-
-plot(Snodgrass$East, Snodgrass$South, cex = Snodgrass$Radius,
-     col = Snodgrass$Inside)
-legend("topright", fill = c("red", "black"), legend = c("Extramural", "Intramural"))
-```
-
-You begin to feel first restored, and then inspired. Since you have artifactual data from all 91 house pits, the Snodgrass data offer the possibility of exploring the effects of sampling. Reasoning that you'll rarely have the luxury of the time and funds to excavate 91 house pits, you wonder what the effects would be of sampling the site instead. 
-An useful initial step is to re-establish the excavator's grid over the site. You spread out your sitemap on the bar, and using the edge of your trowel establish a 10x10m grid on it.
-
-```{r cache=T, fig.width=6}
-plot(Snodgrass$East, Snodgrass$South, cex = Snodgrass$Radius,
-     col = Snodgrass$Inside)
-abline(v = seq(round(min(Snodgrass$East),-1) - 20, 
-               round(max(Snodgrass$East), -1) + 20, 
-               by = 10), 
-       h = seq(round(min(Snodgrass$South),-1) - 20, 
-               round(max(Snodgrass$South), -1) + 20, 
-               by = 10), 
-               lty = 2, col = "grey")
-```
-
-
-
-```{r echo = F, out.width= "35%", out.extra='style="float:right; padding:10px"'}
-include_graphics("imgs/samelliott_sketch.jpg")
-```
-
-
-You briefly consider using the dartboard in the back of the bar to randomly select 16 grid squares, but worry that years of practice have made your aim somewhat better than random. And then there'd still be the problem of selecting a stratified random sample...  
-
-While you're pondering this dilemma, the mysterious stranger seated next to you at the bar volunteers to work out the sampling for you in R, so that you can focus on considering what the results mean. Moved nearly to tears, you buy him a beer and look over his shoulder. 
-
-
-First, the mysterious stranger explains, he'll use the **sf** package to convert the `Snodgrass` data frame to what **sf** calls a 'simple feature', by telling it which columns to use as coordinates, and then he'll create a grid that overlays the data. 
-
-```{r cache=T}
-#first create an sf object by specifying which columns contain coordinates
-Snodgrass <- st_as_sf(Snodgrass, coords = c("East", "South")) 
-
-#then create a grid
-snodgrass_grd <- st_make_grid(Snodgrass, offset = c(740, 70), cellsize = 10,
+# map pithouses
+pts <- data.frame(rbind(c(10,8), c(9,3), c(9,9), c(9,10), c(8,5), c(7,5), c(6,4), c(6,7), 
+      c(6,8), c(5,1), c(5,3), c(5,4), c(5,5), c(5,8), c(4,6), c(3,4), 
+      c(3,5), c(3,9), c(1,8), c(1,10)))
+pts <- pts * 8
+pts_sf <- st_as_sf(pts, coords = c("X2", "X1"))
+# overlay a grid
+site_grd <- st_make_grid(pts_sf, cellsize = 8, n = 10,
                               what = "polygons")
 
+st_geometry(pts_sf) <- st_geometry(pts_sf) + 4 + rnorm(20, 0, 1)
+# buffer to make these into circles
+pithouses <- st_buffer(pts_sf, dist = rnorm(20, mean = 1.5, sd = .5))
+
+plot(site_grd)
+plot(pithouses, add = T, col = "green", pch = 16)
 ```
 
-He suggests examining the results early and often to make sure things are going as planned. 
-
-```{r warning=F}
-plot(snodgrass_grd)
-#add house pits, plotting only the centerpoints
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
-
-```
-
-With that grid established, we can select random grid cells and examine the artifacts found within them.  
-
-```{r cache=T, warning=F}
-set.seed(42)
-#select 16 random squares
-snodgrass_grd_random <- snodgrass_grd[sample(1:length(snodgrass_grd), 16)] 
-
-plot(snodgrass_grd)
-plot(snodgrass_grd_random, col="yellow", add=T, density=5) #plot to make sure that these make sense
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
-
-```
-
-Seeing a problem already, you start to twitch, risking spilling the stranger's beer. He gives you a long stare. "Our sample's going to be empty!" you cry. 
+## Simple random sampling 
 
 ```{r}
-snodgrass_sample <- st_contains(snodgrass_grd_random, Snodgrass)
-snodgrass_sample
-```
-
-
-Screwing up your courage, you explain that even though it's not as fashionable as it once was, you've read Flannery's *Early Mesoamerican Village* [-@Flannery_1976], and are acutely aware of the Teotihuacan problem: a purely random spatial samples risks missing things that you know are there! 
-
-```{r echo = F, out.width= "35%", out.extra='style="float:left; padding:10px"'}
-include_graphics("imgs/EarlyMesoVillage1976.jpg")
-```
-
-
-"I'm not the idiot you seem to think I am," the stranger suggests, "but if we can't select a random spatial sample to begin with, how are we ever going to do anything else?" 
-You pipe down. "Now that we've established the method and recognized some pitfalls," he adds, "we can change the resolution of our grid. And because you at least recognize the problem, I'll show you how to do quadrat sampling as well."
-
----
-
-Make a new grid with a resolution of 40m, expanding the coverage a bit.  
-
-```{r echo = F, warning=F}
-snodgrass_grd40 <- st_make_grid(Snodgrass, offset = c(660, 30), cellsize = 40,
-                              what = "polygons", n = 12)
-plot(snodgrass_grd40)
-#add house pits, plotting only the centerpoints
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
-```
-
-And sample it randomly. 
-
-```{r echo = F, warning = F}
 set.seed(42)
-#select 16 random squares
-snodgrass_grd40_random <- snodgrass_grd40[sample(1:length(snodgrass_grd40), 16)] 
+#select 20 random squares
+site_grd_random <- site_grd[sample(1:length(site_grd), 20)] 
 
-plot(snodgrass_grd40)
-plot(snodgrass_grd40_random, col="yellow", add=T) 
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
+#plot to make sure that these make sense
+
+plot(site_grd, main = "Simple Random Sample\n(n = 20)")
+plot(site_grd_random, col = "yellow", add = T) 
+plot(pithouses, add = T, col = "green", pch = 16)
+
+hits_rand <- st_contains(site_grd_random, pithouses)
+sum(lengths(hits_rand) > 0)
 ```
 
-
-Examine the house pit data from that sample.  
+## Systematic random sampling
 
 ```{r}
-#identify house pit centers that fall within those squares
-snodgrass_40sample <- st_contains(snodgrass_grd40_random, Snodgrass)
-#index house pit data to select only those housepits that fall within squares
-snodgrass_40sample_data <- Snodgrass[unlist(snodgrass_40sample),]
+set.seed(42)
+k <- sample(1:8, 1)
+
+sys_rand <- seq(from = k, by = 8, length.out = 20)
+site_grd_sysrand <- site_grd[sys_rand]
+
+plot(site_grd, main = "Systematic Random Sample\n(n = 20)")
+plot(site_grd_sysrand, col = "yellow", add = T) 
+plot(pithouses, add = T, col = "green", pch = 16)
+
+hits_sysrand <- st_contains(site_grd_sysrand, pithouses)
+sum(lengths(hits_sysrand) > 0)
 ```
 
-```{r warning = F}
-knitr::kable(head(snodgrass_40sample_data)) %>%
-  kableExtra::kable_classic(full_width = F)
+## Stratified random sampling 
 
-``` 
+```{r}
+#identify strata to be sampled
+plot(site_grd, main = "Sampling Strata")
+plot(site_grd[1:50], col = "yellow", add = T) 
+plot(site_grd[51:100], col = "lightgreen", add = T) 
 
+set.seed(42)
+#select 10 random squares from each stratum
+site_grd_strat1 <- site_grd[sample(1:50, 10)] 
+site_grd_strat2 <- site_grd[sample(51:100, 10)] 
 
-The object `snodgrass_40sample_data`, you'll find if you examine it (with `str()`), is an **sf** point feature collection - which is to say that it's a data frame with point coordinates attached.  The variables are data recorded about the house pits within each of your randomly selected grid squares. If you simply run `data.frame()` on it, you'll get a data frame exactly like those that you're very familiar with.
+#plot to make sure that these make sense
 
----
+plot(site_grd, main = "Stratified Random Sample\n(n = 20)")
+plot(site_grd_strat1, col = "yellow", add = T) 
+plot(site_grd_strat2, col = "lightgreen", add = T) 
+plot(pithouses, add = T, col = "green", pch = 16)
 
-Worried that the mysterious stranger may finish his beer and leave you to your own devices, you postpone analyzing that sample and watch as he works on selecting a systematic sample of 16 grid squares, after borrowing the bartender's tattered copy of Drennan and checking the procedure that Drennan outlines on p242. He will, he explains, subdivide the grid into 16 quadrats and sample one grid square from each quadrat.  
+hits_stratrand <- st_contains(c(site_grd_strat1, site_grd_strat2), pithouses)
+sum(lengths(hits_stratrand) > 0)
 
-```{r cache=T, warning=F}
+```
+
+## Cluster (quadrat) random sampling
+
+```{r}
 #add a coarse grid for quadrats
-snodgrass_quadrats <- st_make_grid(Snodgrass, offset = c(660, 30), cellsize = 120,
+site_grd_quadrats <- st_make_grid(site_grd, cellsize = 16,
                               what = "polygons")
 
-plot(snodgrass_grd40)
-plot(snodgrass_quadrats, add = T, border = "orange") 
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
+plot(site_grd)
+plot(site_grd_quadrats, add = T, border = "orange", lwd = 2, lty = 2) 
+plot(pithouses, add = T, col = "green", pch = 16)
 
 ```
 
 
 ```{r warning = F}
 #loop through these quadrat polygons, selecting a single random square in each one
-snodgrass_quadrats_points <- vector("list", length=16) #empty list to populate
+site_grd_quadrats_points <- vector("list", length = 20) #empty list to populate
 
 set.seed(42)
-i<-1
-for (i in 1:length(snodgrass_quadrats)){
-  snodgrass_quadrats_points[i] <- st_sample(snodgrass_quadrats[i], size = 1, 
+i <- 1
+for (i in 1:length(site_grd_quadrats)){
+  site_grd_quadrats_points[i] <- st_sample(site_grd_quadrats[i], size = 1, 
                                             type = "random")
 }
 #then combine the result into one spatial points object
-snodgrass_quadrats_sample <- st_within(st_sfc(snodgrass_quadrats_points),
-                                         snodgrass_grd40)
-#and index the 40m grid
-snodgrass_quadratsampled_grd <- snodgrass_grd40[unlist(snodgrass_quadrats_sample)]
+site_grd_quadrats_sample <- st_within(st_sfc(site_grd_quadrats_points),
+                                         site_grd)
+#and index the quadrats
+site_grd_quadratsampled <- site_grd[unlist(site_grd_quadrats_sample)]
 
 #plot to check
-plot(snodgrass_grd40)
-plot(snodgrass_quadrats, add = T, border = "orange") 
-plot(snodgrass_quadratsampled_grd, col = "yellow", add = T)
-plot(Snodgrass, add = T, col = Snodgrass$Inside, pch = 16)
+plot(site_grd)
+plot(site_grd_quadrats, add = T, border = "orange") 
+plot(site_grd_quadratsampled, col = "yellow", add = T)
+plot(pithouses, add = T, col = "green", pch = 16)
 
-#since that makes sense, identify house pit centers that fall within those squares
-snodgrass_40quadsample <- st_contains(snodgrass_quadratsampled_grd, Snodgrass)
-#index house pit data to select only those housepits that fall within squares
-snodgrass_40quadsample_data <- Snodgrass[unlist(snodgrass_40quadsample),]
+hits_quadrat <- st_contains(site_grd_quadratsampled, pithouses)
+sum(lengths(hits_quadrat) > 0)
+
 ```
 
-You can now examine compare two different samples - a random sample of grid squares (`snodgrass_40sample_data`) and a stratified random sample of grid squares (`snodgrass_40quadsample_data`) - and compare them against the whole population (`Snodgrass`).  
+For any sampling strategy, the number of positive results out of 20 sampled test areas can be used to estimate the total number of areas containing archaeological remains at the site. The number of positives is a measure of the *frequency* of archaeological features: *x* positives means that *x*/20 samples contain archaeological features. Since we have sampled 20% (1 in 5) of the available grid squares (20 of the 100), we can multiply the number of positive results in any given sample by 5 in order to estimate how many of the 100 grid squares we estimate will contain archaeological features. 
 
+For each of the four sampling strategies, address the following questions: 
 
-When you look up, satisfied that you can now compare different sample sizes and sampling strategies, you discover that there's nothing left next to you at the bar but an empty pint glass. 
+- Then, for each sampling strategy: 
+  - How many of the selected test areas contain artifacts? 
+  - What is the estimated total number of areas containing archaeological remains at the site? 
 
-Resolving to thank him next time you see him, you settle in to work on comparing the effects of different sampling strategies: 
+## Simulating repeat sampling
 
-1. Construct a bullet plot that compares median house area and median number of artifacts per house across these two samples, the whole population, and two additional samples that you generate (one random and one stratified random; you can recycle the code above by changing the value for `set.seed()`).  
-2. Construct a bar plot that compares effigies as a proportion of total artifacts across the two categories of houses (Inside/Outside) for both your various samples and the whole population. Calculate 95% confidence intervals for each proportion and display them on your barplot.
-3. What happens if you select samples that are 50% larger (i.e. 24 squares rather than 16)? 
-4. What problems does each sampling strategy encounter, and what strategies might you use to mitigate those (keeping in mind that massively increasing your sample size will almost always help, but is usually more easily said than done)? In the absence of evidence of an interior dividing wall, would you be likely to identify two separate groups of houses? 
-5. How are the results of this spatial sampling (choosing grid squares) likely to differ from simply randomly sampling the 91 houses (for instance by numbering them and selecting 16 random numbers between 1 and 91)? Under what circumstances (sticking with the Snodgrass example) might you opt for spatial sampling, either simple random or stratified, and in what circumstances might you employ simple random *non-spatial* sampling? 
+You can repeat this but select a different value for `set.seed()` to get a different random sample. With a little bit of R cleverness, we can do this many times and store the results (number of positives) of each sample. Sampling repeatedly enables us to look at the distributions of the results of different sampling strategies (so that we don't unwittingly compare an unusual [unlucky] result of one strategy with an unusual [lucky] result of another). 
 
-
----
-
-Stratified sampling: inside/outside as sampling strata.
-
- 
 ```{r}
-Snodgrass
+# simple random, 1000 times
+simp_rand_res <- vector("numeric", length = 1000)
+i <- 1 # make sure that i starts at 1 
+for(i in 1:1000){
+set.seed(i)
+site_grd_random <- site_grd[sample(1:length(site_grd), 20)] 
+hits_rand <- st_contains(site_grd_random, pithouses)
+simp_rand_res[i] <- sum(lengths(hits_rand) > 0)
+}
+
+# hist(simp_rand_res, xlab = "Positive results", main = "Simple Random", 
+#      breaks = seq(-.5, 9.5))
+
+# systematic random, 100 times
+sys_rand_res <- vector("numeric", length = 1000)
+i <- 1
+for(i in 1:1000){
+set.seed(i)
+k <- sample(1:8, 1)
+sys_rand <- seq(from = k, by = 8, length.out = 20)
+site_grd_sysrand <- site_grd[sys_rand]
+hits_sysrand <- st_contains(site_grd_sysrand, pithouses)
+sys_rand_res[i] <- sum(lengths(hits_sysrand) > 0)
+}
+
+# hist(sys_rand_res, xlab = "Positive results", main = "Systematic Random", 
+#      breaks = seq(-.5, 9.5))
+
+
+# stratified random, 100 times
+strat_rand_res <- vector("numeric", length = 1000)
+i <- 1
+for(i in 1:1000){
+set.seed(i)
+site_grd_strat1 <- site_grd[sample(1:50, 10)] 
+site_grd_strat2 <- site_grd[sample(51:100, 10)]   
+hits_stratrand <- st_contains(c(site_grd_strat1, site_grd_strat2), pithouses)
+strat_rand_res[i] <- sum(lengths(hits_stratrand) > 0)
+}
+
+# hist(strat_rand_res, xlab = "Positive results", main = "Stratified Random", 
+#      breaks = seq(-.5, 9.5))
+
+####
+
+# quadrat random sample, 100 times
+site_grd_quadrats_points <- vector("list", length = 20) #empty list to populate
+quad_rand_res <- vector("numeric", length = 1000)
+
+i <- 1
+for(i in 1:1000){
+set.seed(i)
+j <- 1
+for (j in 1:length(site_grd_quadrats)){
+  site_grd_quadrats_points[j] <- st_sample(site_grd_quadrats[j], size = 1, 
+                                            type = "random")
+}
+#then combine the result into one spatial points object
+site_grd_quadrats_sample <- st_within(st_sfc(site_grd_quadrats_points),
+                                         site_grd)
+#and index the quadrats
+site_grd_quadratsampled <- site_grd[unlist(site_grd_quadrats_sample)]
+
+hits_quadrat <- st_contains(site_grd_quadratsampled, pithouses)
+quad_rand_res[i] <- sum(lengths(hits_quadrat) > 0)
+}
+
+# hist(quad_rand_res, xlab = "Positive results", main = "Quadrat Random", 
+#      breaks = seq(-.5, 9.5))
+
+```
+
+
+```{r}
+par(mfrow = c(2,2))
+
+hist(simp_rand_res, xlab = "Positive results", main = "Simple Random", 
+     breaks = seq(-.5, 9.5))
+
+hist(sys_rand_res, xlab = "Positive results", main = "Systematic Random", 
+     breaks = seq(-.5, 9.5))
+
+hist(strat_rand_res, xlab = "Positive results", main = "Stratified Random", 
+     breaks = seq(-.5, 9.5))
+
+hist(quad_rand_res, xlab = "Positive results", main = "Quadrat Random", 
+     breaks = seq(-.5, 9.5))
+
+```
+
+Clearly different sampling strategies tend to produce different results, but this is not due to any simple properties of these sampling strategies. Rather, it has to do with the interaction between sampling strategy and distribution of features being sampled. 
+### how *variable* results are
+
+```{r}
+# join all results into a single data frame
+# with a column noting sampling strategy
+samp_results <- data.frame(positives = c(simp_rand_res, sys_rand_res, strat_rand_res, quad_rand_res), 
+                           SampStrat = c(rep("simple", 1000), rep("systematic", 1000), 
+                                         rep("stratified", 1000), rep("quadrat", 1000)))
+boxplot(positives ~ SampStrat, samp_results)
+
+```
+
+
+Let's consider the same parking lot redevelopment project, but with a different arrangement of archaeological features. Based on an archived archaeological report predating the paving of the area, you determine that pithouses were previously documented in the western half of area. You're not confident that they don't *also* exist in the eastern half, but what you do know is enough to suggest separating the area into sampling strata, and sampling those strata unevenly. Since you're confident that the western half of the area does contain archaeological remains, you want to sample that stratum more intensively, but you don't want to ignore the eastern half entirely. 
+
+```{r}
+# map pithouses
+pts2 <- data.frame(x = c(rep(2, 5), rep(3, 8), rep(4,5), 8, 9), y = c(seq(4:8), seq(2:9), seq(4:8), 7, 4))
+pts2 <- pts2 * 8
+pts2_sf <- st_as_sf(pts2, coords = c("x", "y"))
+
+
+st_geometry(pts2_sf) <- st_geometry(pts2_sf) + 4 + rnorm(20, 0, 1)
+# buffer to make these into circles
+pithouses2 <- st_buffer(pts2_sf, dist = rnorm(20, mean = 1.5, sd = .5))
+
+plot(site_grd)
+plot(pithouses2, add = T, col = "green", pch = 16)
+```
+
+
+The basic principle of stratified sampling is that you have some reason to believe that the area being sampled is heterogeneous *in a way that you can predict*. On the basis of that belief, you can separate the area into strata that reflect this unequal distribution. For this to be effective, the variability within each stratum should be small relative to the variability between strata. With this in mind, consider why - on theoretical grounds alone - the stratified sampling that we conducted above could not be expected to be any more effective than simple random sampling. 
+
+
+> sampling from the strata at different rates is based on an attempt to realistically illustrate the use of
+stratification in archaeological sampling. Orton (2000) discusses a case study for which an urban site
+contains clearly visible structures and notes that many urban sites fall into this category, especially if
+they have been deserted and not re-occupied or built over. Orton (2000) states that for urban sites,
+stratification may be more useful and more feasible than in other situations. A site may be divisible into
+zones (e.g. religious, industrial, domestic), which can be demarcated as statistical strata and sampled
+from at different rates according to the nature of the research questions. Redman (1987) discusses an
+excavation of a site at Shoofly Village in Arizona that was completed in three stages. In the first stage,
+stratification was used, with an area inside of an enclosure wall being sampled from at four times the
+intensity of an area immediately outside.
+
+
+
+```{r}
+#identify strata to be sampled
+
+starts <- seq(from = 0, to = 90, by = 10)
+# Add the sequence 1:5 to each starting point
+stratA <- outer(1:5, starts, `+`)
+# Flatten into a single vector
+stratA <- as.vector(stratA)
+starts2 <- seq(from = 5, to = 95, by = 10)
+stratB <- outer(1:5, starts2, `+`)
+stratB <- as.vector(stratB)
+
+plot(site_grd, main = "Sampling Strata")
+plot(site_grd[stratA], col = "yellow", add = T) 
+plot(site_grd[stratB], col = "lightgreen", add = T) 
 
 set.seed(42)
-samp_inside <- st_sample(Snodgrass[Snodgrass$Inside == "Inside",], 
-                         size = round(.25 * nrow(Snodgrass[Snodgrass$Inside == "Inside",])), 0)
-plot(samp_inside)
-samp_inside <- st_sf(samp_inside)
-samp_inside <- st_join(samp_inside, Snodgrass)
+#select random squares from each stratum (15 and 5, respectively)
+site_grd_stratA <- site_grd[sample(stratA, 15)] 
+site_grd_stratB <- site_grd[sample(stratB, 5)] 
 
-samp_outside <- st_sample(Snodgrass[Snodgrass$Inside == "Outside",], 
-                         size = round(.15 * nrow(Snodgrass[Snodgrass$Inside == "Outside",])), 0)
-plot(samp_outside)
+#plot to make sure that these make sense
 
+plot(site_grd, main = "Stratified Random Sample\n(n = 20)")
+plot(site_grd_stratA, col = "yellow", add = T) 
+plot(site_grd_stratB, col = "lightgreen", add = T) 
+plot(pithouses2, add = T, col = "green", pch = 16)
 
-plot(Snodgrass["Area"], col = Snodgrass$Inside, pch = 20, cex = Snodgrass$Area/100)
-plot(samp_inside["Area"], add = T, pch = 20, cex = samp_inside$Area/100, col = "yellow")
+hits_stratrand2 <- st_contains(c(site_grd_stratA, site_grd_stratB), pithouses2)
+sum(lengths(hits_stratrand2) > 0)
+#our estimate of the number of positive results in the population has to take into account the strata
 
 ```
 
+Simulate repeat sampling of these strata 1000 times (or as many as you like), and make a histogram or boxplot of the results. Then choose a second sampling method (simple random, systematic, or quadrat) and sample the same distribution of features (`pithouses2`) with a comparable simulation. Compare the results. 
+
+### For a non-random arrangement of pithouses, employ stratified sampling (with informed strata) and your choice of one other sampling method, compare the results of repeat sampling, and briefly explain which sampling method you would choose, and why. What kinds of likely distributions of archaeological features might make a dramatic difference in the success of different sampling strategies?
+
+Note that where sampling strata are uneven, we can not simply treat the number of positive results as a measure of the frequency of archaeological features in the population. We need to account for the fact that we haven't sampled the population evenly. 
+
+### 15/50 * positive + 5/50 * positive
+
+> For the stratified samples, since 16/50 of the test-pits are being sampled from stratum I (and stratum II contains no finds), for each selected sample, 50/16 times the number of finds out of the sixteen sampled test-pits in Stratum I serves as an estimate of the total number of finds at the site
 
 # Similarities Between Cases (Ch. 22)
 
