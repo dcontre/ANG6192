@@ -236,9 +236,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="19" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html"><i class="fa fa-check"></i><b>19</b> Sampling without Finding Anything (Ch. 19)</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set"><i class="fa fa-check"></i><b>19.1</b> Problem Set</a>
+<li class="chapter" data-level="19.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#problem-set-ch.-18-19---spatial-sampling"><i class="fa fa-check"></i><b>19.1</b> Problem Set Ch. 18 &amp; 19 - Spatial sampling</a>
 <ul>
-<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#rework-questions"><i class="fa fa-check"></i><b>19.1.1</b> rework questions</a></li>
+<li class="chapter" data-level="19.1.1" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#simple-random-sampling"><i class="fa fa-check"></i><b>19.1.1</b> Simple random sampling</a></li>
+<li class="chapter" data-level="19.1.2" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#systematic-random-sampling"><i class="fa fa-check"></i><b>19.1.2</b> Systematic random sampling</a></li>
+<li class="chapter" data-level="19.1.3" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#stratified-random-sampling"><i class="fa fa-check"></i><b>19.1.3</b> Stratified random sampling</a></li>
+<li class="chapter" data-level="19.1.4" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#cluster-quadrat-random-sampling"><i class="fa fa-check"></i><b>19.1.4</b> Cluster (quadrat) random sampling</a></li>
+<li class="chapter" data-level="19.1.5" data-path="sampling-without-finding-anything-ch.-19.html"><a href="sampling-without-finding-anything-ch.-19.html#simulating-repeat-sampling"><i class="fa fa-check"></i><b>19.1.5</b> Simulating repeat sampling</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html"><i class="fa fa-check"></i><b>20</b> Similarities Between Cases (Ch. 22)</a>
@@ -250,7 +254,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="20.2" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#presenceabsence-variables-simple-matching-and-jaccards-coefficients-of-similarity"><i class="fa fa-check"></i><b>20.2</b> Presence/Absence Variables: Simple Matching and Jaccard’s Coefficients of Similarity</a></li>
 <li class="chapter" data-level="20.3" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#mixed-variables-gowers-coefficient"><i class="fa fa-check"></i><b>20.3</b> Mixed Variables: Gower’s Coefficient</a></li>
-<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set-1"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
+<li class="chapter" data-level="20.4" data-path="similarities-between-cases-ch.-22.html"><a href="similarities-between-cases-ch.-22.html#problem-set"><i class="fa fa-check"></i><b>20.4</b> Problem Set</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="multidimensional-scaling-ch.html"><a href="multidimensional-scaling-ch.html"><i class="fa fa-check"></i><b>21</b> Multidimensional Scaling (Ch.23)</a>
 <ul>
@@ -269,7 +273,7 @@ div.csl-indent {
 <li class="chapter" data-level="23.3" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#average-linkage-clustering"><i class="fa fa-check"></i><b>23.3</b> Average Linkage Clustering</a></li>
 <li class="chapter" data-level="23.4" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-the-ixcaquixtla-household-data"><i class="fa fa-check"></i><b>23.4</b> Clustering the Ixcaquixtla Household Data</a></li>
 <li class="chapter" data-level="23.5" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#clustering-by-variables"><i class="fa fa-check"></i><b>23.5</b> Clustering by Variables</a></li>
-<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-2"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
+<li class="chapter" data-level="23.6" data-path="cluster-analysis-ch.html"><a href="cluster-analysis-ch.html#problem-set-1"><i class="fa fa-check"></i><b>23.6</b> Problem Set</a></li>
 </ul></li>
 <li class="chapter" data-level="24" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>24</b> Correspondence Analysis</a>
 <ul>
@@ -307,22 +311,22 @@ Perhaps the simplest way to sample these would be to assign a number to each hec
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="samples-and-populations-ch.-7.html#cb223-1" tabindex="-1"></a>grids <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7500</span>, <span class="dv">100</span>) <span class="co">#randomly select 100 numbers from 1-7500, w/o replacement</span></span>
 <span id="cb223-2"><a href="samples-and-populations-ch.-7.html#cb223-2" tabindex="-1"></a><span class="co">#if you have reason to sample with replacement instead, use replace = TRUE in sample()</span></span>
 <span id="cb223-3"><a href="samples-and-populations-ch.-7.html#cb223-3" tabindex="-1"></a>grids <span class="co">#by default these are ordered as selected</span></span></code></pre></div>
-<pre><code>##   [1] 6019  471 7150 2535 6758 4751 1748 5521  169 5822  970 1146 4001 2183 3902
-##  [16] 1202 3914 5568 1382  104 1180 5156 5306 1255 2449 7149 5809  196 5517 5234
-##  [31] 2146 3848  971 5140 7311 1336 4242 2990 3758 7050  276 2188 2719 7025 3235
-##  [46]  652 3522  754 3941 2176 2385 3078 3666 3501 5269 3030 6243 2202 1364 1092
-##  [61] 2487 6137 5840 6656 5080 1750 2629 5118 6159 3926 6898 4520 3888 5998  951
-##  [76] 3007 6565 6630 1560 3072 3647 6484 1638 5104 4637 1799 6988  429 3696 6539
-##  [91] 2584 7383 1516   65 4943 3813 4180 3175 5940 5244</code></pre>
+<pre><code>##   [1] 7029 3678 1670 2429  893  573 1187 1369 6305   66 2434  826 3712 3060 1360
+##  [16]  449 4747 3561 3214 5402 2535 1586 1351   52 1480 7049 7275 3140 1216 7122
+##  [31]  843 6380 6378 5745 3646 3600 1556 1803 5921 4553 6431 3463 2203 4234 1753
+##  [46] 2972 5304 1880 1588 2608 7383 1878 3945 3977 1083  647 3685 2798 1172 3397
+##  [61] 5414 4544 5440 6535 3709 4655 6083 3365 5954 6614 2737 5349 3255 2248  314
+##  [76] 5052 6221  901 5899 1937 5844  400 4976 7044 3316 1465 6281   28 2069  653
+##  [91] 4689 7012 1396 6838  953  278 2550 2933 6173 3753</code></pre>
 <p>Probably - think about the practical realities of working your way around the landscape collecting samples - you’d find it more practical to order these sequentially.</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="samples-and-populations-ch.-7.html#cb225-1" tabindex="-1"></a><span class="fu">sort</span>(grids) </span></code></pre></div>
-<pre><code>##   [1]   65  104  169  196  276  429  471  652  754  951  970  971 1092 1146 1180
-##  [16] 1202 1255 1336 1364 1382 1516 1560 1638 1748 1750 1799 2146 2176 2183 2188
-##  [31] 2202 2385 2449 2487 2535 2584 2629 2719 2990 3007 3030 3072 3078 3175 3235
-##  [46] 3501 3522 3647 3666 3696 3758 3813 3848 3888 3902 3914 3926 3941 4001 4180
-##  [61] 4242 4520 4637 4751 4943 5080 5104 5118 5140 5156 5234 5244 5269 5306 5517
-##  [76] 5521 5568 5809 5822 5840 5940 5998 6019 6137 6159 6243 6484 6539 6565 6630
-##  [91] 6656 6758 6898 6988 7025 7050 7149 7150 7311 7383</code></pre>
+<pre><code>##   [1]   28   52   66  278  314  400  449  573  647  653  826  843  893  901  953
+##  [16] 1083 1172 1187 1216 1351 1360 1369 1396 1465 1480 1556 1586 1588 1670 1753
+##  [31] 1803 1878 1880 1937 2069 2203 2248 2429 2434 2535 2550 2608 2737 2798 2933
+##  [46] 2972 3060 3140 3214 3255 3316 3365 3397 3463 3561 3600 3646 3678 3685 3709
+##  [61] 3712 3753 3945 3977 4234 4544 4553 4655 4689 4747 4976 5052 5304 5349 5402
+##  [76] 5414 5440 5745 5844 5899 5921 5954 6083 6173 6221 6281 6305 6378 6380 6431
+##  [91] 6535 6614 6838 7012 7029 7044 7049 7122 7275 7383</code></pre>
 <p>As Drennan (p85) is at pains to point out - and as you would be very wise to note! - <em>random</em> is not the same thing as <em>representative</em>. The concepts underlying Drennan’s discussion of random and nonrandom samples, sampling bias, and representativeness <em>are at least as important as any statistical technique</em>. As Drennan notes (p88), these are issues fundamental to inference generally, not just to statistical inference (i.e., you cannot avoid the need to think about these issues by simply eschewing statistics!).</p>
 <p>Note that R code that generates random samples is very unlikely to draw the same number twice! So…if you run the code a second time, you’re likely to get a different answer. If you want to, for illustrative purposes, makes sure that you always draw the same random number, use the <code>set.seed()</code> function.</p>
 <p>Compare the result of running both lines of code below two or three times to the result of running only the second line of code two or three times.</p>
