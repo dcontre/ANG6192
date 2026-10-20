@@ -1941,7 +1941,7 @@ RegModel.3 <- lm(Hoes ~ Area + MaizeProductivity, data = RioSeco_Hoes)
 summary(RegModel.3)
 ```
 
-While linear regression is very commonly used, count data are better approached through generalized linear models (GLMs) [@Codding2024; @mccall2024]. Drennan does not address these, but see (here)[###addd link###]).
+While linear regression is very commonly used, count data are better approached through generalized linear models (GLMs) [@Codding2024; @mccall2024]. Drennan does not address these, but see those references and [this discussion](https://dcontre.github.io/R-for-Archaeology-Buffet/count-data.html#count-data-GLMs) if that's something that you're interested in pursuing.
 
 ## Practice
 Data for the practice problems can be found in [Yenang.txt](data/Drennan_datasets/Yenang.txt).
