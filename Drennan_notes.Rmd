@@ -2485,7 +2485,6 @@ hist(quad_rand_res, xlab = "Positive results", main = "Quadrat Random",
 ```
 
 Clearly different sampling strategies tend to produce different results, but this is not due to any simple properties of these sampling strategies. Rather, it has to do with the interaction between sampling strategy and distribution of features being sampled. 
-### how *variable* results are
 
 ```{r}
 # join all results into a single data frame
