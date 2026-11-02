@@ -2552,7 +2552,7 @@ sum(lengths(hits_stratrand2) > 0) #total hits
 
 ```
 
-Note that where sampling strata are uneven, we can not simply treat the number of positive results as a measure of the frequency of archaeological features in the population. We sampled Stratum A at 30% and got `r sum(lengths(hits_stratrand2) > 0)` hits, but that's telling us about how frequent features are *in Stratum A*, not in the whole area. We need to account for the fact that we haven't sampled the population evenly. Since we have sampled $\frac{15}{50}$ of Stratum A - 30% - we can estimate the total number of hits there as $\frac{100}{30}\times{hits}$. This is half of the sampling universe, so we need to add our estimate for Stratum B, where we only sampled $\frac{5}{50}$ - 10%. So, we estimate the total number of features in the area as $$(\frac{100}{30}\times{hitsA})+(\frac{100}{5}\times{hitsB})$$. 
+Note that where sampling strata are uneven, we can not simply treat the number of positive results as a measure of the frequency of archaeological features in the population. We sampled Stratum A at 30% and got `r sum(lengths(hits_stratrand2) > 0)` hits, but that's telling us about how frequent features are *in Stratum A*, not in the whole area. We need to account for the fact that we haven't sampled the population evenly. Since we have sampled $\frac{15}{50}$ of Stratum A - 30% - we can estimate the total number of hits there as $\frac{100}{30}\times{hits}$. This is half of the sampling universe, so we need to add our estimate for Stratum B, where we only sampled $\frac{5}{50}$ - 10%. So, we estimate the total number of features in the area as $$(\frac{100}{30}\times{hitsA})+(\frac{100}{10}\times{hitsB})$$. 
 
 
 ```{r}
@@ -2562,7 +2562,7 @@ stratA_hits <- sum(lengths(hits_stratrandA) > 0) #Strat A hits
 hits_stratrandB <- st_contains(site_grd_stratB, pithouses2)
 stratB_hits <- sum(lengths(hits_stratrandB) > 0) #Strat B hits
 
-est_total <- ((100/30) * stratA_hits) + ((100/5) * stratB_hits)
+est_total <- ((100/30) * stratA_hits) + ((100/10) * stratB_hits)
 
 ```
 
