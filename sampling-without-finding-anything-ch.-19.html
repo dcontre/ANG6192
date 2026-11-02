@@ -480,7 +480,7 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <span id="cb513-11"><a href="sampling-without-finding-anything-ch.-19.html#cb513-11" tabindex="-1"></a><span class="co"># hist(simp_rand_res, xlab = &quot;Positive results&quot;, main = &quot;Simple Random&quot;, </span></span>
 <span id="cb513-12"><a href="sampling-without-finding-anything-ch.-19.html#cb513-12" tabindex="-1"></a><span class="co">#      breaks = seq(-.5, 9.5))</span></span>
 <span id="cb513-13"><a href="sampling-without-finding-anything-ch.-19.html#cb513-13" tabindex="-1"></a></span>
-<span id="cb513-14"><a href="sampling-without-finding-anything-ch.-19.html#cb513-14" tabindex="-1"></a><span class="co"># systematic random, 100 times</span></span>
+<span id="cb513-14"><a href="sampling-without-finding-anything-ch.-19.html#cb513-14" tabindex="-1"></a><span class="co"># systematic random, 1000 times</span></span>
 <span id="cb513-15"><a href="sampling-without-finding-anything-ch.-19.html#cb513-15" tabindex="-1"></a>sys_rand_res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
 <span id="cb513-16"><a href="sampling-without-finding-anything-ch.-19.html#cb513-16" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb513-17"><a href="sampling-without-finding-anything-ch.-19.html#cb513-17" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
@@ -496,7 +496,7 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <span id="cb513-27"><a href="sampling-without-finding-anything-ch.-19.html#cb513-27" tabindex="-1"></a><span class="co">#      breaks = seq(-.5, 9.5))</span></span>
 <span id="cb513-28"><a href="sampling-without-finding-anything-ch.-19.html#cb513-28" tabindex="-1"></a></span>
 <span id="cb513-29"><a href="sampling-without-finding-anything-ch.-19.html#cb513-29" tabindex="-1"></a></span>
-<span id="cb513-30"><a href="sampling-without-finding-anything-ch.-19.html#cb513-30" tabindex="-1"></a><span class="co"># stratified random, 100 times</span></span>
+<span id="cb513-30"><a href="sampling-without-finding-anything-ch.-19.html#cb513-30" tabindex="-1"></a><span class="co"># stratified random, 1000 times</span></span>
 <span id="cb513-31"><a href="sampling-without-finding-anything-ch.-19.html#cb513-31" tabindex="-1"></a>strat_rand_res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
 <span id="cb513-32"><a href="sampling-without-finding-anything-ch.-19.html#cb513-32" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb513-33"><a href="sampling-without-finding-anything-ch.-19.html#cb513-33" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
@@ -510,32 +510,31 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <span id="cb513-41"><a href="sampling-without-finding-anything-ch.-19.html#cb513-41" tabindex="-1"></a><span class="co"># hist(strat_rand_res, xlab = &quot;Positive results&quot;, main = &quot;Stratified Random&quot;, </span></span>
 <span id="cb513-42"><a href="sampling-without-finding-anything-ch.-19.html#cb513-42" tabindex="-1"></a><span class="co">#      breaks = seq(-.5, 9.5))</span></span>
 <span id="cb513-43"><a href="sampling-without-finding-anything-ch.-19.html#cb513-43" tabindex="-1"></a></span>
-<span id="cb513-44"><a href="sampling-without-finding-anything-ch.-19.html#cb513-44" tabindex="-1"></a><span class="do">####</span></span>
-<span id="cb513-45"><a href="sampling-without-finding-anything-ch.-19.html#cb513-45" tabindex="-1"></a></span>
-<span id="cb513-46"><a href="sampling-without-finding-anything-ch.-19.html#cb513-46" tabindex="-1"></a><span class="co"># quadrat random sample, 100 times</span></span>
-<span id="cb513-47"><a href="sampling-without-finding-anything-ch.-19.html#cb513-47" tabindex="-1"></a>site_grd_quadrats_points <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">20</span>) <span class="co">#empty list to populate</span></span>
-<span id="cb513-48"><a href="sampling-without-finding-anything-ch.-19.html#cb513-48" tabindex="-1"></a>quad_rand_res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
-<span id="cb513-49"><a href="sampling-without-finding-anything-ch.-19.html#cb513-49" tabindex="-1"></a></span>
-<span id="cb513-50"><a href="sampling-without-finding-anything-ch.-19.html#cb513-50" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb513-51"><a href="sampling-without-finding-anything-ch.-19.html#cb513-51" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
-<span id="cb513-52"><a href="sampling-without-finding-anything-ch.-19.html#cb513-52" tabindex="-1"></a><span class="fu">set.seed</span>(i)</span>
-<span id="cb513-53"><a href="sampling-without-finding-anything-ch.-19.html#cb513-53" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb513-54"><a href="sampling-without-finding-anything-ch.-19.html#cb513-54" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(site_grd_quadrats)){</span>
-<span id="cb513-55"><a href="sampling-without-finding-anything-ch.-19.html#cb513-55" tabindex="-1"></a>  site_grd_quadrats_points[j] <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(site_grd_quadrats[j], <span class="at">size =</span> <span class="dv">1</span>, </span>
-<span id="cb513-56"><a href="sampling-without-finding-anything-ch.-19.html#cb513-56" tabindex="-1"></a>                                            <span class="at">type =</span> <span class="st">&quot;random&quot;</span>)</span>
-<span id="cb513-57"><a href="sampling-without-finding-anything-ch.-19.html#cb513-57" tabindex="-1"></a>}</span>
-<span id="cb513-58"><a href="sampling-without-finding-anything-ch.-19.html#cb513-58" tabindex="-1"></a><span class="co">#then combine the result into one spatial points object</span></span>
-<span id="cb513-59"><a href="sampling-without-finding-anything-ch.-19.html#cb513-59" tabindex="-1"></a>site_grd_quadrats_sample <span class="ot">&lt;-</span> <span class="fu">st_within</span>(<span class="fu">st_sfc</span>(site_grd_quadrats_points),</span>
-<span id="cb513-60"><a href="sampling-without-finding-anything-ch.-19.html#cb513-60" tabindex="-1"></a>                                         site_grd)</span>
-<span id="cb513-61"><a href="sampling-without-finding-anything-ch.-19.html#cb513-61" tabindex="-1"></a><span class="co">#and index the quadrats</span></span>
-<span id="cb513-62"><a href="sampling-without-finding-anything-ch.-19.html#cb513-62" tabindex="-1"></a>site_grd_quadratsampled <span class="ot">&lt;-</span> site_grd[<span class="fu">unlist</span>(site_grd_quadrats_sample)]</span>
-<span id="cb513-63"><a href="sampling-without-finding-anything-ch.-19.html#cb513-63" tabindex="-1"></a></span>
-<span id="cb513-64"><a href="sampling-without-finding-anything-ch.-19.html#cb513-64" tabindex="-1"></a>hits_quadrat <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(site_grd_quadratsampled, pithouses)</span>
-<span id="cb513-65"><a href="sampling-without-finding-anything-ch.-19.html#cb513-65" tabindex="-1"></a>quad_rand_res[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">lengths</span>(hits_quadrat) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb513-66"><a href="sampling-without-finding-anything-ch.-19.html#cb513-66" tabindex="-1"></a>}</span>
-<span id="cb513-67"><a href="sampling-without-finding-anything-ch.-19.html#cb513-67" tabindex="-1"></a></span>
-<span id="cb513-68"><a href="sampling-without-finding-anything-ch.-19.html#cb513-68" tabindex="-1"></a><span class="co"># hist(quad_rand_res, xlab = &quot;Positive results&quot;, main = &quot;Quadrat Random&quot;, </span></span>
-<span id="cb513-69"><a href="sampling-without-finding-anything-ch.-19.html#cb513-69" tabindex="-1"></a><span class="co">#      breaks = seq(-.5, 9.5))</span></span></code></pre></div>
+<span id="cb513-44"><a href="sampling-without-finding-anything-ch.-19.html#cb513-44" tabindex="-1"></a></span>
+<span id="cb513-45"><a href="sampling-without-finding-anything-ch.-19.html#cb513-45" tabindex="-1"></a><span class="co"># quadrat random sample, 1000 times</span></span>
+<span id="cb513-46"><a href="sampling-without-finding-anything-ch.-19.html#cb513-46" tabindex="-1"></a>site_grd_quadrats_points <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">20</span>) <span class="co">#empty list to populate</span></span>
+<span id="cb513-47"><a href="sampling-without-finding-anything-ch.-19.html#cb513-47" tabindex="-1"></a>quad_rand_res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
+<span id="cb513-48"><a href="sampling-without-finding-anything-ch.-19.html#cb513-48" tabindex="-1"></a></span>
+<span id="cb513-49"><a href="sampling-without-finding-anything-ch.-19.html#cb513-49" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb513-50"><a href="sampling-without-finding-anything-ch.-19.html#cb513-50" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb513-51"><a href="sampling-without-finding-anything-ch.-19.html#cb513-51" tabindex="-1"></a><span class="fu">set.seed</span>(i)</span>
+<span id="cb513-52"><a href="sampling-without-finding-anything-ch.-19.html#cb513-52" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb513-53"><a href="sampling-without-finding-anything-ch.-19.html#cb513-53" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(site_grd_quadrats)){</span>
+<span id="cb513-54"><a href="sampling-without-finding-anything-ch.-19.html#cb513-54" tabindex="-1"></a>  site_grd_quadrats_points[j] <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(site_grd_quadrats[j], <span class="at">size =</span> <span class="dv">1</span>, </span>
+<span id="cb513-55"><a href="sampling-without-finding-anything-ch.-19.html#cb513-55" tabindex="-1"></a>                                            <span class="at">type =</span> <span class="st">&quot;random&quot;</span>)</span>
+<span id="cb513-56"><a href="sampling-without-finding-anything-ch.-19.html#cb513-56" tabindex="-1"></a>}</span>
+<span id="cb513-57"><a href="sampling-without-finding-anything-ch.-19.html#cb513-57" tabindex="-1"></a><span class="co">#then combine the result into one spatial points object</span></span>
+<span id="cb513-58"><a href="sampling-without-finding-anything-ch.-19.html#cb513-58" tabindex="-1"></a>site_grd_quadrats_sample <span class="ot">&lt;-</span> <span class="fu">st_within</span>(<span class="fu">st_sfc</span>(site_grd_quadrats_points),</span>
+<span id="cb513-59"><a href="sampling-without-finding-anything-ch.-19.html#cb513-59" tabindex="-1"></a>                                         site_grd)</span>
+<span id="cb513-60"><a href="sampling-without-finding-anything-ch.-19.html#cb513-60" tabindex="-1"></a><span class="co">#and index the quadrats</span></span>
+<span id="cb513-61"><a href="sampling-without-finding-anything-ch.-19.html#cb513-61" tabindex="-1"></a>site_grd_quadratsampled <span class="ot">&lt;-</span> site_grd[<span class="fu">unlist</span>(site_grd_quadrats_sample)]</span>
+<span id="cb513-62"><a href="sampling-without-finding-anything-ch.-19.html#cb513-62" tabindex="-1"></a></span>
+<span id="cb513-63"><a href="sampling-without-finding-anything-ch.-19.html#cb513-63" tabindex="-1"></a>hits_quadrat <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(site_grd_quadratsampled, pithouses)</span>
+<span id="cb513-64"><a href="sampling-without-finding-anything-ch.-19.html#cb513-64" tabindex="-1"></a>quad_rand_res[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">lengths</span>(hits_quadrat) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb513-65"><a href="sampling-without-finding-anything-ch.-19.html#cb513-65" tabindex="-1"></a>}</span>
+<span id="cb513-66"><a href="sampling-without-finding-anything-ch.-19.html#cb513-66" tabindex="-1"></a></span>
+<span id="cb513-67"><a href="sampling-without-finding-anything-ch.-19.html#cb513-67" tabindex="-1"></a><span class="co"># hist(quad_rand_res, xlab = &quot;Positive results&quot;, main = &quot;Quadrat Random&quot;, </span></span>
+<span id="cb513-68"><a href="sampling-without-finding-anything-ch.-19.html#cb513-68" tabindex="-1"></a><span class="co">#      breaks = seq(-.5, 9.5))</span></span></code></pre></div>
 <div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="sampling-without-finding-anything-ch.-19.html#cb514-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb514-2"><a href="sampling-without-finding-anything-ch.-19.html#cb514-2" tabindex="-1"></a></span>
 <span id="cb514-3"><a href="sampling-without-finding-anything-ch.-19.html#cb514-3" tabindex="-1"></a><span class="fu">hist</span>(simp_rand_res, <span class="at">xlab =</span> <span class="st">&quot;Positive results&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Simple Random&quot;</span>, </span>

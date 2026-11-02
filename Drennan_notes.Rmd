@@ -2407,7 +2407,7 @@ simp_rand_res[i] <- sum(lengths(hits_rand) > 0)
 # hist(simp_rand_res, xlab = "Positive results", main = "Simple Random", 
 #      breaks = seq(-.5, 9.5))
 
-# systematic random, 100 times
+# systematic random, 1000 times
 sys_rand_res <- vector("numeric", length = 1000)
 i <- 1
 for(i in 1:1000){
@@ -2423,7 +2423,7 @@ sys_rand_res[i] <- sum(lengths(hits_sysrand) > 0)
 #      breaks = seq(-.5, 9.5))
 
 
-# stratified random, 100 times
+# stratified random, 1000 times
 strat_rand_res <- vector("numeric", length = 1000)
 i <- 1
 for(i in 1:1000){
@@ -2437,9 +2437,8 @@ strat_rand_res[i] <- sum(lengths(hits_stratrand) > 0)
 # hist(strat_rand_res, xlab = "Positive results", main = "Stratified Random", 
 #      breaks = seq(-.5, 9.5))
 
-####
 
-# quadrat random sample, 100 times
+# quadrat random sample, 1000 times
 site_grd_quadrats_points <- vector("list", length = 20) #empty list to populate
 quad_rand_res <- vector("numeric", length = 1000)
 
