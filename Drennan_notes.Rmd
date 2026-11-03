@@ -2305,6 +2305,7 @@ set.seed(42)
 k <- sample(1:8, 1)
 
 sys_rand <- seq(from = k, by = 8, length.out = 20)
+sys_rand <- ifelse(sys_rand > 100, sys_rand - 100, sys_rand)
 site_grd_sysrand <- site_grd[sys_rand]
 
 plot(site_grd, main = "Systematic Random Sample\n(n = 20)")
@@ -2965,12 +2966,14 @@ Table24.1 <- data.frame(Eigenvalue = round(ixcaq_pc$sdev^2,3), Eigenvalue.per.To
 ```
 
 Table 24.2 is a bit trickier, because we have to standardize the loadings by the eigenvalues. To perform the same function (multiplying by the standard deviation, in this case) on each column of a data frame, we can use `sweep()`.
+
 ```{r}
 ixcaq_pc_loadings <- sweep(ixcaq_pc$loadings, 2, ixcaq_pc$sdev, "*"); ixcaq_pc_loadings
 ```
 A couple of things to note about `ixcaq_pc_loadings`: 
 * First, in fact it combines Tables 24.1 and 24.2, including the former (in slightly different format) at the bottom. In addition to the eigenvalues (labeled 'SS loadings') and the eigenvalues as a proportion of the number of variables ('Proportion Var'), this lower table also includes the cumulative amount of variation accounted for by each component.
 * Second, while the values in the upper table now match Table 24.2, it's different in a couple of respects. You'll notice that `princomp()` by default doesn't display low values, so anything <.10 shows up as a blank in the table (if you want to see these, try `ixcaq_pc_loadings[]`); it also defaults to showing the loadings on all the components, while Drennan truncates his table after the first five (quite reasonably, because a PCA that makes you think about more than half as many dimensions as you already had probably isn't doing you any favors; the whole point is to reduce variability). Drennan has also reordered the data in Table 24.2 to highlight the highest loadings on each component. We could come up with a function to do this, but since it's not something we'll do again it's simpler to just reorder the rows in the table manually:
+
 ```{r}
 Table24.2 <- ixcaq_pc_loadings[c(3,5,1,2,6,4,7,8,10,9),1:5]
 ```

@@ -387,15 +387,16 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <span id="cb502-2"><a href="sampling-without-finding-anything-ch.-19.html#cb502-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">1</span>)</span>
 <span id="cb502-3"><a href="sampling-without-finding-anything-ch.-19.html#cb502-3" tabindex="-1"></a></span>
 <span id="cb502-4"><a href="sampling-without-finding-anything-ch.-19.html#cb502-4" tabindex="-1"></a>sys_rand <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> k, <span class="at">by =</span> <span class="dv">8</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
-<span id="cb502-5"><a href="sampling-without-finding-anything-ch.-19.html#cb502-5" tabindex="-1"></a>site_grd_sysrand <span class="ot">&lt;-</span> site_grd[sys_rand]</span>
-<span id="cb502-6"><a href="sampling-without-finding-anything-ch.-19.html#cb502-6" tabindex="-1"></a></span>
-<span id="cb502-7"><a href="sampling-without-finding-anything-ch.-19.html#cb502-7" tabindex="-1"></a><span class="fu">plot</span>(site_grd, <span class="at">main =</span> <span class="st">&quot;Systematic Random Sample</span><span class="sc">\n</span><span class="st">(n = 20)&quot;</span>)</span>
-<span id="cb502-8"><a href="sampling-without-finding-anything-ch.-19.html#cb502-8" tabindex="-1"></a><span class="fu">plot</span>(site_grd_sysrand, <span class="at">col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">add =</span> T) </span>
-<span id="cb502-9"><a href="sampling-without-finding-anything-ch.-19.html#cb502-9" tabindex="-1"></a><span class="fu">plot</span>(pithouses, <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<span id="cb502-5"><a href="sampling-without-finding-anything-ch.-19.html#cb502-5" tabindex="-1"></a>sys_rand <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sys_rand <span class="sc">&gt;</span> <span class="dv">100</span>, sys_rand <span class="sc">-</span> <span class="dv">100</span>, sys_rand)</span>
+<span id="cb502-6"><a href="sampling-without-finding-anything-ch.-19.html#cb502-6" tabindex="-1"></a>site_grd_sysrand <span class="ot">&lt;-</span> site_grd[sys_rand]</span>
+<span id="cb502-7"><a href="sampling-without-finding-anything-ch.-19.html#cb502-7" tabindex="-1"></a></span>
+<span id="cb502-8"><a href="sampling-without-finding-anything-ch.-19.html#cb502-8" tabindex="-1"></a><span class="fu">plot</span>(site_grd, <span class="at">main =</span> <span class="st">&quot;Systematic Random Sample</span><span class="sc">\n</span><span class="st">(n = 20)&quot;</span>)</span>
+<span id="cb502-9"><a href="sampling-without-finding-anything-ch.-19.html#cb502-9" tabindex="-1"></a><span class="fu">plot</span>(site_grd_sysrand, <span class="at">col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">add =</span> T) </span>
+<span id="cb502-10"><a href="sampling-without-finding-anything-ch.-19.html#cb502-10" tabindex="-1"></a><span class="fu">plot</span>(pithouses, <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="Drennan_notes_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="sampling-without-finding-anything-ch.-19.html#cb503-1" tabindex="-1"></a>hits_sysrand <span class="ot">&lt;-</span> <span class="fu">st_contains</span>(site_grd_sysrand, pithouses)</span>
 <span id="cb503-2"><a href="sampling-without-finding-anything-ch.-19.html#cb503-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">lengths</span>(hits_sysrand) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## [1] 5</code></pre>
+<pre><code>## [1] 7</code></pre>
 </div>
 <div id="stratified-random-sampling" class="section level3 hasAnchor" number="19.1.3">
 <h3><span class="header-section-number">19.1.3</span> Stratified random sampling<a href="sampling-without-finding-anything-ch.-19.html#stratified-random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
