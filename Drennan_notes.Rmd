@@ -2386,9 +2386,8 @@ For any sampling strategy, the number of positive results out of 20 sampled test
 
 For each of the four sampling strategies, address the following questions: 
 
-- Then, for each sampling strategy: 
-  - How many of the selected test areas contain artifacts? 
-  - What is the estimated total number of areas containing archaeological remains at the site? 
+- How many of the selected test areas contain artifacts? 
+- What is the estimated total number of areas containing archaeological remains at the site? 
 
 ### Simulating repeat sampling
 
