@@ -458,11 +458,8 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <p>For any sampling strategy, the number of positive results out of 20 sampled test areas can be used to estimate the total number of areas containing archaeological remains at the site. The number of positives is a measure of the <em>frequency</em> of archaeological features: <em>x</em> positives means that <em>x</em>/20 samples contain archaeological features. Since we have sampled 20% (1 in 5) of the available grid squares (20 of the 100), we can multiply the number of positive results in any given sample by 5 in order to estimate how many of the 100 grid squares we estimate will contain archaeological features.</p>
 <p>For each of the four sampling strategies, address the following questions:</p>
 <ul>
-<li>Then, for each sampling strategy:
-<ul>
 <li>How many of the selected test areas contain artifacts?</li>
 <li>What is the estimated total number of areas containing archaeological remains at the site?</li>
-</ul></li>
 </ul>
 </div>
 <div id="simulating-repeat-sampling" class="section level3 hasAnchor" number="19.1.5">
@@ -612,7 +609,7 @@ is then taken, and <em>every unit within the selected subgroup</em> is a part of
 <span id="cb521-5"><a href="sampling-without-finding-anything-ch.-19.html#cb521-5" tabindex="-1"></a>stratB_hits <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">lengths</span>(hits_stratrandB) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co">#Strat B hits</span></span>
 <span id="cb521-6"><a href="sampling-without-finding-anything-ch.-19.html#cb521-6" tabindex="-1"></a></span>
 <span id="cb521-7"><a href="sampling-without-finding-anything-ch.-19.html#cb521-7" tabindex="-1"></a>est_total <span class="ot">&lt;-</span> ((<span class="dv">100</span><span class="sc">/</span><span class="dv">30</span>) <span class="sc">*</span> stratA_hits) <span class="sc">+</span> ((<span class="dv">100</span><span class="sc">/</span><span class="dv">10</span>) <span class="sc">*</span> stratB_hits)</span></code></pre></div>
-<p>Simulate repeat sampling of these strata at least 1000 times, and make a histogram or boxplot of the results. Then choose a second sampling method (simple random, systematic, or quadrat) and sample the same distribution of features (<code>pithouses2</code>) with a comparable simulation. Compare the results.</p>
+<p>Simulate repeat sampling of these strata at least 1000 times, and make a histogram or boxplot of the results (that is, of the <em>estimated totals</em>, not just the number of hits). Then choose a second sampling method (simple random, systematic, or quadrat) and sample the same distribution of features (<code>pithouses2</code>) with a comparable simulation. Compare the results.</p>
 <p>Briefly explain which sampling method you would choose, and why. What kinds of likely distributions of archaeological features might make a dramatic difference in the success of different sampling strategies?</p>
 </div>
 </div>

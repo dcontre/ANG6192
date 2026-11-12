@@ -2566,7 +2566,7 @@ est_total <- ((100/30) * stratA_hits) + ((100/10) * stratB_hits)
 
 ```
 
-Simulate repeat sampling of these strata at least 1000 times, and make a histogram or boxplot of the results. Then choose a second sampling method (simple random, systematic, or quadrat) and sample the same distribution of features (`pithouses2`) with a comparable simulation. Compare the results. 
+Simulate repeat sampling of these strata at least 1000 times, and make a histogram or boxplot of the results (that is, of the *estimated totals*, not just the number of hits). Then choose a second sampling method (simple random, systematic, or quadrat) and sample the same distribution of features (`pithouses2`) with a comparable simulation. Compare the results. 
 
 Briefly explain which sampling method you would choose, and why. What kinds of likely distributions of archaeological features might make a dramatic difference in the success of different sampling strategies?
 
