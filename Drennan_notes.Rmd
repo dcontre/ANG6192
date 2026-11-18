@@ -3097,7 +3097,13 @@ ixcaq_clust <- hclust(ixcaq_gower_dist, method = "single")
 plot(as.dendrogram(ixcaq_clust), horiz = T, xlab = "Distance")
 
 #can use the 'dendextend' package to change labels 
+library(dendextend)
 labels(as.dendrogram(ixcaq_clust))
+
+dend_ixcaq <- as.dendrogram(ixcaq_clust)
+levels(factor(ixcaq$Energy.Invested.in.Burials)) #how many colors do I need?
+labels_colors(dend_ixcaq) <- c("green", "yellow", "red")
+plot(dend_ixcaq, horiz = T, xlab = "Distance")
 ```
 
 ## Clustering by Variables
@@ -3128,7 +3134,7 @@ kable(marcas) %>% kable_classic %>%
 
 1) Calculate a distance matrix of the ten site areas, using Euclidean Distance on just the numeric variables (the four columns of plant ubiquity, which conveniently don't require scaling). Discuss *very briefly* how else you might calculate a distance matrix with these data, and what the advantages/drawbacks might be (consider, e.g., other distance measures, which variables to include, and what preparatory work might be necessary). 
 
-2) Carry out a cluster analysis on the distance matrix that you created in (1), using the 'average linking' clustering method. Plot your cluster analysis results. What are the characteristics of the different clusters in terms of the plant species composition of the site areas? What factor(s) appear to relate most strongly to the plant species profiles?
+2) Carry out a cluster analysis on the distance matrix that you created in (1), using the 'average linking' clustering method. Plot your cluster analysis results. What are the characteristics of the different clusters in terms of the plant species composition of the site areas? What factor(s) appear to relate most strongly to the plant species profiles? Color-code the labels on your dendrogram according to the variable (site, period, or status) that you think has the greatest effect on the plant-use profile of each area. 
 
 # Correspondence Analysis {#correspondence-analysis}
 

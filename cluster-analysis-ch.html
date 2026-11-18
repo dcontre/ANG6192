@@ -394,27 +394,59 @@ The analysis happens in <code>hclust()</code>, whose results we can write as an 
 <span id="cb607-2"><a href="cluster-analysis-ch.html#cb607-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.dendrogram</span>(ixcaq_clust), <span class="at">horiz =</span> T, <span class="at">xlab =</span> <span class="st">&quot;Distance&quot;</span>)</span></code></pre></div>
 <p><img src="Drennan_notes_files/figure-html/unnamed-chunk-209-1.png" width="672" /></p>
 <div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="cluster-analysis-ch.html#cb608-1" tabindex="-1"></a><span class="co">#can use the &#39;dendextend&#39; package to change labels </span></span>
-<span id="cb608-2"><a href="cluster-analysis-ch.html#cb608-2" tabindex="-1"></a><span class="fu">labels</span>(<span class="fu">as.dendrogram</span>(ixcaq_clust))</span></code></pre></div>
+<span id="cb608-2"><a href="cluster-analysis-ch.html#cb608-2" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by &#39;dendextend&#39;:
+##   method     from 
+##   rev.hclust vegan</code></pre>
+<pre><code>## 
+## ---------------------
+## Welcome to dendextend version 1.19.0
+## Type citation(&#39;dendextend&#39;) for how to cite the package.
+## 
+## Type browseVignettes(package = &#39;dendextend&#39;) for the package vignette.
+## The github page is: https://github.com/talgalili/dendextend/
+## 
+## Suggestions and bug-reports can be submitted at: https://github.com/talgalili/dendextend/issues
+## You may ask questions at stackoverflow, use the r and dendextend tags: 
+##   https://stackoverflow.com/questions/tagged/dendextend
+## 
+##  To suppress this message use:  suppressPackageStartupMessages(library(dendextend))
+## ---------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dendextend&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:permute&#39;:
+## 
+##     shuffle</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     cutree</code></pre>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="cluster-analysis-ch.html#cb614-1" tabindex="-1"></a><span class="fu">labels</span>(<span class="fu">as.dendrogram</span>(ixcaq_clust))</span></code></pre></div>
 <pre><code>##  [1] 11 13  6 14 15  5  2  9 19 17  8 12  7 20  1  4 10 18  3 16</code></pre>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="cluster-analysis-ch.html#cb616-1" tabindex="-1"></a>dend_ixcaq <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(ixcaq_clust)</span>
+<span id="cb616-2"><a href="cluster-analysis-ch.html#cb616-2" tabindex="-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(ixcaq<span class="sc">$</span>Energy.Invested.in.Burials)) <span class="co">#how many colors do I need?</span></span></code></pre></div>
+<pre><code>## [1] &quot;low&quot;    &quot;medium&quot; &quot;high&quot;</code></pre>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="cluster-analysis-ch.html#cb618-1" tabindex="-1"></a><span class="fu">labels_colors</span>(dend_ixcaq) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb618-2"><a href="cluster-analysis-ch.html#cb618-2" tabindex="-1"></a><span class="fu">plot</span>(dend_ixcaq, <span class="at">horiz =</span> T, <span class="at">xlab =</span> <span class="st">&quot;Distance&quot;</span>)</span></code></pre></div>
+<p><img src="Drennan_notes_files/figure-html/unnamed-chunk-209-2.png" width="672" /></p>
 </div>
 <div id="clustering-by-variables" class="section level2 hasAnchor" number="23.5">
 <h2><span class="header-section-number">23.5</span> Clustering by Variables<a href="cluster-analysis-ch.html#clustering-by-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Figure 25.5 clusters by the Ixcaquixtla household <em>variables</em>, for which we’ll first calculate the correlation matrix and then subtract it from 1 to get distances. To calculate the correlation matrix we have to convert the ‘Energy Invested in Burials’ variable to numeric codes. We can then carry out single linkage clustering as above.</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="cluster-analysis-ch.html#cb610-1" tabindex="-1"></a>ixcaq<span class="sc">$</span>Energy.Invested.in.Burials <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ixcaq<span class="sc">$</span>Energy.Invested.in.Burials)</span>
-<span id="cb610-2"><a href="cluster-analysis-ch.html#cb610-2" tabindex="-1"></a>ixcaq_vardist <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">abs</span>(<span class="fu">cor</span>(ixcaq[,<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>])))</span>
-<span id="cb610-3"><a href="cluster-analysis-ch.html#cb610-3" tabindex="-1"></a>ixcaq_varclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(ixcaq_vardist, <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
-<span id="cb610-4"><a href="cluster-analysis-ch.html#cb610-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">8</span>)) <span class="co">#adjust plot margin to make space for labels (see ?par)</span></span>
-<span id="cb610-5"><a href="cluster-analysis-ch.html#cb610-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.dendrogram</span>(ixcaq_varclust), <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">&quot;Distance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="cluster-analysis-ch.html#cb619-1" tabindex="-1"></a>ixcaq<span class="sc">$</span>Energy.Invested.in.Burials <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ixcaq<span class="sc">$</span>Energy.Invested.in.Burials)</span>
+<span id="cb619-2"><a href="cluster-analysis-ch.html#cb619-2" tabindex="-1"></a>ixcaq_vardist <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">abs</span>(<span class="fu">cor</span>(ixcaq[,<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>])))</span>
+<span id="cb619-3"><a href="cluster-analysis-ch.html#cb619-3" tabindex="-1"></a>ixcaq_varclust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(ixcaq_vardist, <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb619-4"><a href="cluster-analysis-ch.html#cb619-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">8</span>)) <span class="co">#adjust plot margin to make space for labels (see ?par)</span></span>
+<span id="cb619-5"><a href="cluster-analysis-ch.html#cb619-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.dendrogram</span>(ixcaq_varclust), <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">&quot;Distance&quot;</span>)</span></code></pre></div>
 <p><img src="Drennan_notes_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
 </div>
 <div id="problem-set-1" class="section level2 hasAnchor" number="23.6">
 <h2><span class="header-section-number">23.6</span> Problem Set<a href="cluster-analysis-ch.html#problem-set-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since Drennan does not provide a problem set for cluster analysis, we’ll use one adapted from Shennan <span class="citation">(1997, Ch. 11)</span>.</p>
 <p>The excavator of a series of Andean sites is interested in the factors affecting the occurrence of different plant species at those sites: possibilities are site location, the period to which the sites belong, and the status of the parts of the site from which the plant remains come. Abashed at their inability to use R, they’ve come to you with a data table and thrown themselves on your mercy. The table below (and available <a href="data/Shennan1997_11.2_ProblemSetData.csv">here</a>) shows the site name, phase and social status (elite versus commoner) for ten different site areas. For each area the ubiquity of four different plant species is recorded, i.e. the percentage of excavated units in each site area in which that species was found.</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="cluster-analysis-ch.html#cb611-1" tabindex="-1"></a>marcas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Shennan1997_11.2_ProblemSetData.csv&quot;</span>)</span>
-<span id="cb611-2"><a href="cluster-analysis-ch.html#cb611-2" tabindex="-1"></a></span>
-<span id="cb611-3"><a href="cluster-analysis-ch.html#cb611-3" tabindex="-1"></a><span class="fu">kable</span>(marcas) <span class="sc">%&gt;%</span> kable_classic <span class="sc">%&gt;%</span> </span>
-<span id="cb611-4"><a href="cluster-analysis-ch.html#cb611-4" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="cluster-analysis-ch.html#cb620-1" tabindex="-1"></a>marcas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Shennan1997_11.2_ProblemSetData.csv&quot;</span>)</span>
+<span id="cb620-2"><a href="cluster-analysis-ch.html#cb620-2" tabindex="-1"></a></span>
+<span id="cb620-3"><a href="cluster-analysis-ch.html#cb620-3" tabindex="-1"></a><span class="fu">kable</span>(marcas) <span class="sc">%&gt;%</span> kable_classic <span class="sc">%&gt;%</span> </span>
+<span id="cb620-4"><a href="cluster-analysis-ch.html#cb620-4" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> F)</span></code></pre></div>
 <table class=" lightable-classic table" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -676,7 +708,7 @@ elite
 </table>
 <ol style="list-style-type: decimal">
 <li><p>Calculate a distance matrix of the ten site areas, using Euclidean Distance on just the numeric variables (the four columns of plant ubiquity, which conveniently don’t require scaling). Discuss <em>very briefly</em> how else you might calculate a distance matrix with these data, and what the advantages/drawbacks might be (consider, e.g., other distance measures, which variables to include, and what preparatory work might be necessary).</p></li>
-<li><p>Carry out a cluster analysis on the distance matrix that you created in (1), using the ‘average linking’ clustering method. Plot your cluster analysis results. What are the characteristics of the different clusters in terms of the plant species composition of the site areas? What factor(s) appear to relate most strongly to the plant species profiles?</p></li>
+<li><p>Carry out a cluster analysis on the distance matrix that you created in (1), using the ‘average linking’ clustering method. Plot your cluster analysis results. What are the characteristics of the different clusters in terms of the plant species composition of the site areas? What factor(s) appear to relate most strongly to the plant species profiles? Color-code the labels on your dendrogram according to the variable (site, period, or status) that you think has the greatest effect on the plant-use profile of each area.</p></li>
 </ol>
 </div>
 </div>
