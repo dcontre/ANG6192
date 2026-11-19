@@ -2970,8 +2970,9 @@ Table 24.2 is a bit trickier, because we have to standardize the loadings by the
 ixcaq_pc_loadings <- sweep(ixcaq_pc$loadings, 2, ixcaq_pc$sdev, "*"); ixcaq_pc_loadings
 ```
 A couple of things to note about `ixcaq_pc_loadings`: 
-* First, in fact it combines Tables 24.1 and 24.2, including the former (in slightly different format) at the bottom. In addition to the eigenvalues (labeled 'SS loadings') and the eigenvalues as a proportion of the number of variables ('Proportion Var'), this lower table also includes the cumulative amount of variation accounted for by each component.
-* Second, while the values in the upper table now match Table 24.2, it's different in a couple of respects. You'll notice that `princomp()` by default doesn't display low values, so anything <.10 shows up as a blank in the table (if you want to see these, try `ixcaq_pc_loadings[]`); it also defaults to showing the loadings on all the components, while Drennan truncates his table after the first five (quite reasonably, because a PCA that makes you think about more than half as many dimensions as you already had probably isn't doing you any favors; the whole point is to reduce variability). Drennan has also reordered the data in Table 24.2 to highlight the highest loadings on each component. We could come up with a function to do this, but since it's not something we'll do again it's simpler to just reorder the rows in the table manually:
+
+- First, in fact it combines Tables 24.1 and 24.2, including the former (in slightly different format) at the bottom. In addition to the eigenvalues (labeled 'SS loadings') and the eigenvalues as a proportion of the number of variables ('Proportion Var'), this lower table also includes the cumulative amount of variation accounted for by each component. 
+- Second, while the values in the upper table now match Table 24.2, it's different in a couple of respects. You'll notice that `princomp()` by default doesn't display low values, so anything <.10 shows up as a blank in the table (if you want to see these, try `ixcaq_pc_loadings[]`); it also defaults to showing the loadings on all the components, while Drennan truncates his table after the first five (quite reasonably, because a PCA that makes you think about more than half as many dimensions as you already had probably isn't doing you any favors; the whole point is to reduce variability). Drennan has also reordered the data in Table 24.2 to highlight the highest loadings on each component. We could come up with a function to do this, but since it's not something we'll do again it's simpler to just reorder the rows in the table manually: 
 
 ```{r}
 Table24.2 <- ixcaq_pc_loadings[c(3,5,1,2,6,4,7,8,10,9),1:5]
@@ -3287,7 +3288,8 @@ scatterplot3d(Table13.2_trans, type="h", angle=50, scale.y=.6,
 
 Unfortunately, this only works because we have three variables to display, so only need three dimensions. With more variables, we run into the familiar problem of having brains that aren't adequate for visualizing the multi-dimensional space that would be necessary.
 
-Since upgrading those brains is probably a pipe dream, how can we *reduce* the dimensionality of these data?
+Since upgrading those brains is probably a pipe dream, how can we *reduce* the dimensionality of these data? 
+
 - With PCA we could rely on correlations between variables to define space and positions in it; now positions are defined by chi-squared distances.
 - As with PCA, however, we can think about the points as stretched out in certain dimensions, and we can fit lines through those dimensions. In CA, rather than that line accounting for variance, it accounts for inertia. *If there is a particular direction in which the weighted distances of the points are large, then an axis in that direction will account for most of the inertia in the data.*
 - In another familiar approach, we can measure the deviations of each point from that line, and use the squares of those deviations to find a line of best fit. Doing this successively produces a series of axes that are equivalent to the principal components in PCA.
@@ -3359,7 +3361,7 @@ load("data/HoardsWide.RData")
 hoards_ca <- ca(HoardsWide, nd=4)
 ```
 
-There's useful information there - to be discussed - but we'll cut straight to generating the resulting plots. 
+There's useful information there - see Shennan's discussion on pp327-341 - but we'll cut straight to generating the resulting plots. 
 
 ```{r}
 plot(hoards_ca, dim=c(1,2), xlim=c(-2.5, 2.5))
